@@ -1,0 +1,26 @@
+[general]
+name=Burned Area Detector
+qgisMinimumVersion=3.0
+description=BAD_Burned Area Detector
+version=2.0.0
+author=Thomas Martinoli, Sriram Krishnasamy Seenivasan, Rishikesh Miriyala
+email=th.martinoli96@gmail.com, sriramvasan603@gmail.com, rishikeshm1024@gmail.com
+
+about=BAD (Burned Area Detector) plugin for detecting burned areas from Sentinel-2 data using custom region-growing and validation workflows.
+
+tracker=https://github.com/Sri603/BAD-Plugin-V.2.0/issues
+repository=https://github.com/Sri603/BAD-Plugin-V.2.0
+
+hasProcessingProvider=no
+changelog=Version 2.0.0 includes complete region growing, preview, validation, agreement map, and export tools. Major contributions by Sriram Krishnasamy Seenivasan and Rishikesh Miriyala.
+contributors=Sriram Krishnasamy Seenivasan, Rishikesh Miriyala
+
+tags=python, burned area, sentinel-2, remote sensing, fire mapping
+homepage=https://github.com/Sri603/BAD-Plugin-V.2.0
+category=Raster
+icon=icon.png
+
+experimental=False
+deprecated=False
+server=False
+
