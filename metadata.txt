@@ -2,8 +2,8 @@
 name=Burned Area Detector
 qgisMinimumVersion=3.0
 description=BAD_Burned Area Detector
-version=2.0.0
-author=Thomas Martinoli, Sriram Krishnasamy Seenivasan, Rishikesh Miriyala
+version=3.0.0
+author=Thomas Martinoli, Sriram Krishnasamy Seenivasan, Rishikesh Miriyala, Silvia Macchi, Sveva Zanetti
 email=th.martinoli96@gmail.com, sriramvasan603@gmail.com, rishikeshm1024@gmail.com
 
 about=BAD (Burned Area Detector) plugin for detecting burned areas from Sentinel-2 data using custom region-growing and validation workflows.
