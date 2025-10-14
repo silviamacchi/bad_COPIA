@@ -5555,14 +5555,14 @@
             </widget>
            </item>
            <item row="6" column="0">
-            <widget class="QCheckBox" name="checkBox_2">
+            <widget class="QCheckBox" name="checkBox_UserChoice1">
              <property name="text">
               <string/>
              </property>
             </widget>
            </item>
            <item row="7" column="0">
-            <widget class="QCheckBox" name="checkBox_3">
+            <widget class="QCheckBox" name="checkBox_UserChoice2">
              <property name="text">
               <string/>
              </property>
@@ -5706,7 +5706,7 @@
               </widget>
              </item>
              <item row="7" column="0">
-              <widget class="QRadioButton" name="radioButton_3">
+              <widget class="QRadioButton" name="radioButton_OWA_G_UserChoice2">
                <property name="text">
                 <string/>
                </property>
@@ -5752,7 +5752,7 @@
               </widget>
              </item>
              <item row="6" column="0">
-              <widget class="QRadioButton" name="radioButton_4">
+              <widget class="QRadioButton" name="radioButton_OWA_G_UserChoice1">
                <property name="text">
                 <string/>
                </property>
@@ -5839,14 +5839,14 @@
               </widget>
              </item>
              <item row="6" column="0">
-              <widget class="QRadioButton" name="radioButton_2">
+              <widget class="QRadioButton" name="radioButton_OWA_S_UserChoice1">
                <property name="text">
                 <string/>
                </property>
               </widget>
              </item>
              <item row="7" column="0">
-              <widget class="QRadioButton" name="radioButton">
+              <widget class="QRadioButton" name="radioButton_OWA_S_UserChoice2">
                <property name="text">
                 <string/>
                </property>
@@ -6014,7 +6014,7 @@
           </spacer>
          </item>
          <item row="6" column="5">
-          <widget class="QToolButton" name="toolButton_2">
+          <widget class="QToolButton" name="toolButton_OWA_UserChoice2">
            <property name="text">
             <string>...</string>
            </property>
@@ -6051,7 +6051,7 @@
           </spacer>
          </item>
          <item row="5" column="4">
-          <widget class="QLineEdit" name="lineEdit"/>
+          <widget class="QLineEdit" name="lineEdit_OWA_UserChoice1"/>
          </item>
          <item row="1" column="3">
           <spacer name="horizontalSpacer_11">
@@ -6084,7 +6084,7 @@
           </widget>
          </item>
          <item row="5" column="5">
-          <widget class="QToolButton" name="toolButton">
+          <widget class="QToolButton" name="toolButton_OWA_UserChoice1">
            <property name="text">
             <string>...</string>
            </property>
@@ -6177,7 +6177,7 @@
           </widget>
          </item>
          <item row="6" column="4">
-          <widget class="QLineEdit" name="lineEdit_2"/>
+          <widget class="QLineEdit" name="lineEdit_OWA_UserChoice2"/>
          </item>
         </layout>
        </item>
