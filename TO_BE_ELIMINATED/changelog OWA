@@ -1,0 +1,33 @@
+# Che abbiamo aggiunto noi da zero 
+
+- checkBox_UserChoice1
+- checkBox_UserChoice2
+- radioButton_OWA_S_UserChoice1
+- radioButton_OWA_S_UserChoice2
+- radioButton_OWA_G_UserChoice1
+- radioButton_OWA_G_UserChoice2
+- tutti i double spinn
+
+Output OWA
+
+- lineEdit_OWA_UserChoice1
+- lineEdit_OWA_UserChoice2
+- toolButton_OWA_UserChoice1
+- toolButton_OWA_UserChoice2
+
+# Bottoni che c'erano già ma vanno (probabilmente) modificati
+
+- checkBox_OWA_display
+- pushButton_OWA_reset
+- pushButton_OWA_run
+- Cancel e OK sono bottoni universali?
+
+
+# Other
+controllare se le nostre 7 feature vanno integrate anche con le feature advanced (controllare se loro da qualche parte usano effettivamente queste feature advanced)
+Cosa succede se l'utente seleziona meno di 7 feature?
+Per alcuni pixels le feature potrebbero essere mascherate
+
+POssibile soluzione: 
+far selezionare ordinamento (max to min o min to max) e poi fare aggiungere man mano i pesi
+oppure far inserire un elenco di numeri separati dallo spazio, ma bisogn afar attenzione alla lughezza (in questo caso sarebbe meglio riuscire a far vedere il numero di feature selezionate)
