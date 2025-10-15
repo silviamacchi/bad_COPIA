@@ -1,7 +1,11 @@
+## DA FARE
+- dobbiamo implementare cosa succede per OWA_index=6 e OWA_index=7 nella funzione OrderedWeigthAverage (in DoMagic.py) (a cui probabilmente dobbiamo aggiungere un parametro opzionale che rappresenta i parametri inseriti dall'utente)
+- Dobbiamo decidere come far scegliere i pesi all'utente e come programmare quella parte
+
 # Che abbiamo aggiunto noi da zero 
 
-- checkBox_UserChoice1
-- checkBox_UserChoice2
+- checkBox_OWA_UserChoice1
+- checkBox_OWA_UserChoice2
 - radioButton_OWA_S_UserChoice1
 - radioButton_OWA_S_UserChoice2
 - radioButton_OWA_G_UserChoice1
@@ -31,3 +35,95 @@ Per alcuni pixels le feature potrebbero essere mascherate
 POssibile soluzione: 
 far selezionare ordinamento (max to min o min to max) e poi fare aggiungere man mano i pesi
 oppure far inserire un elenco di numeri separati dallo spazio, ma bisogn afar attenzione alla lughezza (in questo caso sarebbe meglio riuscire a far vedere il numero di feature selezionate)
+
+# Implementazione seguita
+Sono partita da toolButton_OWA_UserChoice2 e toolButton_OWA_UserChoice1 basandomi sulla posizione di toolButton_OWA_OR e a cascata ho modificato tutto il codice in cui comparivano, scrivendo qui sotto il percorso seguito.
+
+toolButton_OWA_OR appears in BAD.py only in self.dlg.toolButton_OWA_OR.clicked.connect(self.select_output_file_OR)
+
+select_output_file_OR is a function of the BAD class and is connected to lineEdit_OWA_OR and filename_OR.
+filename_OR appears just in this function, 
+
+while lineEdit_OWA_OR appears also in the reset line edit: self.dlg.lineEdit_OWA_OR.clear()
+and in the if that controlls the chechbox checkBox_OWA_OR and the radio buttons radioButton_OWA_S_OR radioButton_OWA_G_OR
+
+checkBox_OWA_OR appears only in the function to reset its value
+radioButton_OWA_S_OR appears in the function to reset its value and in the function that assign the value to the seed layer, where is connected to OWA_OR
+radioButton_OWA_G_OR appears in the function to reset its value and in the function that assign the value to the grow layer, where is connected to OWA_OR
+
+OWA_OR is defined in the same if that is mentioned before, that is: 
+
+if self.dlg.checkBox_OWA_OR.isChecked() or self.dlg.radioButton_OWA_S_OR.isChecked() or \
+            self.dlg.radioButton_OWA_G_OR.isChecked():
+            OWA_index=5
+            OWA=OrderedWeigthAverage(OWA_index,self.FinalBandMatix)
+            outputfile = self.dlg.lineEdit_OWA_OR.text()
+
+            if not outputfile:
+                path_index=0
+                path=MD_path if self.dlg.groupBox_InputOWA.isChecked() else self.Pre_path
+            else:
+                path_index=1
+                path=outputfile
+                
+            NameBandsList='OWA OR'
+            Nband=1
+            Xsize=OWA.Integrated_matrix.shape[1]
+            Ysize=OWA.Integrated_matrix.shape[0]
+            self.OWA_OR = WriteLayer(path_index,path,OWA.Integrated_matrix,NameBandsList,Nband,Xsize,Ysize,OWA.filename,self.GeoTrans,self.proj)
+    
+    
+            if self.dlg.checkBox_OWA_display.isChecked():
+                iface.addRasterLayer(self.OWA_OR.output_path, "OWA_OR")
+
+so for the user choiche one it becomes
+
+if self.dlg.checkBox_OWA_UserChoice1.isChecked() or self.dlg.radioButton_OWA_S_UserChoice1.isChecked() or \
+            self.dlg.radioButton_OWA_G_UserChoice1.isChecked():
+            OWA_index=6
+            OWA=OrderedWeigthAverage(OWA_index,self.FinalBandMatix)
+            outputfile = self.dlg.lineEdit_UserChoice1.text()
+
+            if not outputfile:
+                path_index=0
+                path=MD_path if self.dlg.groupBox_InputOWA.isChecked() else self.Pre_path
+            else:
+                path_index=1
+                path=outputfile
+                
+            NameBandsList='OWA UserChoice1'
+            Nband=1
+            Xsize=OWA.Integrated_matrix.shape[1]
+            Ysize=OWA.Integrated_matrix.shape[0]
+            self.OWA_UserChoice1 = WriteLayer(path_index,path,OWA.Integrated_matrix,NameBandsList,Nband,Xsize,Ysize,OWA.filename,self.GeoTrans,self.proj)
+    
+    
+            if self.dlg.checkBox_OWA_display.isChecked():
+                iface.addRasterLayer(self.OWA_UserChoice1.output_path, "OWA_UserChoice1")
+
+and for user 2
+
+if self.dlg.checkBox_OWA_UserChoice2.isChecked() or self.dlg.radioButton_OWA_S_UserChoice2.isChecked() or \
+            self.dlg.radioButton_OWA_G_UserChoice2.isChecked():
+            OWA_index=7
+            OWA=OrderedWeigthAverage(OWA_index,self.FinalBandMatix)
+            outputfile = self.dlg.lineEdit_UserChoice2.text()
+
+            if not outputfile:
+                path_index=0
+                path=MD_path if self.dlg.groupBox_InputOWA.isChecked() else self.Pre_path
+            else:
+                path_index=1
+                path=outputfile
+                
+            NameBandsList='OWA UserChoice2'
+            Nband=1
+            Xsize=OWA.Integrated_matrix.shape[1]
+            Ysize=OWA.Integrated_matrix.shape[0]
+            self.OWA_UserChoice2 = WriteLayer(path_index,path,OWA.Integrated_matrix,NameBandsList,Nband,Xsize,Ysize,OWA.filename,self.GeoTrans,self.proj)
+    
+    
+            if self.dlg.checkBox_OWA_display.isChecked():
+                iface.addRasterLayer(self.OWA_UserChoice2.output_path, "OWA_UserChoice2")
+
+NB: dobbiamo implementare cosa succede per OWA_index=6 e OWA_index=7 nella funzione OrderedWeigthAverage (a cui probabilmente dobbiamo aggiungere un parametro opzionale che rappresenta i parametri inseriti dall'utente)

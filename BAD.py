@@ -561,6 +561,8 @@ class BAD:
         self.dlg.checkBox_OWA_AVERAGE.setCheckState(False)
         self.dlg.checkBox_OWA_almostOR.setCheckState(False)
         self.dlg.checkBox_OWA_OR.setCheckState(False)
+        self.dlg.checkBox_OWA_UserChoice1.setCheckState(False)
+        self.dlg.checkBox_OWA_UserChoice2.setCheckState(False)
         
         # OWA reset radiobutton for Seed
         self.dlg.radioButton_OWA_S_AND.setChecked(True)
@@ -568,6 +570,8 @@ class BAD:
         self.dlg.radioButton_OWA_S_AVERAGE.setChecked(False)
         self.dlg.radioButton_OWA_S_almostOR.setChecked(False)
         self.dlg.radioButton_OWA_S_OR.setChecked(False)
+        self.dlg.radioButton_OWA_S_UserChoice1.setChecked(False)
+        self.dlg.radioButton_OWA_S_UserChoice2.setChecked(False)
 
         # OWA reset radiobutton for Grow
         self.dlg.radioButton_OWA_G_AND.setChecked(False)
@@ -575,13 +579,17 @@ class BAD:
         self.dlg.radioButton_OWA_G_AVERAGE.setChecked(False)
         self.dlg.radioButton_OWA_G_almostOR.setChecked(False)
         self.dlg.radioButton_OWA_G_OR.setChecked(True)
-        
+        self.dlg.radioButton_OWA_G_UserChoice1.setChecked(False)
+        self.dlg.radioButton_OWA_G_UserChoice2.setChecked(False)
+
         # OWA reset line edit
         self.dlg.lineEdit_OWA_AND.clear()
         self.dlg.lineEdit_OWA_almostAND.clear()
         self.dlg.lineEdit_OWA_AVERAGE.clear()
         self.dlg.lineEdit_OWA_almostOR.clear()
         self.dlg.lineEdit_OWA_OR.clear()
+        self.dlg.lineEdit_OWA_UserChoice1.clear()
+        self.dlg.lineEdit_OWA_UserChoice2.clear()
 
         # OWA reset check for display results
         self.dlg.checkBox_OWA_display.setCheckState(False)
@@ -671,6 +679,14 @@ class BAD:
     def select_output_file_OR(self):
         filename_OR, _filter = QFileDialog.getSaveFileName(self.dlg, "Select output file","",'*.tif')
         self.dlg.lineEdit_OWA_OR.setText(filename_OR)
+
+    def select_output_file_UserChoice1(self):
+        filename_UserChoice1, _filter = QFileDialog.getSaveFileName(self.dlg, "Select output file","",'*.tif')
+        self.dlg.lineEdit_OWA_UserChoice1.setText(filename_UserChoice1)
+
+    def select_output_file_UserChoice2(self):
+        filename_UserChoice2, _filter = QFileDialog.getSaveFileName(self.dlg, "Select output file","",'*.tif')
+        self.dlg.lineEdit_OWA_UserChoice2.setText(filename_UserChoice2)
 
     def select_output_file_RG(self):
         filename_RG, _filter = QFileDialog.getSaveFileName(self.dlg, "Select output file","",'*.tif')
@@ -1399,6 +1415,52 @@ class BAD:
             if self.dlg.checkBox_OWA_display.isChecked():
                 iface.addRasterLayer(self.OWA_OR.output_path, "OWA_OR")
 
+        if self.dlg.checkBox_OWA_UserChoice1.isChecked() or self.dlg.radioButton_OWA_S_UserChoice1.isChecked() or \
+            self.dlg.radioButton_OWA_G_UserChoice1.isChecked():
+            OWA_index=6
+            OWA=OrderedWeigthAverage(OWA_index,self.FinalBandMatix)
+            outputfile = self.dlg.lineEdit_UserChoice1.text()
+
+            if not outputfile:
+                path_index=0
+                path=MD_path if self.dlg.groupBox_InputOWA.isChecked() else self.Pre_path
+            else:
+                path_index=1
+                path=outputfile
+                
+            NameBandsList='OWA UserChoice1'
+            Nband=1
+            Xsize=OWA.Integrated_matrix.shape[1]
+            Ysize=OWA.Integrated_matrix.shape[0]
+            self.OWA_UserChoice1 = WriteLayer(path_index,path,OWA.Integrated_matrix,NameBandsList,Nband,Xsize,Ysize,OWA.filename,self.GeoTrans,self.proj)
+    
+    
+            if self.dlg.checkBox_OWA_display.isChecked():
+                iface.addRasterLayer(self.OWA_UserChoice1.output_path, "OWA_UserChoice1")
+
+        if self.dlg.checkBox_OWA_UserChoice2.isChecked() or self.dlg.radioButton_OWA_S_UserChoice2.isChecked() or \
+            self.dlg.radioButton_OWA_G_UserChoice2.isChecked():
+            OWA_index=7
+            OWA=OrderedWeigthAverage(OWA_index,self.FinalBandMatix)
+            outputfile = self.dlg.lineEdit_UserChoice2.text()
+
+            if not outputfile:
+                path_index=0
+                path=MD_path if self.dlg.groupBox_InputOWA.isChecked() else self.Pre_path
+            else:
+                path_index=1
+                path=outputfile
+                
+            NameBandsList='OWA UserChoice2'
+            Nband=1
+            Xsize=OWA.Integrated_matrix.shape[1]
+            Ysize=OWA.Integrated_matrix.shape[0]
+            self.OWA_UserChoice2 = WriteLayer(path_index,path,OWA.Integrated_matrix,NameBandsList,Nband,Xsize,Ysize,OWA.filename,self.GeoTrans,self.proj)
+    
+    
+            if self.dlg.checkBox_OWA_display.isChecked():
+                iface.addRasterLayer(self.OWA_UserChoice2.output_path, "OWA_UserChoice2")
+
         self.update_progress(100)
         self.hide_progress_bar()   
         end=time.process_time()
@@ -1455,6 +1517,12 @@ class BAD:
             if self.dlg.radioButton_OWA_S_OR.isChecked():
                 Seed_file = self.OWA_OR.output_path
 
+            if self.dlg.radioButton_OWA_S_UserChoice1.isChecked():
+                Seed_file = self.OWA_UserChoice1.output_path
+
+            if self.dlg.radioButton_OWA_S_UserChoice2.isChecked():
+                Seed_file = self.OWA_UserChoice2.output_path
+
             if self.dlg.radioButton_OWA_G_AND.isChecked():
                 Grow_file = self.OWA_AND.output_path
 
@@ -1469,6 +1537,12 @@ class BAD:
 
             if self.dlg.radioButton_OWA_G_OR.isChecked():
                 Grow_file = self.OWA_OR.output_path 
+
+            if self.dlg.radioButton_OWA_G_UserChoice1.isChecked():
+                Grow_file = self.OWA_UserChoice1.output_path
+
+            if self.dlg.radioButton_OWA_G_UserChoice2.isChecked():
+                Grow_file = self.OWA_UserChoice2.output_path
 
         self.update_progress(20)
 
@@ -2135,6 +2209,8 @@ class BAD:
             self.dlg.toolButton_OWA_AVERAGE.clicked.connect(self.select_output_file_AVERAGE)
             self.dlg.toolButton_OWA_almostOR.clicked.connect(self.select_output_file_almostOR)
             self.dlg.toolButton_OWA_OR.clicked.connect(self.select_output_file_OR)
+            self.dlg.toolButton_OWA_UserChoice1.clicked.connect(self.select_output_file_UserChoice1)
+            self.dlg.toolButton_OWA_UserChoice2.clicked.connect(self.select_output_file_UserChoice2)
             self.dlg.toolButton_RG_result.clicked.connect(self.select_output_file_RG)
             self.dlg.toolButton_Severity.clicked.connect(self.select_output_file_Severity)
             self.dlg.toolButton_CombinedSeverity.clicked.connect(self.select_output_file_CombinedSeverity)

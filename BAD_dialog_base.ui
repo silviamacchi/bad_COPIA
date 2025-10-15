@@ -2469,8 +2469,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>98</width>
-            <height>28</height>
+            <width>100</width>
+            <height>30</height>
            </rect>
           </property>
           <attribute name="label">
@@ -5238,7 +5238,14 @@
             <enum>QFrame::Raised</enum>
            </property>
            <widget class="QWidget" name="layoutWidget">
-
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>0</y>
+              <width>23</width>
+              <height>195</height>
+             </rect>
+            </property>
             <layout class="QGridLayout" name="gridLayout_9">
              <property name="sizeConstraint">
               <enum>QLayout::SetDefaultConstraint</enum>
@@ -5378,7 +5385,7 @@
             </widget>
            </item>
            <item row="6" column="0">
-            <widget class="QCheckBox" name="checkBox_UserChoice1">
+            <widget class="QCheckBox" name="checkBox_OWA_UserChoice1">
              <property name="text">
               <string/>
              </property>
@@ -5392,7 +5399,7 @@
             </widget>
            </item>
            <item row="7" column="0">
-            <widget class="QCheckBox" name="checkBox_UserChoice2">
+            <widget class="QCheckBox" name="checkBox_OWA_UserChoice2">
              <property name="text">
               <string/>
              </property>
@@ -5464,6 +5471,14 @@
             <enum>QFrame::Raised</enum>
            </property>
            <widget class="QWidget" name="layoutWidget">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>0</y>
+              <width>23</width>
+              <height>195</height>
+             </rect>
+            </property>
             <layout class="QGridLayout" name="gridLayout_8">
              <property name="sizeConstraint">
               <enum>QLayout::SetDefaultConstraint</enum>
@@ -5860,13 +5875,6 @@
          <item row="6" column="1">
           <widget class="QLineEdit" name="lineEdit_OWA_UserChoice2"/>
          </item>
-         <item row="6" column="2">
-          <widget class="QToolButton" name="toolButton_OWA_UserChoice2">
-           <property name="text">
-            <string>...</string>
-           </property>
-          </widget>
-         </item>
          <item row="0" column="2">
           <widget class="QToolButton" name="toolButton_OWA_AND">
            <property name="text">
@@ -5904,6 +5912,13 @@
          </item>
          <item row="5" column="2">
           <widget class="QToolButton" name="toolButton_OWA_UserChoice1">
+           <property name="text">
+            <string>...</string>
+           </property>
+          </widget>
+         </item>
+         <item row="6" column="2">
+          <widget class="QToolButton" name="toolButton_OWA_UserChoice2">
            <property name="text">
             <string>...</string>
            </property>
