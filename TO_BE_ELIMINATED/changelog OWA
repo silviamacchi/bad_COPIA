@@ -1,6 +1,7 @@
 ## DA FARE
 - dobbiamo implementare cosa succede per OWA_index=6 e OWA_index=7 nella funzione OrderedWeigthAverage (in DoMagic.py) (a cui probabilmente dobbiamo aggiungere un parametro opzionale che rappresenta i parametri inseriti dall'utente)
 - Dobbiamo decidere come far scegliere i pesi all'utente e come programmare quella parte
+- capire se Cancel e OK sono bottoni universali o se va modificato qualcosa nella loro implementazione (guardando le ultime rige di BAD sembra che se si preme OK viene attivato tutto)
 
 # Che abbiamo aggiunto noi da zero 
 
@@ -21,10 +22,10 @@ Output OWA
 
 # Bottoni che c'erano già ma vanno (probabilmente) modificati
 
-- checkBox_OWA_display
-- pushButton_OWA_reset
-- pushButton_OWA_run
-- Cancel e OK sono bottoni universali?
+- checkBox_OWA_display (done)
+- pushButton_OWA_reset (done)
+- pushButton_OWA_run (done)
+- Cancel e OK sono bottoni universali? 
 
 
 # Other
