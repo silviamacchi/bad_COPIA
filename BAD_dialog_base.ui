@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>700</width>
-    <height>780</height>
+    <width>749</width>
+    <height>792</height>
    </rect>
   </property>
   <property name="palette">
@@ -148,7 +148,6 @@
      </property>
      <property name="font">
       <font>
-       <weight>50</weight>
        <bold>false</bold>
       </font>
      </property>
@@ -164,7 +163,6 @@
         <widget class="QFrame" name="frame_4">
          <property name="font">
           <font>
-           <weight>50</weight>
            <bold>false</bold>
            <strikeout>false</strikeout>
           </font>
@@ -195,8 +193,8 @@
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>627</width>
-               <height>1612</height>
+               <width>655</width>
+               <height>1372</height>
               </rect>
              </property>
              <layout class="QGridLayout" name="gridLayout_25">
@@ -259,7 +257,6 @@
         <widget class="QLabel" name="labelPreFire">
          <property name="font">
           <font>
-           <weight>75</weight>
            <bold>true</bold>
           </font>
          </property>
@@ -290,7 +287,6 @@
         <widget class="QLabel" name="labelPostFire">
          <property name="font">
           <font>
-           <weight>75</weight>
            <bold>true</bold>
           </font>
          </property>
@@ -321,7 +317,6 @@
         <widget class="QLabel" name="labelMaskClassesPreFire">
          <property name="font">
           <font>
-           <weight>75</weight>
            <bold>true</bold>
           </font>
          </property>
@@ -341,7 +336,6 @@
         <widget class="QLabel" name="labelMaskClassesPostFire">
          <property name="font">
           <font>
-           <weight>75</weight>
            <bold>true</bold>
           </font>
          </property>
@@ -361,7 +355,6 @@
         <widget class="QLabel" name="labelOutputPreFire">
          <property name="font">
           <font>
-           <weight>75</weight>
            <bold>true</bold>
           </font>
          </property>
@@ -392,7 +385,6 @@
         <widget class="QLabel" name="labelOutputPostFire">
          <property name="font">
           <font>
-           <weight>75</weight>
            <bold>true</bold>
           </font>
          </property>
@@ -423,7 +415,6 @@
         <widget class="QCheckBox" name="checkBoxDisplayInQGIS">
          <property name="font">
           <font>
-           <weight>75</weight>
            <bold>true</bold>
           </font>
          </property>
@@ -460,7 +451,6 @@
            <property name="font">
             <font>
              <pointsize>9</pointsize>
-             <weight>75</weight>
              <bold>true</bold>
             </font>
            </property>
@@ -1099,7 +1089,6 @@
                <property name="font">
                 <font>
                  <pointsize>8</pointsize>
-                 <weight>50</weight>
                  <bold>false</bold>
                 </font>
                </property>
@@ -1146,7 +1135,6 @@
                <property name="font">
                 <font>
                  <pointsize>8</pointsize>
-                 <weight>50</weight>
                  <bold>false</bold>
                 </font>
                </property>
@@ -1190,7 +1178,6 @@
            <property name="font">
             <font>
              <pointsize>9</pointsize>
-             <weight>75</weight>
              <bold>true</bold>
             </font>
            </property>
@@ -1251,7 +1238,6 @@
         <widget class="QCheckBox" name="checkBox_MD_display">
          <property name="font">
           <font>
-           <weight>75</weight>
            <bold>true</bold>
           </font>
          </property>
@@ -1376,7 +1362,6 @@
         <widget class="QCheckBox" name="checkBox_Feature_display">
          <property name="font">
           <font>
-           <weight>75</weight>
            <bold>true</bold>
           </font>
          </property>
@@ -1396,7 +1381,6 @@
          <property name="font">
           <font>
            <pointsize>9</pointsize>
-           <weight>75</weight>
            <bold>true</bold>
           </font>
          </property>
@@ -1432,7 +1416,6 @@
         <widget class="QToolBox" name="toolBox">
          <property name="font">
           <font>
-           <weight>75</weight>
            <italic>false</italic>
            <bold>true</bold>
            <underline>false</underline>
@@ -1450,8 +1433,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>452</width>
-            <height>349</height>
+            <width>502</width>
+            <height>435</height>
            </rect>
           </property>
           <attribute name="label">
@@ -1752,7 +1735,6 @@
                 <widget class="QLabel" name="label_53">
                  <property name="font">
                   <font>
-                   <weight>75</weight>
                    <bold>true</bold>
                    <underline>false</underline>
                   </font>
@@ -1782,7 +1764,6 @@
                 <widget class="QLabel" name="label_54">
                  <property name="font">
                   <font>
-                   <weight>75</weight>
                    <bold>true</bold>
                   </font>
                  </property>
@@ -2488,8 +2469,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>100</width>
-            <height>30</height>
+            <width>98</width>
+            <height>28</height>
            </rect>
           </property>
           <attribute name="label">
@@ -3230,7 +3211,6 @@
                <widget class="QLabel" name="label_101">
                 <property name="font">
                  <font>
-                  <weight>75</weight>
                   <bold>true</bold>
                   <underline>false</underline>
                  </font>
@@ -3260,7 +3240,6 @@
                <widget class="QLabel" name="label_104">
                 <property name="font">
                  <font>
-                  <weight>75</weight>
                   <bold>true</bold>
                  </font>
                 </property>
@@ -3812,8 +3791,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>658</width>
-            <height>374</height>
+            <width>695</width>
+            <height>326</height>
            </rect>
           </property>
           <attribute name="label">
@@ -3871,7 +3850,6 @@
                <widget class="QLabel" name="label_92">
                 <property name="font">
                  <font>
-                  <weight>75</weight>
                   <bold>true</bold>
                   <underline>false</underline>
                  </font>
@@ -3901,7 +3879,6 @@
                <widget class="QLabel" name="label_93">
                 <property name="font">
                  <font>
-                  <weight>75</weight>
                   <bold>true</bold>
                  </font>
                 </property>
@@ -5056,7 +5033,6 @@
          <property name="font">
           <font>
            <pointsize>9</pointsize>
-           <weight>75</weight>
            <bold>true</bold>
           </font>
          </property>
@@ -5072,414 +5048,174 @@
          <widget class="QWidget" name="layoutWidget">
           <property name="geometry">
            <rect>
-            <x>20</x>
-            <y>30</y>
-            <width>641</width>
-            <height>32</height>
+            <x>107</x>
+            <y>21</y>
+            <width>581</width>
+            <height>31</height>
            </rect>
           </property>
           <layout class="QHBoxLayout" name="horizontalLayout">
-           <item>
-            <widget class="QLabel" name="label_38">
-             <property name="font">
-              <font>
-               <pointsize>8</pointsize>
-               <weight>75</weight>
-               <bold>true</bold>
-              </font>
-             </property>
-             <property name="text">
-              <string>Membership Degree:</string>
-             </property>
-            </widget>
-           </item>
            <item>
             <widget class="QgsMapLayerComboBox" name="mMapLayerComboBox_OWA_MD"/>
            </item>
           </layout>
          </widget>
+         <widget class="QLabel" name="label_38">
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>20</y>
+            <width>691</width>
+            <height>31</height>
+           </rect>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>8</pointsize>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="text">
+           <string>Membership Degree:</string>
+          </property>
+         </widget>
         </widget>
        </item>
        <item>
-        <layout class="QGridLayout" name="gridLayout_10">
-         <item row="0" column="8" rowspan="3">
-          <spacer name="horizontalSpacer_13">
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>40</width>
-             <height>20</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
-         <item row="0" column="5">
-          <widget class="QLabel" name="label_14">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="font">
-            <font>
-             <pointsize>9</pointsize>
-             <weight>75</weight>
-             <bold>true</bold>
-            </font>
-           </property>
+        <layout class="QGridLayout" name="gridLayout_16">
+         <item row="1" column="2">
+          <widget class="QLabel" name="label">
            <property name="text">
-            <string>SEED</string>
+            <string>AND</string>
            </property>
           </widget>
          </item>
-         <item row="1" column="0">
-          <layout class="QGridLayout" name="gridLayout_14"/>
-         </item>
-         <item row="0" column="4" rowspan="3">
-          <spacer name="horizontalSpacer_14">
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>40</width>
-             <height>20</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
-         <item row="1" column="8">
-          <layout class="QGridLayout" name="gridLayout_22"/>
-         </item>
-         <item row="0" column="1">
-          <widget class="QLabel" name="label_8">
-           <property name="font">
-            <font>
-             <pointsize>9</pointsize>
-             <weight>75</weight>
-             <bold>true</bold>
-            </font>
-           </property>
+         <item row="3" column="1">
+          <widget class="QCheckBox" name="checkBox_OWA_almostOR">
            <property name="text">
-            <string>LAYER</string>
+            <string/>
            </property>
           </widget>
          </item>
-         <item row="0" column="6" rowspan="3">
-          <spacer name="horizontalSpacer_12">
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
+         <item row="1" column="1">
+          <widget class="QCheckBox" name="checkBox_OWA_AND">
+           <property name="text">
+            <string/>
            </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>40</width>
-             <height>20</height>
-            </size>
+           <property name="autoRepeat">
+            <bool>false</bool>
            </property>
-          </spacer>
+           <property name="tristate">
+            <bool>false</bool>
+           </property>
+          </widget>
          </item>
-         <item row="1" column="2" rowspan="2">
-          <layout class="QGridLayout" name="gridLayout_16">
-           <item row="6" column="0">
-            <widget class="QLabel" name="label_44">
-             <property name="text">
-              <string>UserChoice1</string>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="0">
-            <widget class="QLabel" name="label_6">
-             <property name="text">
-              <string>AVERAGE</string>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="0">
-            <widget class="QLabel" name="label_3">
-             <property name="text">
-              <string>almost AND</string>
-             </property>
-            </widget>
-           </item>
-           <item row="4" column="0">
-            <widget class="QLabel" name="label_2">
-             <property name="text">
-              <string>OR</string>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="0">
-            <widget class="QLabel" name="label_4">
-             <property name="text">
-              <string>almost OR</string>
-             </property>
-            </widget>
-           </item>
-           <item row="7" column="0">
-            <widget class="QLabel" name="label_45">
-             <property name="text">
-              <string>UserChoice2</string>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="0">
-            <widget class="QLabel" name="label">
-             <property name="text">
-              <string>AND</string>
-             </property>
-            </widget>
-           </item>
-           <item row="5" column="0">
-            <spacer name="verticalSpacer_2">
-             <property name="orientation">
-              <enum>Qt::Vertical</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>20</width>
-               <height>40</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-          </layout>
-         </item>
-         <item row="1" column="4">
-          <layout class="QGridLayout" name="gridLayout_31"/>
-         </item>
-         <item row="1" column="7" rowspan="2">
-          <widget class="QFrame" name="frame_2">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
+         <item row="1" column="5" rowspan="8">
+          <widget class="QGroupBox" name="groupBox_OWA_S">
+           <property name="title">
+            <string/>
            </property>
-           <property name="frameShape">
-            <enum>QFrame::NoFrame</enum>
-           </property>
-           <property name="frameShadow">
-            <enum>QFrame::Raised</enum>
-           </property>
-           <widget class="QWidget" name="layoutWidget">
+           <widget class="QRadioButton" name="radioButton_OWA_S_AND">
             <property name="geometry">
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>23</width>
-              <height>195</height>
+              <width>99</width>
+              <height>20</height>
              </rect>
             </property>
-            <layout class="QGridLayout" name="gridLayout_9">
-             <property name="sizeConstraint">
-              <enum>QLayout::SetDefaultConstraint</enum>
-             </property>
-             <item row="4" column="0">
-              <widget class="QRadioButton" name="radioButton_OWA_G_OR">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="text">
-                <string/>
-               </property>
-               <property name="checked">
-                <bool>true</bool>
-               </property>
-              </widget>
-             </item>
-             <item row="7" column="0">
-              <widget class="QRadioButton" name="radioButton_OWA_G_UserChoice2">
-               <property name="text">
-                <string/>
-               </property>
-              </widget>
-             </item>
-             <item row="1" column="0">
-              <widget class="QRadioButton" name="radioButton_OWA_G_almostAND">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="text">
-                <string/>
-               </property>
-              </widget>
-             </item>
-             <item row="0" column="0">
-              <widget class="QRadioButton" name="radioButton_OWA_G_AND">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="text">
-                <string/>
-               </property>
-              </widget>
-             </item>
-             <item row="2" column="0">
-              <widget class="QRadioButton" name="radioButton_OWA_G_AVERAGE">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="text">
-                <string/>
-               </property>
-              </widget>
-             </item>
-             <item row="6" column="0">
-              <widget class="QRadioButton" name="radioButton_OWA_G_UserChoice1">
-               <property name="text">
-                <string/>
-               </property>
-              </widget>
-             </item>
-             <item row="3" column="0">
-              <widget class="QRadioButton" name="radioButton_OWA_G_almostOR">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="text">
-                <string/>
-               </property>
-              </widget>
-             </item>
-             <item row="5" column="0">
-              <spacer name="verticalSpacer_6">
-               <property name="orientation">
-                <enum>Qt::Vertical</enum>
-               </property>
-               <property name="sizeHint" stdset="0">
-                <size>
-                 <width>20</width>
-                 <height>40</height>
-                </size>
-               </property>
-              </spacer>
-             </item>
-            </layout>
+            <property name="text">
+             <string/>
+            </property>
+            <property name="checked">
+             <bool>true</bool>
+            </property>
+           </widget>
+           <widget class="QRadioButton" name="radioButton_OWA_S_almostAND">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>25</y>
+              <width>99</width>
+              <height>20</height>
+             </rect>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+           <widget class="QRadioButton" name="radioButton_OWA_S_AVERAGE">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>50</y>
+              <width>99</width>
+              <height>20</height>
+             </rect>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+           <widget class="QRadioButton" name="radioButton_OWA_S_almostOR">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>75</y>
+              <width>99</width>
+              <height>20</height>
+             </rect>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+           <widget class="QRadioButton" name="radioButton_OWA_S_OR">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>100</y>
+              <width>99</width>
+              <height>20</height>
+             </rect>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+           <widget class="QRadioButton" name="radioButton_OWA_S_UserChoice1">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>140</y>
+              <width>99</width>
+              <height>20</height>
+             </rect>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+           <widget class="QRadioButton" name="radioButton_OWA_S_UserChoice2">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>180</y>
+              <width>99</width>
+              <height>20</height>
+             </rect>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
            </widget>
           </widget>
-         </item>
-         <item row="0" column="7">
-          <widget class="QLabel" name="label_7">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="font">
-            <font>
-             <pointsize>9</pointsize>
-             <weight>75</weight>
-             <bold>true</bold>
-            </font>
-           </property>
-           <property name="text">
-            <string>GROW</string>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="1" rowspan="2">
-          <layout class="QGridLayout" name="gridLayout_13">
-           <item row="3" column="0">
-            <widget class="QCheckBox" name="checkBox_OWA_almostOR">
-             <property name="text">
-              <string/>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="0">
-            <widget class="QCheckBox" name="checkBox_OWA_AVERAGE">
-             <property name="text">
-              <string/>
-             </property>
-            </widget>
-           </item>
-           <item row="6" column="0">
-            <widget class="QCheckBox" name="checkBox_OWA_UserChoice1">
-             <property name="text">
-              <string/>
-             </property>
-            </widget>
-           </item>
-           <item row="4" column="0">
-            <widget class="QCheckBox" name="checkBox_OWA_OR">
-             <property name="text">
-              <string/>
-             </property>
-            </widget>
-           </item>
-           <item row="7" column="0">
-            <widget class="QCheckBox" name="checkBox_OWA_UserChoice2">
-             <property name="text">
-              <string/>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="0">
-            <widget class="QCheckBox" name="checkBox_OWA_almostAND">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="text">
-              <string/>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="0">
-            <widget class="QCheckBox" name="checkBox_OWA_AND">
-             <property name="text">
-              <string/>
-             </property>
-             <property name="autoRepeat">
-              <bool>false</bool>
-             </property>
-             <property name="tristate">
-              <bool>false</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="5" column="0">
-            <spacer name="verticalSpacer_7">
-             <property name="orientation">
-              <enum>Qt::Vertical</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>20</width>
-               <height>40</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-          </layout>
          </item>
          <item row="0" column="2">
           <widget class="QLabel" name="label_9">
            <property name="font">
             <font>
              <pointsize>9</pointsize>
-             <weight>75</weight>
              <bold>true</bold>
             </font>
            </property>
@@ -5488,143 +5224,7 @@
            </property>
           </widget>
          </item>
-         <item row="1" column="6">
-          <layout class="QFormLayout" name="formLayout"/>
-         </item>
-         <item row="1" column="5" rowspan="2">
-          <widget class="QFrame" name="frame">
-           <property name="frameShape">
-            <enum>QFrame::NoFrame</enum>
-           </property>
-           <property name="frameShadow">
-            <enum>QFrame::Raised</enum>
-           </property>
-           <widget class="QWidget" name="layoutWidget">
-            <property name="geometry">
-             <rect>
-              <x>0</x>
-              <y>0</y>
-              <width>23</width>
-              <height>195</height>
-             </rect>
-            </property>
-            <layout class="QGridLayout" name="gridLayout_8">
-             <property name="sizeConstraint">
-              <enum>QLayout::SetDefaultConstraint</enum>
-             </property>
-             <item row="0" column="0">
-              <widget class="QRadioButton" name="radioButton_OWA_S_AND">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="text">
-                <string/>
-               </property>
-               <property name="checked">
-                <bool>true</bool>
-               </property>
-              </widget>
-             </item>
-             <item row="3" column="0">
-              <widget class="QRadioButton" name="radioButton_OWA_S_almostOR">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="text">
-                <string/>
-               </property>
-              </widget>
-             </item>
-             <item row="1" column="0">
-              <widget class="QRadioButton" name="radioButton_OWA_S_almostAND">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="text">
-                <string/>
-               </property>
-              </widget>
-             </item>
-             <item row="4" column="0">
-              <widget class="QRadioButton" name="radioButton_OWA_S_OR">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="text">
-                <string/>
-               </property>
-              </widget>
-             </item>
-             <item row="6" column="0">
-              <widget class="QRadioButton" name="radioButton_OWA_S_UserChoice1">
-               <property name="text">
-                <string/>
-               </property>
-              </widget>
-             </item>
-             <item row="2" column="0">
-              <widget class="QRadioButton" name="radioButton_OWA_S_AVERAGE">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="text">
-                <string/>
-               </property>
-              </widget>
-             </item>
-             <item row="7" column="0">
-              <widget class="QRadioButton" name="radioButton_OWA_S_UserChoice2">
-               <property name="text">
-                <string/>
-               </property>
-              </widget>
-             </item>
-             <item row="5" column="0">
-              <spacer name="verticalSpacer_5">
-               <property name="orientation">
-                <enum>Qt::Vertical</enum>
-               </property>
-               <property name="sizeHint" stdset="0">
-                <size>
-                 <width>20</width>
-                 <height>40</height>
-                </size>
-               </property>
-              </spacer>
-             </item>
-            </layout>
-           </widget>
-          </widget>
-         </item>
-         <item row="0" column="0" rowspan="3">
-          <spacer name="horizontalSpacer_11">
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>40</width>
-             <height>20</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
-         <item row="2" column="3">
+         <item row="6" column="3" rowspan="3">
           <layout class="QGridLayout" name="gridLayout_30">
            <item row="1" column="0">
             <widget class="QDoubleSpinBox" name="doubleSpinBox_OWA_max11">
@@ -5788,20 +5388,7 @@
              </property>
             </widget>
            </item>
-           <item row="1" column="4">
-            <spacer name="horizontalSpacer_15">
-             <property name="orientation">
-              <enum>Qt::Horizontal</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>40</width>
-               <height>20</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-           <item row="2" column="4">
+           <item row="1" column="4" rowspan="2">
             <spacer name="horizontalSpacer_17">
              <property name="orientation">
               <enum>Qt::Horizontal</enum>
@@ -5816,6 +5403,293 @@
            </item>
           </layout>
          </item>
+         <item row="5" column="2">
+          <widget class="QLabel" name="label_2">
+           <property name="text">
+            <string>OR</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="8" rowspan="9">
+          <spacer name="horizontalSpacer_13">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item row="8" column="2">
+          <widget class="QLabel" name="label_45">
+           <property name="text">
+            <string>UserChoice2</string>
+           </property>
+          </widget>
+         </item>
+         <item row="8" column="1">
+          <widget class="QCheckBox" name="checkBox_OWA_UserChoice2">
+           <property name="text">
+            <string/>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="5">
+          <widget class="QLabel" name="label_14">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="font">
+            <font>
+             <pointsize>9</pointsize>
+             <bold>true</bold>
+            </font>
+           </property>
+           <property name="text">
+            <string>SEED</string>
+           </property>
+          </widget>
+         </item>
+         <item row="4" column="2">
+          <widget class="QLabel" name="label_4">
+           <property name="text">
+            <string>almost OR</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="6" rowspan="9">
+          <spacer name="horizontalSpacer_12">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item row="2" column="2">
+          <widget class="QLabel" name="label_3">
+           <property name="text">
+            <string>almost AND</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="7">
+          <widget class="QLabel" name="label_7">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="font">
+            <font>
+             <pointsize>9</pointsize>
+             <bold>true</bold>
+            </font>
+           </property>
+           <property name="text">
+            <string>GROW</string>
+           </property>
+          </widget>
+         </item>
+         <item row="7" column="2">
+          <widget class="QLabel" name="label_44">
+           <property name="text">
+            <string>UserChoice1</string>
+           </property>
+          </widget>
+         </item>
+         <item row="7" column="1">
+          <widget class="QCheckBox" name="checkBox_OWA_UserChoice1">
+           <property name="text">
+            <string/>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="1">
+          <widget class="QCheckBox" name="checkBox_OWA_almostAND">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="text">
+            <string/>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="4" rowspan="9">
+          <spacer name="horizontalSpacer_11">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item row="5" column="1">
+          <widget class="QCheckBox" name="checkBox_OWA_AVERAGE">
+           <property name="text">
+            <string/>
+           </property>
+          </widget>
+         </item>
+         <item row="3" column="2">
+          <widget class="QLabel" name="label_6">
+           <property name="text">
+            <string>AVERAGE</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1">
+          <widget class="QLabel" name="label_8">
+           <property name="font">
+            <font>
+             <pointsize>9</pointsize>
+             <bold>true</bold>
+            </font>
+           </property>
+           <property name="text">
+            <string>LAYER</string>
+           </property>
+          </widget>
+         </item>
+         <item row="4" column="1">
+          <widget class="QCheckBox" name="checkBox_OWA_OR">
+           <property name="text">
+            <string/>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="7" rowspan="8">
+          <widget class="QGroupBox" name="groupBox_OWA_G">
+           <property name="title">
+            <string/>
+           </property>
+           <widget class="QRadioButton" name="radioButton_OWA_G_AND">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>0</y>
+              <width>99</width>
+              <height>20</height>
+             </rect>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+           <widget class="QRadioButton" name="radioButton_OWA_G_almostAND">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>25</y>
+              <width>99</width>
+              <height>20</height>
+             </rect>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+           <widget class="QRadioButton" name="radioButton_OWA_G_AVERAGE">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>50</y>
+              <width>99</width>
+              <height>20</height>
+             </rect>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+           <widget class="QRadioButton" name="radioButton_OWA_G_almostOR">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>75</y>
+              <width>99</width>
+              <height>20</height>
+             </rect>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+           <widget class="QRadioButton" name="radioButton_OWA_G_OR">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>100</y>
+              <width>99</width>
+              <height>20</height>
+             </rect>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+            <property name="checked">
+             <bool>true</bool>
+            </property>
+           </widget>
+           <widget class="QRadioButton" name="radioButton_OWA_G_UserChoice1">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>140</y>
+              <width>99</width>
+              <height>20</height>
+             </rect>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+           <widget class="QRadioButton" name="radioButton_OWA_G_UserChoice2">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>180</y>
+              <width>99</width>
+              <height>20</height>
+             </rect>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </widget>
+         </item>
+         <item row="0" column="0" rowspan="9">
+          <spacer name="horizontalSpacer_14">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
         </layout>
        </item>
        <item>
@@ -5823,7 +5697,6 @@
          <property name="font">
           <font>
            <pointsize>9</pointsize>
-           <weight>75</weight>
            <bold>true</bold>
           </font>
          </property>
@@ -5994,7 +5867,6 @@
         <widget class="QCheckBox" name="checkBox_OWA_display">
          <property name="font">
           <font>
-           <weight>75</weight>
            <bold>true</bold>
           </font>
          </property>
@@ -6073,7 +5945,6 @@
           <property name="font">
            <font>
             <pointsize>9</pointsize>
-            <weight>75</weight>
             <bold>true</bold>
            </font>
           </property>
@@ -6092,7 +5963,6 @@
              <property name="font">
               <font>
                <pointsize>8</pointsize>
-               <weight>50</weight>
                <bold>false</bold>
                <kerning>true</kerning>
               </font>
@@ -6117,7 +5987,6 @@
                   <property name="font">
                    <font>
                     <pointsize>8</pointsize>
-                    <weight>50</weight>
                     <bold>false</bold>
                     <kerning>true</kerning>
                    </font>
@@ -6161,7 +6030,6 @@
                   <property name="font">
                    <font>
                     <pointsize>8</pointsize>
-                    <weight>50</weight>
                     <bold>false</bold>
                     <kerning>true</kerning>
                    </font>
@@ -6220,7 +6088,6 @@
            <widget class="QLabel" name="label_43">
             <property name="font">
              <font>
-              <weight>75</weight>
               <bold>true</bold>
              </font>
             </property>
@@ -6259,7 +6126,6 @@
           <property name="font">
            <font>
             <pointsize>9</pointsize>
-            <weight>75</weight>
             <bold>true</bold>
            </font>
           </property>
@@ -6423,7 +6289,6 @@
           <property name="font">
            <font>
             <pointsize>9</pointsize>
-            <weight>75</weight>
             <bold>true</bold>
            </font>
           </property>
@@ -6591,7 +6456,6 @@ font-weight: bold;
          <property name="font">
           <font>
            <pointsize>9</pointsize>
-           <weight>75</weight>
            <bold>true</bold>
           </font>
          </property>
@@ -6606,7 +6470,6 @@ font-weight: bold;
               <property name="font">
                <font>
                 <pointsize>8</pointsize>
-                <weight>50</weight>
                 <bold>false</bold>
                </font>
               </property>
@@ -6620,7 +6483,6 @@ font-weight: bold;
               <property name="font">
                <font>
                 <pointsize>8</pointsize>
-                <weight>50</weight>
                 <bold>false</bold>
                </font>
               </property>
@@ -6631,7 +6493,6 @@ font-weight: bold;
               <property name="font">
                <font>
                 <pointsize>8</pointsize>
-                <weight>50</weight>
                 <bold>false</bold>
                </font>
               </property>
@@ -6649,7 +6510,6 @@ font-weight: bold;
               <property name="font">
                <font>
                 <pointsize>8</pointsize>
-                <weight>50</weight>
                 <bold>false</bold>
                </font>
               </property>
@@ -6663,7 +6523,6 @@ font-weight: bold;
               <property name="font">
                <font>
                 <pointsize>8</pointsize>
-                <weight>50</weight>
                 <bold>false</bold>
                </font>
               </property>
@@ -6674,7 +6533,6 @@ font-weight: bold;
               <property name="font">
                <font>
                 <pointsize>8</pointsize>
-                <weight>50</weight>
                 <bold>false</bold>
                </font>
               </property>
@@ -6693,7 +6551,6 @@ font-weight: bold;
          <property name="font">
           <font>
            <pointsize>9</pointsize>
-           <weight>75</weight>
            <bold>true</bold>
           </font>
          </property>
@@ -6756,7 +6613,6 @@ font-weight: bold;
               <property name="font">
                <font>
                 <pointsize>9</pointsize>
-                <weight>75</weight>
                 <bold>true</bold>
                </font>
               </property>
@@ -7613,7 +7469,6 @@ font-weight: bold;
             <widget class="QLabel" name="label_65">
              <property name="font">
               <font>
-               <weight>75</weight>
                <bold>true</bold>
                <underline>false</underline>
               </font>
@@ -7643,7 +7498,6 @@ font-weight: bold;
             <widget class="QLabel" name="label_66">
              <property name="font">
               <font>
-               <weight>75</weight>
                <bold>true</bold>
               </font>
              </property>
@@ -7719,7 +7573,6 @@ font-weight: bold;
             <widget class="QLabel" name="label_145">
              <property name="font">
               <font>
-               <weight>75</weight>
                <bold>true</bold>
               </font>
              </property>
@@ -7765,7 +7618,6 @@ font-weight: bold;
             <widget class="QLabel" name="label_142">
              <property name="font">
               <font>
-               <weight>75</weight>
                <bold>true</bold>
               </font>
              </property>
@@ -7825,7 +7677,6 @@ font-weight: bold;
             <widget class="QLabel" name="label_144">
              <property name="font">
               <font>
-               <weight>75</weight>
                <bold>true</bold>
               </font>
              </property>
@@ -7871,7 +7722,6 @@ font-weight: bold;
             <widget class="QLabel" name="label_141">
              <property name="font">
               <font>
-               <weight>75</weight>
                <bold>true</bold>
               </font>
              </property>
@@ -8002,7 +7852,6 @@ font-weight: bold;
          <property name="font">
           <font>
            <pointsize>9</pointsize>
-           <weight>75</weight>
            <bold>true</bold>
           </font>
          </property>
@@ -8017,7 +7866,6 @@ font-weight: bold;
               <property name="font">
                <font>
                 <pointsize>8</pointsize>
-                <weight>50</weight>
                 <bold>false</bold>
                </font>
               </property>
@@ -8031,7 +7879,6 @@ font-weight: bold;
               <property name="font">
                <font>
                 <pointsize>8</pointsize>
-                <weight>50</weight>
                 <bold>false</bold>
                </font>
               </property>
@@ -8042,7 +7889,6 @@ font-weight: bold;
               <property name="font">
                <font>
                 <pointsize>8</pointsize>
-                <weight>50</weight>
                 <bold>false</bold>
                </font>
               </property>
@@ -8060,7 +7906,6 @@ font-weight: bold;
               <property name="font">
                <font>
                 <pointsize>8</pointsize>
-                <weight>50</weight>
                 <bold>false</bold>
                </font>
               </property>
@@ -8074,7 +7919,6 @@ font-weight: bold;
               <property name="font">
                <font>
                 <pointsize>8</pointsize>
-                <weight>50</weight>
                 <bold>false</bold>
                </font>
               </property>
@@ -8085,7 +7929,6 @@ font-weight: bold;
               <property name="font">
                <font>
                 <pointsize>8</pointsize>
-                <weight>50</weight>
                 <bold>false</bold>
                </font>
               </property>
@@ -8104,7 +7947,6 @@ font-weight: bold;
          <property name="font">
           <font>
            <pointsize>9</pointsize>
-           <weight>75</weight>
            <bold>true</bold>
           </font>
          </property>
@@ -8126,7 +7968,6 @@ font-weight: bold;
               <property name="font">
                <font>
                 <pointsize>8</pointsize>
-                <weight>50</weight>
                 <bold>false</bold>
                </font>
               </property>
@@ -8194,7 +8035,6 @@ font-weight: bold;
               <property name="font">
                <font>
                 <pointsize>9</pointsize>
-                <weight>75</weight>
                 <bold>true</bold>
                </font>
               </property>
