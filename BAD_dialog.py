@@ -48,11 +48,7 @@ class BADDialog(QtWidgets.QDialog, FORM_CLASS):
  #Interface dynamic elements
         self.cont_min = 0
         self.cont_max = 0
-        self.pushButton_OWA_max1.clicked.connect(self.add_spinbox)
-        self.pushButton_OWA_max2.clicked.connect(self.add_spinbox)
-        self.pushButton_OWA_min1.clicked.connect(self.add_spinbox)
-        self.pushButton_OWA_min2.clicked.connect(self.add_spinbox)
-
+        
         self.doubleSpinBox_OWA_max12.setVisible(False)
         self.doubleSpinBox_OWA_max22.setVisible(False)
         self.doubleSpinBox_OWA_max13.setVisible(False)
@@ -66,7 +62,7 @@ class BADDialog(QtWidgets.QDialog, FORM_CLASS):
         self.pushButton_OWA_max2.clicked.connect(lambda: self.add_spinbox("max2"))
         self.pushButton_OWA_min1.clicked.connect(lambda: self.add_spinbox("min1"))
         self.pushButton_OWA_min2.clicked.connect(lambda: self.add_spinbox("min2"))
-
+        
 
     def open_preview_window(self):
         self.preview_dialog = PreviewWindow(self)
