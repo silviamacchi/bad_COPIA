@@ -1511,7 +1511,7 @@ class BAD:
             w = w / w.sum()
             print("Weights OWA User Choice 1:", w)
             OWA=OrderedWeigthAverage(OWA_index,self.FinalBandMatix,w=w)
-            outputfile = self.dlg.lineEdit_UserChoice1.text()
+            outputfile = self.dlg.lineEdit_OWA_UserChoice1.text()
 
             if not outputfile:
                 path_index=0
@@ -1544,7 +1544,7 @@ class BAD:
             w = w / w.sum()
             print("Weights OWA User Choice 2:", w)
             OWA=OrderedWeigthAverage(OWA_index,self.FinalBandMatix,w=w)
-            outputfile = self.dlg.lineEdit_UserChoice2.text()
+            outputfile = self.dlg.lineEdit_OWA_UserChoice2.text()
 
             if not outputfile:
                 path_index=0
