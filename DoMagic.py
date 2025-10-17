@@ -54,7 +54,7 @@ class MembershipFunction:
         self.MD=1/(1+np.exp(-K*(Matrix/10000-x)))
         
 class OrderedWeigthAverage:
-    def __init__(self,index,FinalBandMatix):
+    def __init__(self,index,FinalBandMatix,w=None):
         
         Row=FinalBandMatix.shape[1]
         Column=FinalBandMatix.shape[2]
@@ -111,6 +111,7 @@ class OrderedWeigthAverage:
                         value=(np.sort(vector)[0]+np.sort(vector)[1])/2
                     self.Integrated_matrix[i,j]=value
             self.Integrated_matrix=np.nan_to_num(self.Integrated_matrix,nan=999)
+
         #OR
         if index==5:      
             self.filename="OWA_OR.tif" 
@@ -124,6 +125,31 @@ class OrderedWeigthAverage:
                     self.Integrated_matrix[i,j]=value
             self.Integrated_matrix=np.nan_to_num(self.Integrated_matrix,nan=999)
 
+        #UserChoice1
+        if index==6:
+            self.filename="OWA_UserChoice1.tif"
+            for i in range (Row):
+                for j in range (Column):
+                    vector=FinalBandMatix[:,i,j] 
+                    if (np.isnan(vector).any()):
+                        value=np.nan
+                    else:
+                        value=np.dot(np.sort(vector),w)
+                    self.Integrated_matrix[i,j]=value
+            self.Integrated_matrix=np.nan_to_num(self.Integrated_matrix,nan=999)
+
+        #UserChoice2
+        if index==7:
+            self.filename="OWA_UserChoice2.tif"
+            for i in range (Row):
+                for j in range (Column):
+                    vector=FinalBandMatix[:,i,j] 
+                    if (np.isnan(vector).any()):
+                        value=np.nan
+                    else:
+                        value=np.dot(np.sort(vector),w)
+                    self.Integrated_matrix[i,j]=value
+            self.Integrated_matrix=np.nan_to_num(self.Integrated_matrix,nan=999)
 class WriteLayer:
     def __init__(self,index,path,Matrix,NameBands,Nband,Xsize,Ysize,filename,gt,proj):
     

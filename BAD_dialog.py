@@ -44,51 +44,11 @@ class BADDialog(QtWidgets.QDialog, FORM_CLASS):
         # #widgets-and-dialogs-with-auto-connect
         self.setupUi(self)
         self.Preview.clicked.connect(self.open_preview_window)
-
- #Interface dynamic elements
-        self.cont_min = 0
-        self.cont_max = 0
         
-        self.doubleSpinBox_OWA_max12.setVisible(False)
-        self.doubleSpinBox_OWA_max22.setVisible(False)
-        self.doubleSpinBox_OWA_max13.setVisible(False)
-        self.doubleSpinBox_OWA_max23.setVisible(False)
-        self.doubleSpinBox_OWA_min12.setVisible(False)
-        self.doubleSpinBox_OWA_min22.setVisible(False)
-        self.doubleSpinBox_OWA_min13.setVisible(False)
-        self.doubleSpinBox_OWA_min23.setVisible(False)
-
-        self.pushButton_OWA_max1.clicked.connect(lambda: self.add_spinbox("max1"))
-        self.pushButton_OWA_max2.clicked.connect(lambda: self.add_spinbox("max2"))
-        self.pushButton_OWA_min1.clicked.connect(lambda: self.add_spinbox("min1"))
-        self.pushButton_OWA_min2.clicked.connect(lambda: self.add_spinbox("min2"))
-        
-
     def open_preview_window(self):
         self.preview_dialog = PreviewWindow(self)
         self.preview_dialog.show()
 
-                    
-    #############
 
-    def add_spinbox(self, key):
-        mapping = {
-            "max1": [self.doubleSpinBox_OWA_max12, self.doubleSpinBox_OWA_max13],
-            "max2": [self.doubleSpinBox_OWA_max22, self.doubleSpinBox_OWA_max23],
-            "min1": [self.doubleSpinBox_OWA_min12, self.doubleSpinBox_OWA_min13],
-            "min2": [self.doubleSpinBox_OWA_min22, self.doubleSpinBox_OWA_min23],
-        }
 
-        counter_attr = f"cont_{key}"
-        if not hasattr(self, counter_attr):
-            setattr(self, counter_attr, 0)
-
-        count = getattr(self, counter_attr)
-        spinboxes = mapping[key]
-
-        if count < len(spinboxes):
-            spinboxes[count].setVisible(True)
-            setattr(self, counter_attr, count + 1)
-        if count + 1 >= len(spinboxes):
-            getattr(self, f"pushButton_OWA_{key}").setEnabled(False)
  

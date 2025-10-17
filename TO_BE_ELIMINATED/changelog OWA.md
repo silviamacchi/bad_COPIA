@@ -128,3 +128,32 @@ if self.dlg.checkBox_OWA_UserChoice2.isChecked() or self.dlg.radioButton_OWA_S_U
                 iface.addRasterLayer(self.OWA_UserChoice2.output_path, "OWA_UserChoice2")
 
 NB: dobbiamo implementare cosa succede per OWA_index=6 e OWA_index=7 nella funzione OrderedWeigthAverage (a cui probabilmente dobbiamo aggiungere un parametro opzionale che rappresenta i parametri inseriti dall'utente)
+
+# Bottoni + di OWA
+
+Aggiunta una funzione per ogni bottone che rende visibile il nuovo pulsante
+
+    def add_spinbox1(self):
+
+        counter_attr = "cont_max1"
+        if not hasattr(self, counter_attr):
+            setattr(self, counter_attr, 0)
+
+        count = getattr(self, counter_attr)
+        spinboxes = [self.dlg.doubleSpinBox_OWA_max12, self.dlg.doubleSpinBox_OWA_max13]
+
+        if count < len(spinboxes):
+            spinboxes[count].setVisible(True)
+            setattr(self, counter_attr, count + 1)
+        if count + 1 >= len(spinboxes):
+            self.dlg.pushButton_OWA_max1.setEnabled(False)
+
+In reset faccio in modo di resettare:
+- visibilità pulsanti
+- contatore
+- visibilità +
+- valore inserito dell'utente 
+
+In ComputeOWA(self) aggiungo il vettore dei pesi scelto dall'utente e lo passa alla funzione che calcola OrderedWeigthAverage
+
+In run imposto gli spinnbox come non visibili e assegno la funzione ai +
