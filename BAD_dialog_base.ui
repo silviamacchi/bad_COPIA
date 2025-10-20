@@ -284,6 +284,40 @@
         </layout>
        </item>
        <item>
+        <layout class="QHBoxLayout" name="horizontalLayoutPreFire_SCL">
+         <item>
+          <widget class="QLabel" name="label_SCL_pre">
+           <property name="text">
+            <string>SCL Pre-fire band number (start counting from 1)</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QSpinBox" name="spinBox_scl_pre">
+           <property name="maximum">
+            <number>24</number>
+           </property>
+           <property name="value">
+            <number>15</number>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <spacer name="horizontalSpacer_15">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+        </layout>
+       </item>
+       <item>
         <widget class="QLabel" name="labelPostFire">
          <property name="font">
           <font>
@@ -310,6 +344,40 @@
             <string>Browse</string>
            </property>
           </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayoutPostFire_SCL">
+         <item>
+          <widget class="QLabel" name="label_SCL_post">
+           <property name="text">
+            <string>SCL Post-fire band number (start counting from 1)</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QSpinBox" name="spinBox_scl_post">
+           <property name="maximum">
+            <number>24</number>
+           </property>
+           <property name="value">
+            <number>15</number>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <spacer name="horizontalSpacer_18">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
          </item>
         </layout>
        </item>

@@ -281,13 +281,13 @@ class BAD:
             return
 
         try:
-            self.mask_raster(self.pre_fire_path, 9, pre_fire_classes, self.output_pre_fire_path)
-            self.mask_raster(self.post_fire_path, 9, post_fire_classes, self.output_post_fire_path)
+            self.mask_raster(self.pre_fire_path, self.dlg.spinBox_scl_pre.value()-1, pre_fire_classes, self.output_pre_fire_path)
+            self.mask_raster(self.post_fire_path, self.dlg.spinBox_scl_post.value()-1, post_fire_classes, self.output_post_fire_path)
 
             if self.dlg.checkBoxDisplayInQGIS.isChecked():
                 self.display_in_qgis(self.output_pre_fire_path)
                 self.display_in_qgis(self.output_post_fire_path)
-                
+
             #Fetch the currently loaded layers
             layers = QgsProject.instance().layerTreeRoot().children()
             self.dlg.comboBox_prefire.clear()
@@ -371,6 +371,8 @@ class BAD:
         self.post_fire_path = None
         self.output_pre_fire_path = None
         self.output_post_fire_path = None
+        self.dlg.spinBox_scl_pre.setValue(15)
+        self.dlg.spinBox_scl_post.setValue(15)
 
         self.dlg.lineEditPreFire.clear()
         self.dlg.lineEditPostFire.clear()
@@ -384,6 +386,7 @@ class BAD:
             self.dlg.listWidgetClassesPostFire.item(index).setCheckState(QtCore.Qt.Unchecked)
 
         self.dlg.checkBoxDisplayInQGIS.setChecked(False)
+
     # INPUT TAB #
     def reset_input_tab(self):
 
