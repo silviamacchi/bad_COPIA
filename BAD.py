@@ -1294,45 +1294,55 @@ class BAD:
     def add_spinbox1(self):
 
         count = self.dlg.count_max1
-        spinboxes = [self.dlg.doubleSpinBox_OWA_max12, self.dlg.doubleSpinBox_OWA_max13]
-
-        if count < len(spinboxes):
-            spinboxes[count].setVisible(True)
+        n_bands = self.FinalBandMatix.shape[0]
+        if count==0 and n_bands>2:
+            self.dlg.doubleSpinBox_OWA_max12.setVisible(True)
             self.dlg.count_max1 = count + 1
-        if count + 1 >= len(spinboxes):
+        if count==1 and n_bands>4:
+            self.dlg.doubleSpinBox_OWA_max13.setVisible(True)
+            self.dlg.count_max1 = count + 1
+        if (count > 1) or (n_bands<=4 and count==1) or (n_bands<=2 and count==0):
             self.dlg.pushButton_OWA_max1.setEnabled(False)
 
     def add_spinbox2(self):
 
         count = self.dlg.count_max2
-        spinboxes = [self.dlg.doubleSpinBox_OWA_max22, self.dlg.doubleSpinBox_OWA_max23]
-
-        if count < len(spinboxes):
-            spinboxes[count].setVisible(True)
+        n_bands = self.FinalBandMatix.shape[0]
+        if count==0 and n_bands>2:
+            self.dlg.doubleSpinBox_OWA_max22.setVisible(True)
             self.dlg.count_max2 = count + 1
-        if count + 1 >= len(spinboxes):
+        if count==1 and n_bands>4:
+            self.dlg.doubleSpinBox_OWA_max23.setVisible(True)
+            self.dlg.count_max2 = count + 1
+        if (count > 1) or (n_bands<=4 and count==1) or (n_bands<=2 and count==0):
             self.dlg.pushButton_OWA_max2.setEnabled(False)
 
     def add_spinbox3(self):
 
         count = self.dlg.count_min1
-        spinboxes = [self.dlg.doubleSpinBox_OWA_min12, self.dlg.doubleSpinBox_OWA_min13]
+        n_bands = self.FinalBandMatix.shape[0]
 
-        if count < len(spinboxes):
-            spinboxes[count].setVisible(True)
+        if count==0 and n_bands>3:
+            self.dlg.doubleSpinBox_OWA_min12.setVisible(True)
             self.dlg.count_min1 = count + 1
-        if count + 1 >= len(spinboxes):
+        if count==1 and n_bands>5:
+            self.dlg.doubleSpinBox_OWA_min13.setVisible(True)
+            self.dlg.count_min1 = count + 1
+        if (count > 1) or (n_bands<=5 and count==1) or (n_bands<=3 and count==0):
             self.dlg.pushButton_OWA_min1.setEnabled(False)
 
     def add_spinbox4(self):
 
         count = self.dlg.count_min2
-        spinboxes = [self.dlg.doubleSpinBox_OWA_min22, self.dlg.doubleSpinBox_OWA_min23]
+        n_bands = self.FinalBandMatix.shape[0]
 
-        if count < len(spinboxes):
-            spinboxes[count].setVisible(True)
+        if count==0 and n_bands>3:
+            self.dlg.doubleSpinBox_OWA_min22.setVisible(True)
             self.dlg.count_min2 = count + 1
-        if count + 1 >= len(spinboxes):
+        if count==1 and n_bands>5:
+            self.dlg.doubleSpinBox_OWA_min23.setVisible(True)
+            self.dlg.count_min2 = count + 1
+        if (count > 1) or (n_bands<=5 and count==1) or (n_bands<=3 and count==0):
             self.dlg.pushButton_OWA_min2.setEnabled(False)
 
 #  The process is executed when the button "COMPUTE OWA" is clicked
@@ -1405,6 +1415,8 @@ class BAD:
             if self.dlg.checkBox_OWA_display.isChecked():
                 iface.addRasterLayer(self.OWA_AND.output_path, "OWA_AND")
 
+        self.update_progress(30)
+
         if self.dlg.checkBox_OWA_almostAND.isChecked() or self.dlg.radioButton_OWA_S_almostAND.isChecked() or \
             self.dlg.radioButton_OWA_G_almostAND.isChecked():
 
@@ -1428,6 +1440,8 @@ class BAD:
     
             if self.dlg.checkBox_OWA_display.isChecked():
                 iface.addRasterLayer(self.OWA_almostAND.output_path, "OWA_almostAND")
+
+        self.update_progress(40)
         
         if self.dlg.checkBox_OWA_AVERAGE.isChecked() or self.dlg.radioButton_OWA_S_AVERAGE.isChecked() or \
             self.dlg.radioButton_OWA_G_AVERAGE.isChecked():
@@ -1450,6 +1464,8 @@ class BAD:
     
             if self.dlg.checkBox_OWA_display.isChecked():
                 iface.addRasterLayer(self.OWA_AVERAGE.output_path, "OWA_AVERAGE")
+
+        self.update_progress(50)
                    
         if self.dlg.checkBox_OWA_almostOR.isChecked() or self.dlg.radioButton_OWA_S_almostOR.isChecked() or \
             self.dlg.radioButton_OWA_G_almostOR.isChecked():
@@ -1472,6 +1488,8 @@ class BAD:
     
             if self.dlg.checkBox_OWA_display.isChecked():
                 iface.addRasterLayer(self.OWA_almostOR.output_path, "OWA_almostOR")
+
+        self.update_progress(60)
         
         if self.dlg.checkBox_OWA_OR.isChecked() or self.dlg.radioButton_OWA_S_OR.isChecked() or \
             self.dlg.radioButton_OWA_G_OR.isChecked():
@@ -1496,18 +1514,26 @@ class BAD:
             if self.dlg.checkBox_OWA_display.isChecked():
                 iface.addRasterLayer(self.OWA_OR.output_path, "OWA_OR")
 
+        self.update_progress(70)
+
         if self.dlg.checkBox_OWA_UserChoice1.isChecked() or self.dlg.radioButton_OWA_S_UserChoice1.isChecked() or \
             self.dlg.radioButton_OWA_G_UserChoice1.isChecked():
             OWA_index=6
 
             ## Get user weights
-            w = np.zeros(self.FinalBandMatix.shape[0])
+            n_bands=self.FinalBandMatix.shape[0]
+            w = np.zeros(n_bands)
             w[0] = self.dlg.doubleSpinBox_OWA_max11.value()
-            w[1] = self.dlg.doubleSpinBox_OWA_max12.value()
-            w[2] = self.dlg.doubleSpinBox_OWA_max13.value()
-            w[-1] = self.dlg.doubleSpinBox_OWA_min11.value()
-            w[-2] = self.dlg.doubleSpinBox_OWA_min12.value()
-            w[-3] = self.dlg.doubleSpinBox_OWA_min13.value()
+            if n_bands>2:
+                w[1] = self.dlg.doubleSpinBox_OWA_max12.value()
+            if n_bands>4:
+                w[2] = self.dlg.doubleSpinBox_OWA_max13.value()
+            if n_bands>1:
+                w[-1] = self.dlg.doubleSpinBox_OWA_min11.value()
+            if n_bands>3:
+                w[-2] = self.dlg.doubleSpinBox_OWA_min12.value()
+            if n_bands>5:
+                w[-3] = self.dlg.doubleSpinBox_OWA_min13.value()
             w = w / w.sum()
             print("Weights OWA User Choice 1:", w)
             OWA=OrderedWeigthAverage(OWA_index,self.FinalBandMatix,w=w)
@@ -1530,17 +1556,25 @@ class BAD:
             if self.dlg.checkBox_OWA_display.isChecked():
                 iface.addRasterLayer(self.OWA_UserChoice1.output_path, "OWA_UserChoice1")
 
+        self.update_progress(80)
+
         if self.dlg.checkBox_OWA_UserChoice2.isChecked() or self.dlg.radioButton_OWA_S_UserChoice2.isChecked() or \
             self.dlg.radioButton_OWA_G_UserChoice2.isChecked():
             OWA_index=7
+            n_bands=self.FinalBandMatix.shape[0]
 
-            w = np.zeros(self.FinalBandMatix.shape[0])
+            w = np.zeros(n_bands)
             w[0] = self.dlg.doubleSpinBox_OWA_max21.value()
-            w[1] = self.dlg.doubleSpinBox_OWA_max22.value()
-            w[2] = self.dlg.doubleSpinBox_OWA_max23.value()
-            w[-1] = self.dlg.doubleSpinBox_OWA_min21.value()
-            w[-2] = self.dlg.doubleSpinBox_OWA_min22.value()
-            w[-3] = self.dlg.doubleSpinBox_OWA_min23.value()
+            if n_bands>2:
+                w[1] = self.dlg.doubleSpinBox_OWA_max22.value()
+            if n_bands>4:
+                w[2] = self.dlg.doubleSpinBox_OWA_max23.value()
+            if n_bands>1:
+                w[-1] = self.dlg.doubleSpinBox_OWA_min21.value()
+            if n_bands>3:
+                w[-2] = self.dlg.doubleSpinBox_OWA_min22.value()
+            if n_bands>5:
+                w[-3] = self.dlg.doubleSpinBox_OWA_min23.value()
             w = w / w.sum()
             print("Weights OWA User Choice 2:", w)
             OWA=OrderedWeigthAverage(OWA_index,self.FinalBandMatix,w=w)
