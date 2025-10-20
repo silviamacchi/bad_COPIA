@@ -287,6 +287,18 @@ class BAD:
             if self.dlg.checkBoxDisplayInQGIS.isChecked():
                 self.display_in_qgis(self.output_pre_fire_path)
                 self.display_in_qgis(self.output_post_fire_path)
+                
+            #Fetch the currently loaded layers
+            layers = QgsProject.instance().layerTreeRoot().children()
+            self.dlg.comboBox_prefire.clear()
+            self.dlg.comboBox_postfire.clear()
+
+            #populate the comboBox with names of all the loaded layers
+            self.dlg.comboBox_prefire.addItems(['Select a Layer'])
+            self.dlg.comboBox_postfire.addItems(['Select a Layer'])
+
+            self.dlg.comboBox_prefire.addItems([layer.name() for layer in layers])
+            self.dlg.comboBox_postfire.addItems([layer.name() for layer in layers])
 
         except Exception as e:
             QMessageBox.critical(self.dlg, "Error", f"Masking failed: {e}")
