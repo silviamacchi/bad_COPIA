@@ -1301,7 +1301,7 @@ class BAD:
         if count==1 and n_bands>4:
             self.dlg.doubleSpinBox_OWA_max13.setVisible(True)
             self.dlg.count_max1 = count + 1
-        if (count > 1) or (n_bands<=4 and count==1) or (n_bands<=2 and count==0):
+        if (count + 1 > 2) or (n_bands<=4 and count==1) or (n_bands<=2 and count==0):
             self.dlg.pushButton_OWA_max1.setEnabled(False)
 
     def add_spinbox2(self):
@@ -1314,7 +1314,7 @@ class BAD:
         if count==1 and n_bands>4:
             self.dlg.doubleSpinBox_OWA_max23.setVisible(True)
             self.dlg.count_max2 = count + 1
-        if (count > 1) or (n_bands<=4 and count==1) or (n_bands<=2 and count==0):
+        if (count + 1 > 2) or (n_bands<=4 and count==1) or (n_bands<=2 and count==0):
             self.dlg.pushButton_OWA_max2.setEnabled(False)
 
     def add_spinbox3(self):
@@ -1328,7 +1328,7 @@ class BAD:
         if count==1 and n_bands>5:
             self.dlg.doubleSpinBox_OWA_min13.setVisible(True)
             self.dlg.count_min1 = count + 1
-        if (count > 1) or (n_bands<=5 and count==1) or (n_bands<=3 and count==0):
+        if (count + 1 > 2) or (n_bands<=5 and count==1) or (n_bands<=3 and count==0):
             self.dlg.pushButton_OWA_min1.setEnabled(False)
 
     def add_spinbox4(self):
@@ -1342,7 +1342,7 @@ class BAD:
         if count==1 and n_bands>5:
             self.dlg.doubleSpinBox_OWA_min23.setVisible(True)
             self.dlg.count_min2 = count + 1
-        if (count > 1) or (n_bands<=5 and count==1) or (n_bands<=3 and count==0):
+        if (count + 1 > 2) or (n_bands<=5 and count==1) or (n_bands<=3 and count==0):
             self.dlg.pushButton_OWA_min2.setEnabled(False)
 
 #  The process is executed when the button "COMPUTE OWA" is clicked
