@@ -218,7 +218,20 @@ class BAD:
 #  This part of the script contains the code about the restore buttons that are      
 #  present inside the plug-in.                                            
 #  In this way the user is able to restore the default value and         
-#  the state of each spinbox, checkbox, radiusbox in the related page.  
+#  the state of each spinbox, checkbox, radiusbox in the related page. 
+
+# Sentinel input tab:
+    def reset_sentinel_fields(self):
+        self.dlg.lineEdit_North.clear()
+        self.dlg.lineEdit_South.clear()
+        self.dlg.lineEdit_East.clear()
+        self.dlg.lineEdit_West.clear()
+        self.dlg.lineEdit_FI_result_pre.clear()
+        self.dlg.lineEdit_FI_result_post.clear()
+        self.dlg.lineEdit_User.clear()
+        self.dlg.lineEdit_Password.clear()
+        self.dlg.checkBox_FI_display.setCheckState(False)
+
 # Pre-Processing tab:
     def select_pre_fire_raster(self):
         file_path, _ = QFileDialog.getOpenFileName(self.dlg, "Select Pre-fire Raster", "", "GeoTIFF Files (*.tif)")
@@ -703,6 +716,14 @@ class BAD:
 ###################################################################################################
 # lines of code in order to save output using tool button
 
+    def select_output_file_sentinel_pre(self):
+        filename_sentinel_pre, _filter = QFileDialog.getSaveFileName(self.dlg, "Select output file","",'*.tif')
+        self.dlg.lineEdit_FI_result_pre.setText(filename_sentinel_pre)
+
+    def select_output_file_sentinel_post(self):
+        filename_sentinel_post, _filter = QFileDialog.getSaveFileName(self.dlg, "Select output file","",'*.tif')
+        self.dlg.lineEdit_FI_result_post.setText(filename_sentinel_post)
+
     def select_output_file_Feature(self):
         filename_Feature, _filter = QFileDialog.getSaveFileName(self.dlg, "Select output file","",'*.tif')
         self.dlg.lineEdit_Feature.setText(filename_Feature)
@@ -750,7 +771,30 @@ class BAD:
     def select_output_file_CombinedSeverity(self):
         filename_CombinedSeverity, _filter = QFileDialog.getSaveFileName(self.dlg, "Select output file","",'*.tif')
         self.dlg.lineEdit_CombinedSeverity.setText(filename_CombinedSeverity)
-    
+
+###################################################################################################     
+###################################################################################################
+###################################################################################################
+#  This part of the script contains the code about fetching sentinel images
+
+# The process is executed when the button "Search Pre-fire" is clicked  
+    #def search_sentinel_pre(self):
+
+
+# The process is executed when the button "Search Pre-fire" is clicked 
+    #def search_sentinel_post(self):
+
+# The process is executed when the button "Layer Preview Pre" is clicked 
+    #def preview_sentinel_pre(self):
+
+# The process is executed when the button "Layer Preview Post" is clicked 
+    #def preview_sentinel_post(self):
+
+# The process is executed when the button "Download Pre-fire" is clicked 
+    #def download_sentinel_pre(self):
+
+# The process is executed when the button "Download Post-fire" is clicked 
+    #def download_sentinel_post(self):
 
 ###################################################################################################     
 ###################################################################################################
@@ -2334,6 +2378,18 @@ class BAD:
             self.dlg.progressBar.setVisible(False)  
             self.dlg.progressBar.setValue(0)
 
+            # Input Sentinel
+            self.dlg.pushButton_FI_search_pre.clicked.connect(self.search_sentinel_pre)
+            self.dlg.pushButton_FI_search_post.clicked.connect(self.search_sentinel_post)
+            self.dlg.Preview_FI_pre.clicked.connect(self.preview_sentinel_pre)
+            self.dlg.Preview_FI_post.clicked.connect(self.preview_sentinel_post)
+            self.dlg.pushButton_FI_reset.clicked.connect(self.reset_sentinel_fields)
+            self.dlg.pushButton_FI_download_pre.clicked.connect(self.download_sentinel_pre)
+            self.dlg.pushButton_FI_download_post.clicked.connect(self.download_sentinel_post)
+            self.dlg.toolButton_FI_result_pre.clicked.connect(self.select_output_file_sentinel_pre)
+            self.dlg.toolButton_FI_result_post.clicked.connect(self.select_output_file_sentinel_post)
+
+            # Mask
             self.populate_mask_classes()
             self.dlg.btnBrowsePreFire.clicked.connect(self.select_pre_fire_raster)
             self.dlg.btnBrowsePostFire.clicked.connect(self.select_post_fire_raster)
