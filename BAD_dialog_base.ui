@@ -6,9 +6,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>749</width>
+    <width>1091</width>
     <height>808</height>
    </rect>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>16777215</width>
+    <height>1000</height>
+   </size>
   </property>
   <property name="palette">
    <palette>
@@ -132,6 +138,16 @@
    <string>Burned Area Detector</string>
   </property>
   <layout class="QGridLayout" name="gridLayout_4">
+   <item row="4" column="0">
+    <widget class="QDialogButtonBox" name="button_box">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+     </property>
+    </widget>
+   </item>
    <item row="3" column="0">
     <widget class="QProgressBar" name="progressBar">
      <property name="enabled">
@@ -161,6 +177,7 @@
      </property>
      <property name="font">
       <font>
+       <weight>50</weight>
        <bold>false</bold>
       </font>
      </property>
@@ -176,6 +193,7 @@
         <widget class="QFrame" name="frame_4">
          <property name="font">
           <font>
+           <weight>50</weight>
            <bold>false</bold>
            <strikeout>false</strikeout>
           </font>
@@ -206,8 +224,8 @@
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>655</width>
-               <height>1372</height>
+               <width>1018</width>
+               <height>1612</height>
               </rect>
              </property>
              <layout class="QGridLayout" name="gridLayout_25">
@@ -265,24 +283,23 @@
       <attribute name="title">
        <string>FETCH IMAGES</string>
       </attribute>
-      <widget class="QWidget" name="layoutWidget_11">
+      <widget class="QFrame" name="gridFrame">
        <property name="geometry">
         <rect>
          <x>10</x>
          <y>10</y>
-         <width>711</width>
-         <height>681</height>
+         <width>1051</width>
+         <height>651</height>
         </rect>
        </property>
-       <layout class="QVBoxLayout" name="verticalLayout_16">
-        <item>
-         <widget class="QLabel" name="label_38">
-          <property name="text">
-           <string>Input Sentinel </string>
-          </property>
-         </widget>
-        </item>
-        <item>
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <layout class="QGridLayout" name="gridLayout_40">
+        <item row="1" column="0">
          <layout class="QHBoxLayout" name="horizontalLayout_183">
           <item>
            <widget class="QLabel" name="label_52">
@@ -297,11 +314,11 @@
              <enum>Qt::Horizontal</enum>
             </property>
             <property name="sizeType">
-             <enum>QSizePolicy::Fixed</enum>
+             <enum>QSizePolicy::Expanding</enum>
             </property>
             <property name="sizeHint" stdset="0">
              <size>
-              <width>40</width>
+              <width>20</width>
               <height>20</height>
              </size>
             </property>
@@ -309,6 +326,12 @@
           </item>
           <item>
            <widget class="QLineEdit" name="lineEdit_North">
+            <property name="maximumSize">
+             <size>
+              <width>150</width>
+              <height>16777215</height>
+             </size>
+            </property>
             <property name="placeholderText">
              <string>north</string>
             </property>
@@ -316,6 +339,12 @@
           </item>
           <item>
            <widget class="QLineEdit" name="lineEdit_East">
+            <property name="maximumSize">
+             <size>
+              <width>150</width>
+              <height>16777215</height>
+             </size>
+            </property>
             <property name="placeholderText">
              <string>east</string>
             </property>
@@ -323,6 +352,12 @@
           </item>
           <item>
            <widget class="QLineEdit" name="lineEdit_South">
+            <property name="maximumSize">
+             <size>
+              <width>150</width>
+              <height>16777215</height>
+             </size>
+            </property>
             <property name="placeholderText">
              <string>south</string>
             </property>
@@ -330,6 +365,12 @@
           </item>
           <item>
            <widget class="QLineEdit" name="lineEdit_West">
+            <property name="maximumSize">
+             <size>
+              <width>150</width>
+              <height>16777215</height>
+             </size>
+            </property>
             <property name="placeholderText">
              <string>west</string>
             </property>
@@ -337,246 +378,48 @@
           </item>
          </layout>
         </item>
-        <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_182">
-          <item>
-           <widget class="QLabel" name="label_72">
-            <property name="text">
-             <string>Date Pre-fire</string>
-            </property>
-            <property name="scaledContents">
-             <bool>false</bool>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <spacer name="horizontalSpacer_339">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeType">
-             <enum>QSizePolicy::Fixed</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>40</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item>
-           <widget class="QDateEdit" name="dateEdit_Pre_start">
-            <property name="displayFormat">
-             <string>dd/MM/yyyy</string>
-            </property>
-            <property name="calendarPopup">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QDateEdit" name="dateEdit_Pre_end">
-            <property name="displayFormat">
-             <string>dd/MM/yyyy</string>
-            </property>
-            <property name="calendarPopup">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </item>
-        <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_185">
-          <item>
-           <widget class="QLabel" name="label_73">
-            <property name="text">
-             <string>Date Post-fire</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <spacer name="horizontalSpacer_341">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeType">
-             <enum>QSizePolicy::Fixed</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>40</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item>
-           <widget class="QDateEdit" name="dateEdit_Post_start">
-            <property name="displayFormat">
-             <string>dd/MM/yyyy</string>
-            </property>
-            <property name="calendarPopup">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QDateEdit" name="dateEdit_Post_end">
-            <property name="displayFormat">
-             <string>dd/MM/yyyy</string>
-            </property>
-            <property name="calendarPopup">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </item>
-        <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_186">
-          <item>
-           <widget class="QLabel" name="label_304">
-            <property name="text">
-             <string>Cloud coverage:</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QSlider" name="horizontalSlider_cloud">
-            <property name="mouseTracking">
-             <bool>false</bool>
-            </property>
-            <property name="maximum">
-             <number>100</number>
-            </property>
-            <property name="sliderPosition">
-             <number>10</number>
-            </property>
-            <property name="tracking">
-             <bool>true</bool>
-            </property>
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="tickPosition">
-             <enum>QSlider::NoTicks</enum>
-            </property>
-            <property name="tickInterval">
-             <number>1</number>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <spacer name="horizontalSpacer_23">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>40</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item>
-           <widget class="QLabel" name="label_315">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="font">
-             <font>
-              <pointsize>8</pointsize>
-              <bold>false</bold>
-              <kerning>true</kerning>
-             </font>
-            </property>
-            <property name="text">
-             <string>Limit Results</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QSpinBox" name="spinBox">
-            <property name="maximum">
-             <number>15</number>
-            </property>
-            <property name="value">
-             <number>5</number>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </item>
-        <item>
+        <item row="5" column="0">
          <spacer name="verticalSpacer_6">
           <property name="orientation">
            <enum>Qt::Vertical</enum>
           </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Expanding</enum>
+          </property>
           <property name="sizeHint" stdset="0">
            <size>
-            <width>20</width>
-            <height>40</height>
+            <width>17</width>
+            <height>30</height>
            </size>
           </property>
          </spacer>
         </item>
-        <item>
-         <layout class="QGridLayout" name="gridLayout_99">
-          <item row="1" column="3">
-           <widget class="QLineEdit" name="lineEdit_Password"/>
-          </item>
-          <item row="0" column="0" colspan="4">
-           <widget class="QLabel" name="label_305">
-            <property name="text">
-             <string>Login: </string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="0">
-           <widget class="QLabel" name="label_306">
-            <property name="text">
-             <string>User</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="2">
-           <widget class="QLabel" name="label_311">
-            <property name="text">
-             <string>Password</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="1">
-           <widget class="QLineEdit" name="lineEdit_User"/>
-          </item>
-         </layout>
-        </item>
-        <item>
+        <item row="7" column="0">
          <spacer name="verticalSpacer_5">
           <property name="orientation">
            <enum>Qt::Vertical</enum>
           </property>
           <property name="sizeHint" stdset="0">
            <size>
-            <width>20</width>
-            <height>40</height>
+            <width>15</width>
+            <height>30</height>
            </size>
           </property>
          </spacer>
         </item>
-        <item>
+        <item row="8" column="0">
          <layout class="QGridLayout" name="gridLayout_8">
           <property name="sizeConstraint">
            <enum>QLayout::SetFixedSize</enum>
           </property>
-          <item row="2" column="0">
+          <item row="1" column="0">
            <widget class="QTableWidget" name="download_images_pre">
+            <property name="maximumSize">
+             <size>
+              <width>16777215</width>
+              <height>1000</height>
+             </size>
+            </property>
             <property name="frameShape">
              <enum>QFrame::StyledPanel</enum>
             </property>
@@ -707,42 +550,66 @@
             </column>
            </widget>
           </item>
-          <item row="1" column="1">
-           <widget class="QLabel" name="label_51">
-            <property name="text">
-             <string>Post-fire available images</string>
-            </property>
-            <property name="alignment">
-             <set>Qt::AlignCenter</set>
-            </property>
-           </widget>
-          </item>
-          <item row="3" column="0">
+          <item row="2" column="0">
            <widget class="QPushButton" name="Preview_FI_pre">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
             <property name="text">
              <string>Layer Preview Pre</string>
             </property>
            </widget>
           </item>
-          <item row="3" column="1">
+          <item row="0" column="0">
+           <widget class="QPushButton" name="pushButton_FI_search_pre">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="text">
+             <string>Search Pre-fire available images</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QPushButton" name="pushButton_FI_search_pre_2">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="text">
+             <string>Search Post-fire available images</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
            <widget class="QPushButton" name="Preview_FI_post">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
             <property name="text">
              <string>Layer Preview Post</string>
             </property>
            </widget>
           </item>
-          <item row="1" column="0">
-           <widget class="QLabel" name="label_3032">
-            <property name="text">
-             <string>Pre-fire available images</string>
-            </property>
-            <property name="alignment">
-             <set>Qt::AlignCenter</set>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="1">
+          <item row="1" column="1">
            <widget class="QTableWidget" name="download_images_post">
+            <property name="maximumSize">
+             <size>
+              <width>16777215</width>
+              <height>1000</height>
+             </size>
+            </property>
             <property name="frameShadow">
              <enum>QFrame::Sunken</enum>
             </property>
@@ -861,46 +728,22 @@
             </column>
            </widget>
           </item>
-          <item row="0" column="1">
-           <widget class="QPushButton" name="pushButton_FI_search_pre_2">
-            <property name="text">
-             <string>Search Post-fire</string>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="0">
-           <widget class="QPushButton" name="pushButton_FI_search_pre">
-            <property name="text">
-             <string>Search Pre-fire</string>
-            </property>
-           </widget>
-          </item>
          </layout>
         </item>
-        <item>
-         <spacer name="verticalSpacer_2">
-          <property name="orientation">
-           <enum>Qt::Vertical</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>20</width>
-            <height>40</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-        <item>
-         <widget class="QLabel" name="label_74">
-          <property name="text">
-           <string>Output</string>
-          </property>
-         </widget>
-        </item>
-        <item>
+        <item row="11" column="0">
          <layout class="QGridLayout" name="gridLayout_92">
-          <item row="1" column="3">
-           <widget class="QToolButton" name="toolButton_FI_result_post">
+          <item row="0" column="2">
+           <widget class="QLineEdit" name="lineEdit_FI_result_pre">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="3">
+           <widget class="QToolButton" name="toolButton_FI_result_pre">
             <property name="text">
              <string>...</string>
             </property>
@@ -929,6 +772,13 @@
             </property>
            </widget>
           </item>
+          <item row="1" column="3">
+           <widget class="QToolButton" name="toolButton_FI_result_post">
+            <property name="text">
+             <string>...</string>
+            </property>
+           </widget>
+          </item>
           <item row="0" column="1">
            <spacer name="horizontalSpacer_345">
             <property name="orientation">
@@ -945,23 +795,6 @@
             </property>
            </spacer>
           </item>
-          <item row="1" column="0">
-           <widget class="QLabel" name="label_310">
-            <property name="text">
-             <string>Post-fire image</string>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="2">
-           <widget class="QLineEdit" name="lineEdit_FI_result_pre">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-           </widget>
-          </item>
           <item row="1" column="2">
            <widget class="QLineEdit" name="lineEdit_FI_result_post">
             <property name="sizePolicy">
@@ -972,19 +805,455 @@
             </property>
            </widget>
           </item>
-          <item row="0" column="3">
-           <widget class="QToolButton" name="toolButton_FI_result_pre">
+          <item row="1" column="0">
+           <widget class="QLabel" name="label_310">
             <property name="text">
-             <string>...</string>
+             <string>Post-fire image</string>
             </property>
            </widget>
           </item>
          </layout>
         </item>
-        <item>
+        <item row="2" column="0">
+         <layout class="QHBoxLayout" name="horizontalLayout_182">
+          <item>
+           <widget class="QLabel" name="label_72">
+            <property name="text">
+             <string>Date Pre-fire</string>
+            </property>
+            <property name="scaledContents">
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="horizontalSpacer_339">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeType">
+             <enum>QSizePolicy::Expanding</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QDateEdit" name="dateEdit_Pre_start">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>150</width>
+              <height>16777215</height>
+             </size>
+            </property>
+            <property name="displayFormat">
+             <string>dd/MM/yyyy</string>
+            </property>
+            <property name="calendarPopup">
+             <bool>true</bool>
+            </property>
+            <property name="date">
+             <date>
+              <year>2015</year>
+              <month>1</month>
+              <day>1</day>
+             </date>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="horizontalSpacer_342">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeType">
+             <enum>QSizePolicy::Expanding</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>30</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QDateEdit" name="dateEdit_Pre_end">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>150</width>
+              <height>16777215</height>
+             </size>
+            </property>
+            <property name="dateTime">
+             <datetime>
+              <hour>0</hour>
+              <minute>0</minute>
+              <second>0</second>
+              <year>2015</year>
+              <month>1</month>
+              <day>1</day>
+             </datetime>
+            </property>
+            <property name="displayFormat">
+             <string>dd/MM/yyyy</string>
+            </property>
+            <property name="calendarPopup">
+             <bool>true</bool>
+            </property>
+            <property name="date">
+             <date>
+              <year>2015</year>
+              <month>1</month>
+              <day>1</day>
+             </date>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="horizontalSpacer_348">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeType">
+             <enum>QSizePolicy::Expanding</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>50</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
+        </item>
+        <item row="4" column="0">
+         <layout class="QHBoxLayout" name="horizontalLayout_186">
+          <item alignment="Qt::AlignTop">
+           <widget class="QLabel" name="label_304">
+            <property name="text">
+             <string>Cloud coverage:</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <layout class="QVBoxLayout" name="verticalLayout_7">
+            <item>
+             <widget class="QSlider" name="horizontalSlider_cloud">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>15</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>16777215</width>
+                <height>16777215</height>
+               </size>
+              </property>
+              <property name="mouseTracking">
+               <bool>false</bool>
+              </property>
+              <property name="maximum">
+               <number>100</number>
+              </property>
+              <property name="sliderPosition">
+               <number>10</number>
+              </property>
+              <property name="tracking">
+               <bool>true</bool>
+              </property>
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="tickPosition">
+               <enum>QSlider::TicksBelow</enum>
+              </property>
+              <property name="tickInterval">
+               <number>10</number>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="label_75">
+              <property name="font">
+               <font>
+                <pointsize>6</pointsize>
+                <weight>50</weight>
+                <bold>false</bold>
+               </font>
+              </property>
+              <property name="text">
+               <string>0                      10                     20                      30                    40                    50                     60                     70                      80                     90                    100</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <spacer name="horizontalSpacer_344">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeType">
+             <enum>QSizePolicy::Fixed</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>60</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QLabel" name="label_315">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="font">
+             <font>
+              <pointsize>8</pointsize>
+              <weight>50</weight>
+              <bold>false</bold>
+              <kerning>true</kerning>
+             </font>
+            </property>
+            <property name="text">
+             <string>Limit Results</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QSpinBox" name="spinBox">
+            <property name="maximum">
+             <number>15</number>
+            </property>
+            <property name="value">
+             <number>5</number>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item row="3" column="0">
+         <layout class="QHBoxLayout" name="horizontalLayout_185">
+          <item>
+           <widget class="QLabel" name="label_73">
+            <property name="text">
+             <string>Date Post-fire</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="horizontalSpacer_341">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeType">
+             <enum>QSizePolicy::Expanding</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QDateEdit" name="dateEdit_Post_start">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>150</width>
+              <height>16777215</height>
+             </size>
+            </property>
+            <property name="displayFormat">
+             <string>dd/MM/yyyy</string>
+            </property>
+            <property name="calendarPopup">
+             <bool>true</bool>
+            </property>
+            <property name="date">
+             <date>
+              <year>2015</year>
+              <month>1</month>
+              <day>1</day>
+             </date>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="horizontalSpacer_343">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeType">
+             <enum>QSizePolicy::Expanding</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>30</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QDateEdit" name="dateEdit_Post_end">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>150</width>
+              <height>16777215</height>
+             </size>
+            </property>
+            <property name="displayFormat">
+             <string>dd/MM/yyyy</string>
+            </property>
+            <property name="calendarPopup">
+             <bool>true</bool>
+            </property>
+            <property name="date">
+             <date>
+              <year>2015</year>
+              <month>1</month>
+              <day>1</day>
+             </date>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="horizontalSpacer_349">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeType">
+             <enum>QSizePolicy::Expanding</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>50</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
+        </item>
+        <item row="10" column="0">
+         <widget class="QLabel" name="label_74">
+          <property name="font">
+           <font>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="text">
+           <string>Output:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="6" column="0">
+         <layout class="QGridLayout" name="gridLayout_99">
+          <item row="1" column="3">
+           <widget class="QLineEdit" name="lineEdit_Password"/>
+          </item>
+          <item row="1" column="1">
+           <widget class="QLineEdit" name="lineEdit_User"/>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="label_306">
+            <property name="text">
+             <string>User</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="2">
+           <widget class="QLabel" name="label_311">
+            <property name="text">
+             <string>Password</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="0" colspan="4">
+           <widget class="QLabel" name="label_305">
+            <property name="font">
+             <font>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="text">
+             <string>Login: </string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item row="0" column="0">
+         <widget class="QLabel" name="label_38">
+          <property name="font">
+           <font>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="text">
+           <string>Input Sentinel</string>
+          </property>
+         </widget>
+        </item>
+        <item row="12" column="0">
          <layout class="QGridLayout" name="gridLayout_95">
           <item row="0" column="1">
            <layout class="QGridLayout" name="gridLayout_94">
+            <item row="0" column="1">
+             <widget class="QLabel" name="label_309">
+              <property name="text">
+               <string>Display Results in QGIS</string>
+              </property>
+             </widget>
+            </item>
             <item row="0" column="2">
              <widget class="QCheckBox" name="checkBox_FI_display">
               <property name="sizePolicy">
@@ -1001,13 +1270,6 @@
               </property>
               <property name="tristate">
                <bool>false</bool>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="1">
-             <widget class="QLabel" name="label_309">
-              <property name="text">
-               <string>Display Results in QGIS</string>
               </property>
              </widget>
             </item>
@@ -1031,30 +1293,82 @@
           </item>
          </layout>
         </item>
-        <item>
-         <layout class="QGridLayout" name="gridLayout_93">
-          <item row="0" column="1">
-           <widget class="QPushButton" name="pushButton_FI_download_pre">
-            <property name="text">
-             <string>Download Pre-fire</string>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="0">
-           <widget class="QPushButton" name="pushButton_FI_reset">
-            <property name="text">
-             <string>Reset</string>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="2">
-           <widget class="QPushButton" name="pushButton_FI_download_post">
-            <property name="text">
-             <string>Download Post-fire</string>
-            </property>
-           </widget>
-          </item>
-         </layout>
+        <item row="9" column="0">
+         <spacer name="verticalSpacer_2">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>15</width>
+            <height>30</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
+       <zorder>label_38</zorder>
+       <zorder></zorder>
+       <zorder></zorder>
+       <zorder></zorder>
+       <zorder></zorder>
+       <zorder>verticalSpacer_6</zorder>
+       <zorder></zorder>
+       <zorder>verticalSpacer_5</zorder>
+       <zorder></zorder>
+       <zorder>label_74</zorder>
+       <zorder></zorder>
+       <zorder></zorder>
+       <zorder>verticalSpacer_2</zorder>
+      </widget>
+      <widget class="QWidget" name="">
+       <property name="geometry">
+        <rect>
+         <x>11</x>
+         <y>667</y>
+         <width>1051</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <layout class="QGridLayout" name="gridLayout_93">
+        <item row="0" column="1">
+         <widget class="QPushButton" name="pushButton_FI_download_pre">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="text">
+           <string>Download Pre-fire</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="0">
+         <widget class="QPushButton" name="pushButton_FI_reset">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="text">
+           <string>Reset</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="2">
+         <widget class="QPushButton" name="pushButton_FI_download_post">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="text">
+           <string>Download Post-fire</string>
+          </property>
+         </widget>
         </item>
        </layout>
       </widget>
@@ -1068,6 +1382,7 @@
         <widget class="QLabel" name="labelPreFire">
          <property name="font">
           <font>
+           <weight>75</weight>
            <bold>true</bold>
           </font>
          </property>
@@ -1132,6 +1447,7 @@
         <widget class="QLabel" name="labelPostFire">
          <property name="font">
           <font>
+           <weight>75</weight>
            <bold>true</bold>
           </font>
          </property>
@@ -1196,6 +1512,7 @@
         <widget class="QLabel" name="labelMaskClassesPreFire">
          <property name="font">
           <font>
+           <weight>75</weight>
            <bold>true</bold>
           </font>
          </property>
@@ -1215,6 +1532,7 @@
         <widget class="QLabel" name="labelMaskClassesPostFire">
          <property name="font">
           <font>
+           <weight>75</weight>
            <bold>true</bold>
           </font>
          </property>
@@ -1234,6 +1552,7 @@
         <widget class="QLabel" name="labelOutputPreFire">
          <property name="font">
           <font>
+           <weight>75</weight>
            <bold>true</bold>
           </font>
          </property>
@@ -1264,6 +1583,7 @@
         <widget class="QLabel" name="labelOutputPostFire">
          <property name="font">
           <font>
+           <weight>75</weight>
            <bold>true</bold>
           </font>
          </property>
@@ -1294,6 +1614,7 @@
         <widget class="QCheckBox" name="checkBoxDisplayInQGIS">
          <property name="font">
           <font>
+           <weight>75</weight>
            <bold>true</bold>
           </font>
          </property>
@@ -1330,6 +1651,7 @@
            <property name="font">
             <font>
              <pointsize>9</pointsize>
+             <weight>75</weight>
              <bold>true</bold>
             </font>
            </property>
@@ -1968,6 +2290,7 @@
                <property name="font">
                 <font>
                  <pointsize>8</pointsize>
+                 <weight>50</weight>
                  <bold>false</bold>
                 </font>
                </property>
@@ -2014,6 +2337,7 @@
                <property name="font">
                 <font>
                  <pointsize>8</pointsize>
+                 <weight>50</weight>
                  <bold>false</bold>
                 </font>
                </property>
@@ -2057,6 +2381,7 @@
            <property name="font">
             <font>
              <pointsize>9</pointsize>
+             <weight>75</weight>
              <bold>true</bold>
             </font>
            </property>
@@ -2117,6 +2442,7 @@
         <widget class="QCheckBox" name="checkBox_MD_display">
          <property name="font">
           <font>
+           <weight>75</weight>
            <bold>true</bold>
           </font>
          </property>
@@ -2241,6 +2567,7 @@
         <widget class="QCheckBox" name="checkBox_Feature_display">
          <property name="font">
           <font>
+           <weight>75</weight>
            <bold>true</bold>
           </font>
          </property>
@@ -2260,6 +2587,7 @@
          <property name="font">
           <font>
            <pointsize>9</pointsize>
+           <weight>75</weight>
            <bold>true</bold>
           </font>
          </property>
@@ -2295,6 +2623,7 @@
         <widget class="QToolBox" name="toolBox">
          <property name="font">
           <font>
+           <weight>75</weight>
            <italic>false</italic>
            <bold>true</bold>
            <underline>false</underline>
@@ -2305,15 +2634,15 @@
           <string notr="true">background-color: rgb(252, 252, 252);</string>
          </property>
          <property name="currentIndex">
-          <number>0</number>
+          <number>2</number>
          </property>
          <widget class="QWidget" name="page_1">
           <property name="geometry">
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>679</width>
-            <height>435</height>
+            <width>707</width>
+            <height>402</height>
            </rect>
           </property>
           <attribute name="label">
@@ -2614,6 +2943,7 @@
                 <widget class="QLabel" name="label_53">
                  <property name="font">
                   <font>
+                   <weight>75</weight>
                    <bold>true</bold>
                    <underline>false</underline>
                   </font>
@@ -2643,6 +2973,7 @@
                 <widget class="QLabel" name="label_54">
                  <property name="font">
                   <font>
+                   <weight>75</weight>
                    <bold>true</bold>
                   </font>
                  </property>
@@ -4090,6 +4421,7 @@
                <widget class="QLabel" name="label_101">
                 <property name="font">
                  <font>
+                  <weight>75</weight>
                   <bold>true</bold>
                   <underline>false</underline>
                  </font>
@@ -4119,6 +4451,7 @@
                <widget class="QLabel" name="label_104">
                 <property name="font">
                  <font>
+                  <weight>75</weight>
                   <bold>true</bold>
                  </font>
                 </property>
@@ -4670,8 +5003,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>100</width>
-            <height>30</height>
+            <width>1049</width>
+            <height>402</height>
            </rect>
           </property>
           <attribute name="label">
@@ -4729,6 +5062,7 @@
                <widget class="QLabel" name="label_92">
                 <property name="font">
                  <font>
+                  <weight>75</weight>
                   <bold>true</bold>
                   <underline>false</underline>
                  </font>
@@ -4758,6 +5092,7 @@
                <widget class="QLabel" name="label_93">
                 <property name="font">
                  <font>
+                  <weight>75</weight>
                   <bold>true</bold>
                  </font>
                 </property>
@@ -5912,6 +6247,7 @@
          <property name="font">
           <font>
            <pointsize>9</pointsize>
+           <weight>75</weight>
            <bold>true</bold>
           </font>
          </property>
@@ -5942,6 +6278,7 @@
              <property name="font">
               <font>
                <pointsize>8</pointsize>
+               <weight>75</weight>
                <bold>true</bold>
               </font>
              </property>
@@ -6236,6 +6573,7 @@
            <property name="font">
             <font>
              <pointsize>9</pointsize>
+             <weight>75</weight>
              <bold>true</bold>
             </font>
            </property>
@@ -6276,6 +6614,7 @@
            <property name="font">
             <font>
              <pointsize>9</pointsize>
+             <weight>75</weight>
              <bold>true</bold>
             </font>
            </property>
@@ -6295,6 +6634,7 @@
            <property name="font">
             <font>
              <pointsize>9</pointsize>
+             <weight>75</weight>
              <bold>true</bold>
             </font>
            </property>
@@ -6314,6 +6654,7 @@
            <property name="font">
             <font>
              <pointsize>9</pointsize>
+             <weight>75</weight>
              <bold>true</bold>
             </font>
            </property>
@@ -6540,6 +6881,7 @@
          <property name="font">
           <font>
            <pointsize>9</pointsize>
+           <weight>75</weight>
            <bold>true</bold>
           </font>
          </property>
@@ -6710,6 +7052,7 @@
         <widget class="QCheckBox" name="checkBox_OWA_display">
          <property name="font">
           <font>
+           <weight>75</weight>
            <bold>true</bold>
           </font>
          </property>
@@ -6788,6 +7131,7 @@
           <property name="font">
            <font>
             <pointsize>9</pointsize>
+            <weight>75</weight>
             <bold>true</bold>
            </font>
           </property>
@@ -6806,6 +7150,7 @@
              <property name="font">
               <font>
                <pointsize>8</pointsize>
+               <weight>50</weight>
                <bold>false</bold>
                <kerning>true</kerning>
               </font>
@@ -6830,6 +7175,7 @@
                   <property name="font">
                    <font>
                     <pointsize>8</pointsize>
+                    <weight>50</weight>
                     <bold>false</bold>
                     <kerning>true</kerning>
                    </font>
@@ -6873,6 +7219,7 @@
                   <property name="font">
                    <font>
                     <pointsize>8</pointsize>
+                    <weight>50</weight>
                     <bold>false</bold>
                     <kerning>true</kerning>
                    </font>
@@ -6931,6 +7278,7 @@
            <widget class="QLabel" name="label_43">
             <property name="font">
              <font>
+              <weight>75</weight>
               <bold>true</bold>
              </font>
             </property>
@@ -6969,6 +7317,7 @@
           <property name="font">
            <font>
             <pointsize>9</pointsize>
+            <weight>75</weight>
             <bold>true</bold>
            </font>
           </property>
@@ -7132,6 +7481,7 @@
           <property name="font">
            <font>
             <pointsize>9</pointsize>
+            <weight>75</weight>
             <bold>true</bold>
            </font>
           </property>
@@ -7286,6 +7636,7 @@ font-weight: bold;
          <property name="font">
           <font>
            <pointsize>9</pointsize>
+           <weight>75</weight>
            <bold>true</bold>
           </font>
          </property>
@@ -7300,6 +7651,7 @@ font-weight: bold;
               <property name="font">
                <font>
                 <pointsize>8</pointsize>
+                <weight>50</weight>
                 <bold>false</bold>
                </font>
               </property>
@@ -7313,6 +7665,7 @@ font-weight: bold;
               <property name="font">
                <font>
                 <pointsize>8</pointsize>
+                <weight>50</weight>
                 <bold>false</bold>
                </font>
               </property>
@@ -7323,6 +7676,7 @@ font-weight: bold;
               <property name="font">
                <font>
                 <pointsize>8</pointsize>
+                <weight>50</weight>
                 <bold>false</bold>
                </font>
               </property>
@@ -7340,6 +7694,7 @@ font-weight: bold;
               <property name="font">
                <font>
                 <pointsize>8</pointsize>
+                <weight>50</weight>
                 <bold>false</bold>
                </font>
               </property>
@@ -7353,6 +7708,7 @@ font-weight: bold;
               <property name="font">
                <font>
                 <pointsize>8</pointsize>
+                <weight>50</weight>
                 <bold>false</bold>
                </font>
               </property>
@@ -7363,6 +7719,7 @@ font-weight: bold;
               <property name="font">
                <font>
                 <pointsize>8</pointsize>
+                <weight>50</weight>
                 <bold>false</bold>
                </font>
               </property>
@@ -7381,6 +7738,7 @@ font-weight: bold;
          <property name="font">
           <font>
            <pointsize>9</pointsize>
+           <weight>75</weight>
            <bold>true</bold>
           </font>
          </property>
@@ -7443,6 +7801,7 @@ font-weight: bold;
               <property name="font">
                <font>
                 <pointsize>9</pointsize>
+                <weight>75</weight>
                 <bold>true</bold>
                </font>
               </property>
@@ -8299,6 +8658,7 @@ font-weight: bold;
             <widget class="QLabel" name="label_65">
              <property name="font">
               <font>
+               <weight>75</weight>
                <bold>true</bold>
                <underline>false</underline>
               </font>
@@ -8328,6 +8688,7 @@ font-weight: bold;
             <widget class="QLabel" name="label_66">
              <property name="font">
               <font>
+               <weight>75</weight>
                <bold>true</bold>
               </font>
              </property>
@@ -8403,6 +8764,7 @@ font-weight: bold;
             <widget class="QLabel" name="label_145">
              <property name="font">
               <font>
+               <weight>75</weight>
                <bold>true</bold>
               </font>
              </property>
@@ -8448,6 +8810,7 @@ font-weight: bold;
             <widget class="QLabel" name="label_142">
              <property name="font">
               <font>
+               <weight>75</weight>
                <bold>true</bold>
               </font>
              </property>
@@ -8507,6 +8870,7 @@ font-weight: bold;
             <widget class="QLabel" name="label_144">
              <property name="font">
               <font>
+               <weight>75</weight>
                <bold>true</bold>
               </font>
              </property>
@@ -8552,6 +8916,7 @@ font-weight: bold;
             <widget class="QLabel" name="label_141">
              <property name="font">
               <font>
+               <weight>75</weight>
                <bold>true</bold>
               </font>
              </property>
@@ -8682,6 +9047,7 @@ font-weight: bold;
          <property name="font">
           <font>
            <pointsize>9</pointsize>
+           <weight>75</weight>
            <bold>true</bold>
           </font>
          </property>
@@ -8696,6 +9062,7 @@ font-weight: bold;
               <property name="font">
                <font>
                 <pointsize>8</pointsize>
+                <weight>50</weight>
                 <bold>false</bold>
                </font>
               </property>
@@ -8709,6 +9076,7 @@ font-weight: bold;
               <property name="font">
                <font>
                 <pointsize>8</pointsize>
+                <weight>50</weight>
                 <bold>false</bold>
                </font>
               </property>
@@ -8719,6 +9087,7 @@ font-weight: bold;
               <property name="font">
                <font>
                 <pointsize>8</pointsize>
+                <weight>50</weight>
                 <bold>false</bold>
                </font>
               </property>
@@ -8736,6 +9105,7 @@ font-weight: bold;
               <property name="font">
                <font>
                 <pointsize>8</pointsize>
+                <weight>50</weight>
                 <bold>false</bold>
                </font>
               </property>
@@ -8749,6 +9119,7 @@ font-weight: bold;
               <property name="font">
                <font>
                 <pointsize>8</pointsize>
+                <weight>50</weight>
                 <bold>false</bold>
                </font>
               </property>
@@ -8759,6 +9130,7 @@ font-weight: bold;
               <property name="font">
                <font>
                 <pointsize>8</pointsize>
+                <weight>50</weight>
                 <bold>false</bold>
                </font>
               </property>
@@ -8777,6 +9149,7 @@ font-weight: bold;
          <property name="font">
           <font>
            <pointsize>9</pointsize>
+           <weight>75</weight>
            <bold>true</bold>
           </font>
          </property>
@@ -8798,6 +9171,7 @@ font-weight: bold;
               <property name="font">
                <font>
                 <pointsize>8</pointsize>
+                <weight>50</weight>
                 <bold>false</bold>
                </font>
               </property>
@@ -8865,6 +9239,7 @@ font-weight: bold;
               <property name="font">
                <font>
                 <pointsize>9</pointsize>
+                <weight>75</weight>
                 <bold>true</bold>
                </font>
               </property>
@@ -8911,16 +9286,6 @@ font-weight: bold;
        </item>
       </layout>
      </widget>
-    </widget>
-   </item>
-   <item row="4" column="0">
-    <widget class="QDialogButtonBox" name="button_box">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-     <property name="standardButtons">
-      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
-     </property>
     </widget>
    </item>
   </layout>

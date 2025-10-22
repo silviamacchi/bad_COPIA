@@ -10,3 +10,8 @@ functions to be implemented connected to buttons:
 - download_sentinel_post: download post
 - select_output_file_sentinel_pre: 3 puntini sentinel pre (maybe the tiff format needs to be changed)
 - select_output_file_sentinel_post: 3 puntini sentinel post (maybe the tiff format needs to be changed)
+
+# optional:
+- add option for AOI "get by Extent"
+- graphical visualization on "end_date" to see the period of acquisition
+- add progress bar
