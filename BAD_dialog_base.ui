@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>749</width>
-    <height>792</height>
+    <height>808</height>
    </rect>
   </property>
   <property name="palette">
@@ -132,6 +132,19 @@
    <string>Burned Area Detector</string>
   </property>
   <layout class="QGridLayout" name="gridLayout_4">
+   <item row="3" column="0">
+    <widget class="QProgressBar" name="progressBar">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
+     <property name="value">
+      <number>0</number>
+     </property>
+     <property name="textVisible">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
    <item row="2" column="0">
     <widget class="QTabWidget" name="tabWidget">
      <property name="sizePolicy">
@@ -248,7 +261,7 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="tab_6">
+     <widget class="QWidget" name="tab_Sentinel">
       <attribute name="title">
        <string>FETCH IMAGES</string>
       </attribute>
@@ -258,26 +271,10 @@
          <x>10</x>
          <y>10</y>
          <width>711</width>
-         <height>671</height>
+         <height>681</height>
         </rect>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_16">
-        <item>
-         <spacer name="verticalSpacer_55">
-          <property name="orientation">
-           <enum>Qt::Vertical</enum>
-          </property>
-          <property name="sizeType">
-           <enum>QSizePolicy::Fixed</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>20</width>
-            <height>30</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
         <item>
          <widget class="QLabel" name="label_38">
           <property name="text">
@@ -288,20 +285,7 @@
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_183">
           <item>
-           <widget class="QLabel" name="label_302">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="font">
-             <font>
-              <pointsize>8</pointsize>
-              <bold>false</bold>
-              <kerning>true</kerning>
-             </font>
-            </property>
+           <widget class="QLabel" name="label_52">
             <property name="text">
              <string>AOI</string>
             </property>
@@ -356,22 +340,12 @@
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_182">
           <item>
-           <widget class="QLabel" name="label_301">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="font">
-             <font>
-              <pointsize>8</pointsize>
-              <bold>false</bold>
-              <kerning>true</kerning>
-             </font>
-            </property>
+           <widget class="QLabel" name="label_72">
             <property name="text">
              <string>Date Pre-fire</string>
+            </property>
+            <property name="scaledContents">
+             <bool>false</bool>
             </property>
            </widget>
           </item>
@@ -416,20 +390,7 @@
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_185">
           <item>
-           <widget class="QLabel" name="label_314">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="font">
-             <font>
-              <pointsize>8</pointsize>
-              <bold>false</bold>
-              <kerning>true</kerning>
-             </font>
-            </property>
+           <widget class="QLabel" name="label_73">
             <property name="text">
              <string>Date Post-fire</string>
             </property>
@@ -474,46 +435,93 @@
          </layout>
         </item>
         <item>
-         <widget class="QLabel" name="label_304">
-          <property name="text">
-           <string>Cloud coverage:</string>
-          </property>
-         </widget>
+         <layout class="QHBoxLayout" name="horizontalLayout_186">
+          <item>
+           <widget class="QLabel" name="label_304">
+            <property name="text">
+             <string>Cloud coverage:</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QSlider" name="horizontalSlider_cloud">
+            <property name="mouseTracking">
+             <bool>false</bool>
+            </property>
+            <property name="maximum">
+             <number>100</number>
+            </property>
+            <property name="sliderPosition">
+             <number>10</number>
+            </property>
+            <property name="tracking">
+             <bool>true</bool>
+            </property>
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="tickPosition">
+             <enum>QSlider::NoTicks</enum>
+            </property>
+            <property name="tickInterval">
+             <number>1</number>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="horizontalSpacer_23">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QLabel" name="label_315">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="font">
+             <font>
+              <pointsize>8</pointsize>
+              <bold>false</bold>
+              <kerning>true</kerning>
+             </font>
+            </property>
+            <property name="text">
+             <string>Limit Results</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QSpinBox" name="spinBox">
+            <property name="maximum">
+             <number>15</number>
+            </property>
+            <property name="value">
+             <number>5</number>
+            </property>
+           </widget>
+          </item>
+         </layout>
         </item>
         <item>
-         <widget class="QSlider" name="horizontalSlider_cloud">
-          <property name="maximum">
-           <number>100</number>
-          </property>
-          <property name="sliderPosition">
-           <number>10</number>
-          </property>
-          <property name="tracking">
-           <bool>true</bool>
-          </property>
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="tickPosition">
-           <enum>QSlider::TicksBelow</enum>
-          </property>
-          <property name="tickInterval">
-           <number>1</number>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <spacer name="verticalSpacer_56">
+         <spacer name="verticalSpacer_6">
           <property name="orientation">
            <enum>Qt::Vertical</enum>
-          </property>
-          <property name="sizeType">
-           <enum>QSizePolicy::Fixed</enum>
           </property>
           <property name="sizeHint" stdset="0">
            <size>
             <width>20</width>
-            <height>30</height>
+            <height>40</height>
            </size>
           </property>
          </spacer>
@@ -550,6 +558,319 @@
          </layout>
         </item>
         <item>
+         <widget class="QPushButton" name="pushButton">
+          <property name="text">
+           <string>SEARCH</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="verticalSpacer_5">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <layout class="QGridLayout" name="gridLayout_8">
+          <property name="sizeConstraint">
+           <enum>QLayout::SetFixedSize</enum>
+          </property>
+          <item row="0" column="0">
+           <widget class="QLabel" name="label_3032">
+            <property name="text">
+             <string>Pre-fire available images</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QTableWidget" name="download_images_post">
+            <property name="frameShadow">
+             <enum>QFrame::Sunken</enum>
+            </property>
+            <property name="sizeAdjustPolicy">
+             <enum>QAbstractScrollArea::AdjustIgnored</enum>
+            </property>
+            <property name="autoScrollMargin">
+             <number>16</number>
+            </property>
+            <property name="editTriggers">
+             <set>QAbstractItemView::NoEditTriggers</set>
+            </property>
+            <property name="tabKeyNavigation">
+             <bool>true</bool>
+            </property>
+            <property name="alternatingRowColors">
+             <bool>true</bool>
+            </property>
+            <property name="selectionMode">
+             <enum>QAbstractItemView::SingleSelection</enum>
+            </property>
+            <property name="selectionBehavior">
+             <enum>QAbstractItemView::SelectRows</enum>
+            </property>
+            <property name="sortingEnabled">
+             <bool>true</bool>
+            </property>
+            <attribute name="horizontalHeaderStretchLastSection">
+             <bool>true</bool>
+            </attribute>
+            <attribute name="verticalHeaderMinimumSectionSize">
+             <number>11</number>
+            </attribute>
+            <attribute name="verticalHeaderDefaultSectionSize">
+             <number>21</number>
+            </attribute>
+            <column>
+             <property name="text">
+              <string>product</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>image</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>product_id</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>acquisition_date</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>cloud_cover</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>zone_path</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>row</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>min_lat</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>min_lon</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>max_lat</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>max_lon</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>collection</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>size</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>preview</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>uid</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>ref_url</string>
+             </property>
+            </column>
+           </widget>
+          </item>
+          <item row="2" column="0">
+           <widget class="QPushButton" name="Preview_FI_pre">
+            <property name="text">
+             <string>Layer Preview</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="QPushButton" name="Preview_FI_post">
+            <property name="text">
+             <string>Layer Preview</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QLabel" name="label_51">
+            <property name="text">
+             <string>Post-fire available images</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QTableWidget" name="download_images_pre">
+            <property name="frameShape">
+             <enum>QFrame::StyledPanel</enum>
+            </property>
+            <property name="frameShadow">
+             <enum>QFrame::Sunken</enum>
+            </property>
+            <property name="sizeAdjustPolicy">
+             <enum>QAbstractScrollArea::AdjustIgnored</enum>
+            </property>
+            <property name="editTriggers">
+             <set>QAbstractItemView::NoEditTriggers</set>
+            </property>
+            <property name="tabKeyNavigation">
+             <bool>true</bool>
+            </property>
+            <property name="alternatingRowColors">
+             <bool>true</bool>
+            </property>
+            <property name="selectionMode">
+             <enum>QAbstractItemView::SingleSelection</enum>
+            </property>
+            <property name="selectionBehavior">
+             <enum>QAbstractItemView::SelectRows</enum>
+            </property>
+            <property name="sortingEnabled">
+             <bool>true</bool>
+            </property>
+            <property name="rowCount">
+             <number>0</number>
+            </property>
+            <attribute name="horizontalHeaderCascadingSectionResizes">
+             <bool>true</bool>
+            </attribute>
+            <attribute name="horizontalHeaderDefaultSectionSize">
+             <number>100</number>
+            </attribute>
+            <attribute name="horizontalHeaderStretchLastSection">
+             <bool>true</bool>
+            </attribute>
+            <attribute name="verticalHeaderCascadingSectionResizes">
+             <bool>true</bool>
+            </attribute>
+            <attribute name="verticalHeaderMinimumSectionSize">
+             <number>11</number>
+            </attribute>
+            <attribute name="verticalHeaderDefaultSectionSize">
+             <number>21</number>
+            </attribute>
+            <column>
+             <property name="text">
+              <string>product</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>image</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>product_id</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>acquisition_date</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>cloud_cover</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>zone_path</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>row</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>min_lat</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>min_lon</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>max_lat</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>max_lon</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>collection</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>size</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>preview</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>uid</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>ref_url</string>
+             </property>
+            </column>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
          <spacer name="verticalSpacer_2">
           <property name="orientation">
            <enum>Qt::Vertical</enum>
@@ -563,78 +884,92 @@
          </spacer>
         </item>
         <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_184">
-          <item>
-           <widget class="QLabel" name="label_303">
-            <property name="font">
-             <font>
-              <bold>true</bold>
-             </font>
-            </property>
+         <layout class="QGridLayout" name="gridLayout_92">
+          <item row="1" column="3">
+           <widget class="QToolButton" name="toolButton_Fi_result_post">
             <property name="text">
-             <string>Click for Layer Preview :</string>
+             <string>...</string>
             </property>
            </widget>
           </item>
-          <item>
-           <widget class="QPushButton" name="Preview_4">
-            <property name="text">
-             <string>Layers-Preview</string>
+          <item row="1" column="1">
+           <spacer name="horizontalSpacer_347">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
             </property>
-           </widget>
+            <property name="sizeType">
+             <enum>QSizePolicy::Fixed</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>50</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
           </item>
-         </layout>
-        </item>
-        <item>
-         <layout class="QGridLayout" name="gridLayout_100">
           <item row="0" column="0">
-           <widget class="QLabel" name="label_312">
+           <widget class="QLabel" name="label_308">
             <property name="text">
-             <string>Pre-fire: elenco</string>
+             <string>Download pre:</string>
             </property>
            </widget>
+          </item>
+          <item row="0" column="1">
+           <spacer name="horizontalSpacer_345">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeType">
+             <enum>QSizePolicy::Fixed</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>50</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
           </item>
           <item row="1" column="0">
-           <widget class="QLabel" name="label_313">
+           <widget class="QLabel" name="label_310">
             <property name="text">
-             <string>Post-fire: elenco</string>
+             <string>Download post:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="2">
+           <widget class="QLineEdit" name="lineEdit_FI_result_pre">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="2">
+           <widget class="QLineEdit" name="lineEdit_FI_result_post">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="3">
+           <widget class="QToolButton" name="toolButton_FI_result_pre">
+            <property name="text">
+             <string>...</string>
             </property>
            </widget>
           </item>
          </layout>
         </item>
         <item>
-         <spacer name="verticalSpacer_57">
-          <property name="orientation">
-           <enum>Qt::Vertical</enum>
-          </property>
-          <property name="sizeType">
-           <enum>QSizePolicy::Fixed</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>20</width>
-            <height>30</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-        <item>
-         <widget class="QLabel" name="label_307">
-          <property name="font">
-           <font>
-            <pointsize>9</pointsize>
-            <bold>true</bold>
-           </font>
-          </property>
-          <property name="text">
-           <string>Download</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <layout class="QGridLayout" name="gridLayout_92">
-          <item row="2" column="0">
+         <layout class="QGridLayout" name="gridLayout_95">
+          <item row="0" column="1">
            <layout class="QGridLayout" name="gridLayout_94">
             <item row="0" column="2">
              <widget class="QCheckBox" name="checkBox_FI_display">
@@ -680,127 +1015,16 @@
             </item>
            </layout>
           </item>
-          <item row="0" column="0">
-           <layout class="QGridLayout" name="gridLayout_93">
-            <item row="0" column="3">
-             <widget class="QToolButton" name="toolButton_FI_result_pre">
-              <property name="text">
-               <string>...</string>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="1">
-             <spacer name="horizontalSpacer_345">
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-              <property name="sizeType">
-               <enum>QSizePolicy::Fixed</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>50</width>
-                <height>20</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-            <item row="0" column="0">
-             <widget class="QLabel" name="label_308">
-              <property name="text">
-               <string>Download pre:</string>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="2">
-             <widget class="QLineEdit" name="lineEdit_FI_result_pre">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </item>
-          <item row="1" column="0">
-           <layout class="QGridLayout" name="gridLayout_98">
-            <item row="0" column="3">
-             <widget class="QToolButton" name="toolButton_Fi_result_post">
-              <property name="text">
-               <string>...</string>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="1">
-             <spacer name="horizontalSpacer_347">
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-              <property name="sizeType">
-               <enum>QSizePolicy::Fixed</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>50</width>
-                <height>20</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-            <item row="0" column="0">
-             <widget class="QLabel" name="label_310">
-              <property name="text">
-               <string>Download post:</string>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="2">
-             <widget class="QLineEdit" name="lineEdit_FI_result_post">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </item>
          </layout>
         </item>
         <item>
-         <layout class="QGridLayout" name="gridLayout_95">
-          <item row="0" column="1">
-           <widget class="QPushButton" name="pushButton_FI_reset">
-            <property name="text">
-             <string>Reset</string>
-            </property>
-           </widget>
-          </item>
-         </layout>
+         <widget class="QPushButton" name="pushButton_FI_reset">
+          <property name="text">
+           <string>Reset</string>
+          </property>
+         </widget>
         </item>
        </layout>
-      </widget>
-      <widget class="QProgressBar" name="progressBar_2">
-       <property name="enabled">
-        <bool>true</bool>
-       </property>
-       <property name="geometry">
-        <rect>
-         <x>89</x>
-         <y>801</y>
-         <width>731</width>
-         <height>21</height>
-        </rect>
-       </property>
-       <property name="value">
-        <number>0</number>
-       </property>
-       <property name="textVisible">
-        <bool>true</bool>
-       </property>
       </widget>
      </widget>
      <widget class="QWidget" name="tabMasking">
@@ -3092,8 +3316,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>100</width>
-            <height>30</height>
+            <width>98</width>
+            <height>28</height>
            </rect>
           </property>
           <attribute name="label">
@@ -4414,8 +4638,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>100</width>
-            <height>30</height>
+            <width>98</width>
+            <height>28</height>
            </rect>
           </property>
           <attribute name="label">
@@ -8655,19 +8879,6 @@ font-weight: bold;
        </item>
       </layout>
      </widget>
-    </widget>
-   </item>
-   <item row="3" column="0">
-    <widget class="QProgressBar" name="progressBar">
-     <property name="enabled">
-      <bool>true</bool>
-     </property>
-     <property name="value">
-      <number>0</number>
-     </property>
-     <property name="textVisible">
-      <bool>true</bool>
-     </property>
     </widget>
    </item>
    <item row="4" column="0">
