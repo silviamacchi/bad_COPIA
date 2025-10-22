@@ -288,7 +288,7 @@
        <item>
         <widget class="QLabel" name="label_38">
          <property name="text">
-          <string>Sentinel Label</string>
+          <string>Sentinel-2 L2A input</string>
          </property>
         </widget>
        </item>
