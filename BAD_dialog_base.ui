@@ -317,7 +317,7 @@
           <item>
            <widget class="QLineEdit" name="lineEdit_East">
             <property name="placeholderText">
-             <string>East</string>
+             <string>east</string>
             </property>
            </widget>
           </item>
@@ -531,8 +531,12 @@
           <item row="1" column="3">
            <widget class="QLineEdit" name="lineEdit_Password"/>
           </item>
-          <item row="1" column="1">
-           <widget class="QLineEdit" name="lineEdit_User"/>
+          <item row="0" column="0" colspan="4">
+           <widget class="QLabel" name="label_305">
+            <property name="text">
+             <string>Login: </string>
+            </property>
+           </widget>
           </item>
           <item row="1" column="0">
            <widget class="QLabel" name="label_306">
@@ -548,21 +552,10 @@
             </property>
            </widget>
           </item>
-          <item row="0" column="0" colspan="4">
-           <widget class="QLabel" name="label_305">
-            <property name="text">
-             <string>Login: </string>
-            </property>
-           </widget>
+          <item row="1" column="1">
+           <widget class="QLineEdit" name="lineEdit_User"/>
           </item>
          </layout>
-        </item>
-        <item>
-         <widget class="QPushButton" name="pushButton">
-          <property name="text">
-           <string>SEARCH</string>
-          </property>
-         </widget>
         </item>
         <item>
          <spacer name="verticalSpacer_5">
@@ -582,161 +575,7 @@
           <property name="sizeConstraint">
            <enum>QLayout::SetFixedSize</enum>
           </property>
-          <item row="0" column="0">
-           <widget class="QLabel" name="label_3032">
-            <property name="text">
-             <string>Pre-fire available images</string>
-            </property>
-            <property name="alignment">
-             <set>Qt::AlignCenter</set>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="1">
-           <widget class="QTableWidget" name="download_images_post">
-            <property name="frameShadow">
-             <enum>QFrame::Sunken</enum>
-            </property>
-            <property name="sizeAdjustPolicy">
-             <enum>QAbstractScrollArea::AdjustIgnored</enum>
-            </property>
-            <property name="autoScrollMargin">
-             <number>16</number>
-            </property>
-            <property name="editTriggers">
-             <set>QAbstractItemView::NoEditTriggers</set>
-            </property>
-            <property name="tabKeyNavigation">
-             <bool>true</bool>
-            </property>
-            <property name="alternatingRowColors">
-             <bool>true</bool>
-            </property>
-            <property name="selectionMode">
-             <enum>QAbstractItemView::SingleSelection</enum>
-            </property>
-            <property name="selectionBehavior">
-             <enum>QAbstractItemView::SelectRows</enum>
-            </property>
-            <property name="sortingEnabled">
-             <bool>true</bool>
-            </property>
-            <attribute name="horizontalHeaderStretchLastSection">
-             <bool>true</bool>
-            </attribute>
-            <attribute name="verticalHeaderMinimumSectionSize">
-             <number>11</number>
-            </attribute>
-            <attribute name="verticalHeaderDefaultSectionSize">
-             <number>21</number>
-            </attribute>
-            <column>
-             <property name="text">
-              <string>product</string>
-             </property>
-            </column>
-            <column>
-             <property name="text">
-              <string>image</string>
-             </property>
-            </column>
-            <column>
-             <property name="text">
-              <string>product_id</string>
-             </property>
-            </column>
-            <column>
-             <property name="text">
-              <string>acquisition_date</string>
-             </property>
-            </column>
-            <column>
-             <property name="text">
-              <string>cloud_cover</string>
-             </property>
-            </column>
-            <column>
-             <property name="text">
-              <string>zone_path</string>
-             </property>
-            </column>
-            <column>
-             <property name="text">
-              <string>row</string>
-             </property>
-            </column>
-            <column>
-             <property name="text">
-              <string>min_lat</string>
-             </property>
-            </column>
-            <column>
-             <property name="text">
-              <string>min_lon</string>
-             </property>
-            </column>
-            <column>
-             <property name="text">
-              <string>max_lat</string>
-             </property>
-            </column>
-            <column>
-             <property name="text">
-              <string>max_lon</string>
-             </property>
-            </column>
-            <column>
-             <property name="text">
-              <string>collection</string>
-             </property>
-            </column>
-            <column>
-             <property name="text">
-              <string>size</string>
-             </property>
-            </column>
-            <column>
-             <property name="text">
-              <string>preview</string>
-             </property>
-            </column>
-            <column>
-             <property name="text">
-              <string>uid</string>
-             </property>
-            </column>
-            <column>
-             <property name="text">
-              <string>ref_url</string>
-             </property>
-            </column>
-           </widget>
-          </item>
           <item row="2" column="0">
-           <widget class="QPushButton" name="Preview_FI_pre">
-            <property name="text">
-             <string>Layer Preview</string>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="1">
-           <widget class="QPushButton" name="Preview_FI_post">
-            <property name="text">
-             <string>Layer Preview</string>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="1">
-           <widget class="QLabel" name="label_51">
-            <property name="text">
-             <string>Post-fire available images</string>
-            </property>
-            <property name="alignment">
-             <set>Qt::AlignCenter</set>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="0">
            <widget class="QTableWidget" name="download_images_pre">
             <property name="frameShape">
              <enum>QFrame::StyledPanel</enum>
@@ -868,6 +707,174 @@
             </column>
            </widget>
           </item>
+          <item row="1" column="1">
+           <widget class="QLabel" name="label_51">
+            <property name="text">
+             <string>Post-fire available images</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="0">
+           <widget class="QPushButton" name="Preview_FI_pre">
+            <property name="text">
+             <string>Layer Preview</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="1">
+           <widget class="QPushButton" name="Preview_FI_post">
+            <property name="text">
+             <string>Layer Preview</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="label_3032">
+            <property name="text">
+             <string>Pre-fire available images</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="QTableWidget" name="download_images_post">
+            <property name="frameShadow">
+             <enum>QFrame::Sunken</enum>
+            </property>
+            <property name="sizeAdjustPolicy">
+             <enum>QAbstractScrollArea::AdjustIgnored</enum>
+            </property>
+            <property name="autoScrollMargin">
+             <number>16</number>
+            </property>
+            <property name="editTriggers">
+             <set>QAbstractItemView::NoEditTriggers</set>
+            </property>
+            <property name="tabKeyNavigation">
+             <bool>true</bool>
+            </property>
+            <property name="alternatingRowColors">
+             <bool>true</bool>
+            </property>
+            <property name="selectionMode">
+             <enum>QAbstractItemView::SingleSelection</enum>
+            </property>
+            <property name="selectionBehavior">
+             <enum>QAbstractItemView::SelectRows</enum>
+            </property>
+            <property name="sortingEnabled">
+             <bool>true</bool>
+            </property>
+            <attribute name="horizontalHeaderStretchLastSection">
+             <bool>true</bool>
+            </attribute>
+            <attribute name="verticalHeaderMinimumSectionSize">
+             <number>11</number>
+            </attribute>
+            <attribute name="verticalHeaderDefaultSectionSize">
+             <number>21</number>
+            </attribute>
+            <column>
+             <property name="text">
+              <string>product</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>image</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>product_id</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>acquisition_date</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>cloud_cover</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>zone_path</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>row</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>min_lat</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>min_lon</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>max_lat</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>max_lon</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>collection</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>size</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>preview</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>uid</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>ref_url</string>
+             </property>
+            </column>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QPushButton" name="pushButton_FI_search_pre_2">
+            <property name="text">
+             <string>Search Post-fire</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="0">
+           <widget class="QPushButton" name="pushButton_FI_search_pre">
+            <property name="text">
+             <string>Search Pre-fire</string>
+            </property>
+           </widget>
+          </item>
          </layout>
         </item>
         <item>
@@ -882,6 +889,13 @@
            </size>
           </property>
          </spacer>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_74">
+          <property name="text">
+           <string>Output</string>
+          </property>
+         </widget>
         </item>
         <item>
          <layout class="QGridLayout" name="gridLayout_92">
@@ -911,7 +925,7 @@
           <item row="0" column="0">
            <widget class="QLabel" name="label_308">
             <property name="text">
-             <string>Download pre:</string>
+             <string>Pre-fire image:</string>
             </property>
            </widget>
           </item>
@@ -934,7 +948,7 @@
           <item row="1" column="0">
            <widget class="QLabel" name="label_310">
             <property name="text">
-             <string>Download post:</string>
+             <string>Post-fire image</string>
             </property>
            </widget>
           </item>
@@ -993,7 +1007,7 @@
             <item row="0" column="1">
              <widget class="QLabel" name="label_309">
               <property name="text">
-               <string>Display Results Layer</string>
+               <string>Display Results in QGIS</string>
               </property>
              </widget>
             </item>
@@ -1018,11 +1032,29 @@
          </layout>
         </item>
         <item>
-         <widget class="QPushButton" name="pushButton_FI_reset">
-          <property name="text">
-           <string>Reset</string>
-          </property>
-         </widget>
+         <layout class="QGridLayout" name="gridLayout_93">
+          <item row="0" column="1">
+           <widget class="QPushButton" name="pushButton_2">
+            <property name="text">
+             <string>Download Pre-fire</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="0">
+           <widget class="QPushButton" name="pushButton_FI_reset">
+            <property name="text">
+             <string>Reset</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="2">
+           <widget class="QPushButton" name="pushButton_3">
+            <property name="text">
+             <string>Download Post-fire</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
         </item>
        </layout>
       </widget>
@@ -3316,8 +3348,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>98</width>
-            <height>28</height>
+            <width>100</width>
+            <height>30</height>
            </rect>
           </property>
           <attribute name="label">
@@ -4638,8 +4670,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>98</width>
-            <height>28</height>
+            <width>100</width>
+            <height>30</height>
            </rect>
           </property>
           <attribute name="label">
