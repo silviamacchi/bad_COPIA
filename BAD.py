@@ -800,6 +800,11 @@ class BAD:
         Limit_num=self.dlg.spinBox_FI_limit.value()
 
         self.List_pre=SentinelSearch(North,South,East,West,User,Password,Start_date,End_date,Cloud,Limit_num).result
+        self.update_progress(70)
+        for index, row in self.List_pre.iterrows():
+            row_position = self.dlg.download_images_pre.rowCount()
+            self.dlg.download_images_pre.insertRow(row_position)
+            self.dlg.download_images_pre.setItem(row_position, 0, QTableWidgetItem(row['Name']))
 
         self.update_progress(100)
         self.hide_progress_bar()
@@ -835,6 +840,10 @@ class BAD:
         Limit_num=self.dlg.spinBox_FI_limit.value()
 
         self.List_post=SentinelSearch(North,South,East,West,User,Password,Start_date,End_date,Cloud,Limit_num).result
+        for index, row in self.List_post.iterrows():
+            row_position = self.dlg.download_images_post.rowCount()
+            self.dlg.download_images_post.insertRow(row_position)
+            self.dlg.download_images_post.setItem(row_position, 0, QTableWidgetItem(row['Name']))
 
         self.update_progress(100)
         self.hide_progress_bar()
