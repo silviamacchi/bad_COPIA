@@ -807,82 +807,17 @@
            </attribute>
            <column>
             <property name="text">
-             <string>product</string>
+             <string>Name</string>
             </property>
            </column>
            <column>
             <property name="text">
-             <string>image</string>
+             <string>Date</string>
             </property>
            </column>
            <column>
             <property name="text">
-             <string>product_id</string>
-            </property>
-           </column>
-           <column>
-            <property name="text">
-             <string>acquisition_date</string>
-            </property>
-           </column>
-           <column>
-            <property name="text">
-             <string>cloud_cover</string>
-            </property>
-           </column>
-           <column>
-            <property name="text">
-             <string>zone_path</string>
-            </property>
-           </column>
-           <column>
-            <property name="text">
-             <string>row</string>
-            </property>
-           </column>
-           <column>
-            <property name="text">
-             <string>min_lat</string>
-            </property>
-           </column>
-           <column>
-            <property name="text">
-             <string>min_lon</string>
-            </property>
-           </column>
-           <column>
-            <property name="text">
-             <string>max_lat</string>
-            </property>
-           </column>
-           <column>
-            <property name="text">
-             <string>max_lon</string>
-            </property>
-           </column>
-           <column>
-            <property name="text">
-             <string>collection</string>
-            </property>
-           </column>
-           <column>
-            <property name="text">
-             <string>size</string>
-            </property>
-           </column>
-           <column>
-            <property name="text">
-             <string>preview</string>
-            </property>
-           </column>
-           <column>
-            <property name="text">
-             <string>uid</string>
-            </property>
-           </column>
-           <column>
-            <property name="text">
-             <string>ref_url</string>
+             <string>Time</string>
             </property>
            </column>
           </widget>
@@ -985,82 +920,17 @@
            </attribute>
            <column>
             <property name="text">
-             <string>product</string>
+             <string>Name</string>
             </property>
            </column>
            <column>
             <property name="text">
-             <string>image</string>
+             <string>Date</string>
             </property>
            </column>
            <column>
             <property name="text">
-             <string>product_id</string>
-            </property>
-           </column>
-           <column>
-            <property name="text">
-             <string>acquisition_date</string>
-            </property>
-           </column>
-           <column>
-            <property name="text">
-             <string>cloud_cover</string>
-            </property>
-           </column>
-           <column>
-            <property name="text">
-             <string>zone_path</string>
-            </property>
-           </column>
-           <column>
-            <property name="text">
-             <string>row</string>
-            </property>
-           </column>
-           <column>
-            <property name="text">
-             <string>min_lat</string>
-            </property>
-           </column>
-           <column>
-            <property name="text">
-             <string>min_lon</string>
-            </property>
-           </column>
-           <column>
-            <property name="text">
-             <string>max_lat</string>
-            </property>
-           </column>
-           <column>
-            <property name="text">
-             <string>max_lon</string>
-            </property>
-           </column>
-           <column>
-            <property name="text">
-             <string>collection</string>
-            </property>
-           </column>
-           <column>
-            <property name="text">
-             <string>size</string>
-            </property>
-           </column>
-           <column>
-            <property name="text">
-             <string>preview</string>
-            </property>
-           </column>
-           <column>
-            <property name="text">
-             <string>uid</string>
-            </property>
-           </column>
-           <column>
-            <property name="text">
-             <string>ref_url</string>
+             <string>Time</string>
             </property>
            </column>
           </widget>

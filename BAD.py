@@ -809,8 +809,12 @@ class BAD:
             row_position = self.dlg.download_images_pre.rowCount()
             self.dlg.download_images_pre.insertRow(row_position)
             self.dlg.download_images_pre.setItem(row_position, 0, QTableWidgetItem(row['Name']))
-            self.dlg.download_images_pre.setItem(row_position, 1, QTableWidgetItem(row['Id']))
-            self.dlg.download_images_pre.setItem(row_position, 3, QTableWidgetItem(str(row['Footprint'])))
+            date=row['Name'][11:19]
+            date_formatted = f"{date[:4]}-{date[4:6]}-{date[6:]}"
+            self.dlg.download_images_pre.setItem(row_position, 1, QTableWidgetItem(date_formatted))
+            time_im=row['Name'][20:26]
+            time_formatted = f"{time_im[:2]}:{time_im[2:4]}:{time_im[4:]}"
+            self.dlg.download_images_pre.setItem(row_position, 2, QTableWidgetItem(time_formatted))
 
         self.update_progress(100)
         self.hide_progress_bar()
@@ -850,6 +854,12 @@ class BAD:
             row_position = self.dlg.download_images_post.rowCount()
             self.dlg.download_images_post.insertRow(row_position)
             self.dlg.download_images_post.setItem(row_position, 0, QTableWidgetItem(row['Name']))
+            date=row['Name'][11:19]
+            date_formatted = f"{date[:4]}-{date[4:6]}-{date[6:]}"
+            self.dlg.download_images_post.setItem(row_position, 1, QTableWidgetItem(date_formatted))
+            time_im=row['Name'][20:26]
+            time_formatted = f"{time_im[:2]}:{time_im[2:4]}:{time_im[4:]}"
+            self.dlg.download_images_post.setItem(row_position, 2, QTableWidgetItem(time_formatted))
 
         self.update_progress(100)
         self.hide_progress_bar()
