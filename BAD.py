@@ -805,6 +805,8 @@ class BAD:
             row_position = self.dlg.download_images_pre.rowCount()
             self.dlg.download_images_pre.insertRow(row_position)
             self.dlg.download_images_pre.setItem(row_position, 0, QTableWidgetItem(row['Name']))
+            self.dlg.download_images_pre.setItem(row_position, 1, QTableWidgetItem(row['Id']))
+            self.dlg.download_images_pre.setItem(row_position, 3, QTableWidgetItem(str(row['Footprint'])))
 
         self.update_progress(100)
         self.hide_progress_bar()
@@ -2452,7 +2454,7 @@ class BAD:
 
             # Input Sentinel
             self.dlg.pushButton_FI_search_pre.clicked.connect(self.search_sentinel_pre)
-            #self.dlg.pushButton_FI_search_post.clicked.connect(self.search_sentinel_post)
+            self.dlg.pushButton_FI_search_post.clicked.connect(self.search_sentinel_post)
             #self.dlg.Preview_FI_pre.clicked.connect(self.preview_sentinel_pre)
             #self.dlg.Preview_FI_post.clicked.connect(self.preview_sentinel_post)
             self.dlg.pushButton_FI_reset.clicked.connect(self.reset_sentinel_fields)
