@@ -717,6 +717,10 @@ class BAD:
 ###################################################################################################
 # lines of code in order to save output using tool button
 
+    def select_output_file(self, target_lineedit):
+        filename, _filter = QFileDialog.getSaveFileName(self.dlg, "Select output file", "", '*.tif')
+        target_lineedit.setText(filename)
+
     def select_output_file_sentinel_pre(self):
         filename_sentinel_pre, _filter = QFileDialog.getSaveFileName(self.dlg, "Select output file","",'*.tif')
         self.dlg.lineEdit_FI_result_pre.setText(filename_sentinel_pre)
@@ -2460,8 +2464,13 @@ class BAD:
             self.dlg.pushButton_FI_reset.clicked.connect(self.reset_sentinel_fields)
             #self.dlg.pushButton_FI_download_pre.clicked.connect(self.download_sentinel_pre)
             #self.dlg.pushButton_FI_download_post.clicked.connect(self.download_sentinel_post)
-            self.dlg.toolButton_FI_result_pre.clicked.connect(self.select_output_file_sentinel_pre)
-            self.dlg.toolButton_FI_result_post.clicked.connect(self.select_output_file_sentinel_post)
+            
+            #self.dlg.toolButton_FI_result_pre.clicked.connect(self.select_output_file_sentinel_pre)
+            #self.dlg.toolButton_FI_result_post.clicked.connect(self.select_output_file_sentinel_post)
+            #alternative try unique output function:
+            self.dlg.toolButton_FI_result_pre.clicked.connect(lambda:self.select_output_file(self.dlg.lineEdit_FI_result_pre))
+            self.dlg.toolButton_FI_result_post.clicked.connect(lambda:self.select_output_file(self.dlg.lineEdit_FI_result_post))
+            
 
             # Mask
             self.populate_mask_classes()
