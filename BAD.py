@@ -904,10 +904,23 @@ class BAD:
         # Perform the GET request
         response = session.get(url, stream=True)
         response.raise_for_status()
-        response.close()
 
         zip_data = response.content # Legge il contenuto completo e lo mette in memoria
         response.close() # CHIUDE ESPLICITAMENTE IL SOCKET HTTP PER EVITARE RESOURCEWARNING
+
+        # Usiamo un controllo di 10 MB per intercettare i messaggi di errore HTML/JSON (che sono piccoli).
+        MIN_ZIP_SIZE = 1024 * 1024 * 10 # 10 MB minimo
+        if len(zip_data) < MIN_ZIP_SIZE:
+            print(f"ERROR: Downloaded file size ({len(zip_data)} bytes) is too small.")
+            print("This is likely an error message (HTML/JSON) from the server instead of a ZIP file.")
+            # Stampa un frammento del contenuto per la diagnosi (es. se inizia con '<!DOCTYPE html>')
+            try:
+                content_snippet = zip_data[:200].decode('utf-8', errors='ignore')
+                print(f"Content snippet (first 200 chars): {content_snippet}")
+            except Exception:
+                pass # Ignora l'errore di decodifica se i dati sono binari inaspettati
+            
+            raise ValueError("File scaricato troppo piccolo. Non è un file ZIP valido. Controllare l'URL e l'autenticazione.")
 
         with zipfile.ZipFile(io.BytesIO(zip_data)) as z:
 
@@ -997,21 +1010,28 @@ class BAD:
                             with MemoryFile(raw_bytes) as memfile:
                                 with memfile.open() as src:
                                     
+                                    # Legge i dati di base (potrebbe essere 2D, 3D o 4D)
+                                    
                                     # Resample se dimensioni diverse
                                     if src.width != width or src.height != height:
                                         # Legge, resample e rimuove le dimensioni extra
-                                        # L'array viene forzato a (H, W) per evitare il 4D
                                         data = src.read(
                                             out_shape=(1, height, width),
                                             resampling=Resampling.bilinear
                                         ).squeeze()
                                     else:
                                         # Legge direttamente i dati e rimuove le dimensioni extra
-                                        # L'array viene forzato a (H, W) per evitare il 4D
                                         data = src.read(1, masked=False).squeeze()
                                         
+                                    # *** CORREZIONE CRITICA DELLA FORMA (SHAPE FIX) ***
+                                    # Forza l'array ad essere 2D (H, W) se per qualche motivo è ancora > 2D
+                                    if data.ndim > 2:
+                                        # Il reshape dipende da quale blocco è stato eseguito
+                                        target_height = height if src.width != width or src.height != height else src.height
+                                        target_width = width if src.width != width or src.height != height else src.width
+                                        data = data.reshape(target_height, target_width)
+                                    
                                     # Aggiunge sempre l'asse della banda, risultando in (1, H, W),
-                                    # che è il formato richiesto da dst.write(data, i)
                                     data = data[np.newaxis, :, :]
 
                                     # *** DIAGNOSTICA DATI ***
