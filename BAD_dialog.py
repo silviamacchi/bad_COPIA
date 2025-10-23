@@ -27,6 +27,7 @@ import os
 from qgis.PyQt import uic
 from qgis.PyQt import QtWidgets
 from .preview_window import PreviewWindow
+from .preview_fetchimages import PreviewFetchImages
 
 # This loads your .ui file so that PyQt can populate your plugin with the elements from Qt Designer
 FORM_CLASS, _ = uic.loadUiType(os.path.join(
@@ -45,8 +46,15 @@ class BADDialog(QtWidgets.QDialog, FORM_CLASS):
         self.setupUi(self)
         self.Preview.clicked.connect(self.open_preview_window)
         
+        self.Preview_FI_pre.clicked.connect(self.open_preview_fetchimages)
+        self.Preview_FI_post.clicked.connect(self.open_preview_fetchimages)
+
     def open_preview_window(self):
         self.preview_dialog = PreviewWindow(self)
+        self.preview_dialog.show()
+
+    def open_preview_fetchimages(self):
+        self.preview_dialog = PreviewFetchImages(self)
         self.preview_dialog.show()
 
 
