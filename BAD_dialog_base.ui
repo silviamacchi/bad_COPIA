@@ -325,6 +325,9 @@
              <height>16777215</height>
             </size>
            </property>
+           <property name="text">
+            <string>38.8163</string>
+           </property>
            <property name="placeholderText">
             <string>north</string>
            </property>
@@ -337,6 +340,9 @@
              <width>150</width>
              <height>16777215</height>
             </size>
+           </property>
+           <property name="text">
+            <string>23.4044</string>
            </property>
            <property name="placeholderText">
             <string>east</string>
@@ -351,6 +357,9 @@
              <height>16777215</height>
             </size>
            </property>
+           <property name="text">
+            <string>38.7035</string>
+           </property>
            <property name="placeholderText">
             <string>south</string>
            </property>
@@ -363,6 +372,9 @@
              <width>150</width>
              <height>16777215</height>
             </size>
+           </property>
+           <property name="text">
+            <string>23.2162</string>
            </property>
            <property name="placeholderText">
             <string>west</string>
@@ -384,7 +396,7 @@
           </widget>
          </item>
          <item row="0" column="2">
-          <widget class="QDateEdit" name="dateEdit_Pre_start">
+          <widget class="QDateEdit" name="dateEdit_Start_pre">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
              <horstretch>0</horstretch>
@@ -405,15 +417,15 @@
            </property>
            <property name="date">
             <date>
-             <year>2015</year>
-             <month>1</month>
-             <day>1</day>
+             <year>2021</year>
+             <month>7</month>
+             <day>15</day>
             </date>
            </property>
           </widget>
          </item>
          <item row="0" column="4">
-          <widget class="QDateEdit" name="dateEdit_Pre_end">
+          <widget class="QDateEdit" name="dateEdit_End_pre">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
              <horstretch>0</horstretch>
@@ -431,9 +443,9 @@
              <hour>0</hour>
              <minute>0</minute>
              <second>0</second>
-             <year>2015</year>
-             <month>1</month>
-             <day>1</day>
+             <year>2021</year>
+             <month>07</month>
+             <day>31</day>
             </datetime>
            </property>
            <property name="displayFormat">
@@ -444,9 +456,9 @@
            </property>
            <property name="date">
             <date>
-             <year>2015</year>
-             <month>1</month>
-             <day>1</day>
+             <year>2021</year>
+             <month>07</month>
+             <day>31</day>
             </date>
            </property>
           </widget>
@@ -475,7 +487,7 @@
           </spacer>
          </item>
          <item row="1" column="2">
-          <widget class="QDateEdit" name="dateEdit_Post_start">
+          <widget class="QDateEdit" name="dateEdit_Start_post">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
              <horstretch>0</horstretch>
@@ -504,7 +516,7 @@
           </widget>
          </item>
          <item row="1" column="4">
-          <widget class="QDateEdit" name="dateEdit_Post_end">
+          <widget class="QDateEdit" name="dateEdit_End_post">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
              <horstretch>0</horstretch>
@@ -672,7 +684,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QSpinBox" name="spinBox">
+          <widget class="QSpinBox" name="spinBox_FI_limit">
            <property name="maximum">
             <number>15</number>
            </property>
@@ -3544,8 +3556,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>100</width>
-            <height>30</height>
+            <width>98</width>
+            <height>28</height>
            </rect>
           </property>
           <attribute name="label">

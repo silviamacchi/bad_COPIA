@@ -25,6 +25,7 @@ import os
 import os.path
 import time
 import numpy as np
+import pandas as pd
 from PyQt5 import QtWidgets, QtCore
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QIcon, QColor, QImage, QPixmap
@@ -778,11 +779,73 @@ class BAD:
 #  This part of the script contains the code about fetching sentinel images
 
 # The process is executed when the button "Search Pre-fire" is clicked  
-    #def search_sentinel_pre(self):
+    def search_sentinel_pre(self):
+        print("Search Pre-fire button clicked, wait until the process end")
+        self.show_progress_bar("Searching Pre-fire Sentinel-2 images")
+        self.update_progress(5)
+        start = time.process_time()        
+        
+        North=self.dlg.lineEdit_North.text()
+        South=self.dlg.lineEdit_South.text()
+        East=self.dlg.lineEdit_East.text()
+        West=self.dlg.lineEdit_West.text()
+
+        User=self.dlg.lineEdit_User.text()
+        Password=self.dlg.lineEdit_Password.text()
+
+        Start_date=self.dlg.dateEdit_Start_pre.date().toString("yyyy-MM-dd")
+        End_date=self.dlg.dateEdit_End_pre.date().toString("yyyy-MM-dd")
+
+        Cloud=self.dlg.horizontalSlider_cloud.value()
+        Limit_num=self.dlg.spinBox_FI_limit.value()
+
+        self.List_pre=SentinelSearch(North,South,East,West,User,Password,Start_date,End_date,Cloud,Limit_num).result
+
+        self.update_progress(100)
+        self.hide_progress_bar()
+        end = time.process_time()
+        print("Process end")
+        print('Computational time Search Pre-fire [s]: ',(end - start),"start=", start,"end=",end) 
+        print('\n') 
+        self.window = QtWidgets.QDialog()
+        #self.ui = Ui_Message()
+        #self.ui.setupUi(self.window)
+        #self.window.show()
 
 
 # The process is executed when the button "Search Pre-fire" is clicked 
-    #def search_sentinel_post(self):
+    def search_sentinel_post(self):
+        print("Search Post-fire button clicked, wait until the process end")
+        self.show_progress_bar("Searching Post-fire Sentinel-2 images")
+        self.update_progress(5)
+        start = time.process_time()        
+        
+        North=self.dlg.lineEdit_North.text()
+        South=self.dlg.lineEdit_South.text()
+        East=self.dlg.lineEdit_East.text()
+        West=self.dlg.lineEdit_West.text()
+
+        User=self.dlg.lineEdit_User.text()
+        Password=self.dlg.lineEdit_Password.text()
+
+        Start_date=self.dlg.dateEdit_Start_post.date().toString("yyyy-MM-dd")
+        End_date=self.dlg.dateEdit_End_post.date().toString("yyyy-MM-dd")
+
+        Cloud=self.dlg.horizontalSlider_cloud.value()
+        Limit_num=self.dlg.spinBox_FI_limit.value()
+
+        self.List_post=SentinelSearch(North,South,East,West,User,Password,Start_date,End_date,Cloud,Limit_num).result
+
+        self.update_progress(100)
+        self.hide_progress_bar()
+        end = time.process_time()
+        print("Process end")
+        print('Computational time Search Post-fire [s]: ',(end - start),"start=", start,"end=",end) 
+        print('\n') 
+        self.window = QtWidgets.QDialog()
+        #self.ui = Ui_Message()
+        #self.ui.setupUi(self.window)
+        #self.window.show()
 
 # The process is executed when the button "Layer Preview Pre" is clicked 
     #def preview_sentinel_pre(self):
@@ -2379,7 +2442,7 @@ class BAD:
             self.dlg.progressBar.setValue(0)
 
             # Input Sentinel
-            #self.dlg.pushButton_FI_search_pre.clicked.connect(self.search_sentinel_pre)
+            self.dlg.pushButton_FI_search_pre.clicked.connect(self.search_sentinel_pre)
             #self.dlg.pushButton_FI_search_post.clicked.connect(self.search_sentinel_post)
             #self.dlg.Preview_FI_pre.clicked.connect(self.preview_sentinel_pre)
             #self.dlg.Preview_FI_post.clicked.connect(self.preview_sentinel_post)

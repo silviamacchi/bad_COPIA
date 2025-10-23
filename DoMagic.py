@@ -25,9 +25,31 @@
 
 from osgeo import gdal
 import numpy as np
+
+#new libraries
+import requests
+import pandas as pd
+
 # Initialize Qt resources from file resources.py
 from .resources import *
 
+class SentinelSearch:
+    def __init__(self,North,South,East,West,User,Password,Start_date,End_date,Cloud,Limit_num):
+        
+        catalogue_odata_url = "https://catalogue.dataspace.copernicus.eu/odata/v1"
+        collection_name = "SENTINEL-2"
+        product_type = "S2MSI2A"
+        aoi = f"POLYGON(({West} {South}, {East} {South}, {East} {North}, {West} {North}, {West} {South}))"
+        search_period_start = f"{Start_date}T00:00:00.000Z"
+        search_period_end = f"{End_date}T00:00:00.000Z"
+
+        search_query = f"{catalogue_odata_url}/Products?$filter=Collection/Name eq '{collection_name}' and Attributes/OData.CSC.StringAttribute/any(att:att/Name eq 'productType' and att/OData.CSC.StringAttribute/Value eq '{product_type}') and Attributes/OData.CSC.DoubleAttribute/any(att:att/Name eq 'cloudCover' and att/OData.CSC.DoubleAttribute/Value le {Cloud}) and OData.CSC.Intersects(area=geography'SRID=4326;{aoi}') and ContentDate/Start gt {search_period_start} and ContentDate/Start lt {search_period_end}&$top={Limit_num}"
+
+        print(f"""\n{search_query.replace(' ', "%20")}\n""")
+        response = requests.get(search_query).json()
+        self.result = pd.DataFrame.from_dict(response["value"])
+        print(self.result['Name'])
+        print(self.result.columns)
 
 class ReadingData:
     def __init__(self,First_path,Second_path):
