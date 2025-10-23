@@ -1,153 +1,166 @@
 import os
 import numpy as np
+import requests
+from .DoMagic import SentinelSearch
 from qgis.PyQt import uic, QtWidgets
 from qgis.PyQt.QtWidgets import QFileDialog, QGraphicsScene
 from qgis.PyQt.QtGui import QImage, QPixmap, QColor
 from qgis.PyQt.QtCore import Qt
 from osgeo import gdal
+from PyQt5.QtGui import QPixmap, QPainter, QColor, QFont
+
 
 FORM_CLASS, _ = uic.loadUiType(os.path.join(
     os.path.dirname(__file__), 'preview_fetchimages.ui'))
 
 class PreviewFetchImages(QtWidgets.QDialog, FORM_CLASS):
-    def __init__(self, parent=None):
+    def __init__(self, bbox, date, time=None, user=None, password=None, parent=None):
         super(PreviewFetchImages, self).__init__(parent)
         self.setupUi(self)
-
-        #self.seed_background_pixmap = None
         
-        self.overlay_pixmap = None
-        
-        self.btnClose.clicked.connect(self.close)
-
         self.preview_scene = QGraphicsScene()
         self.graphicsView.setScene(self.preview_scene)
+        
+        self.lineEdit.setVisible(False)
+        
 
-    #---code copied from preview_window.py TO BE CHECKED---#
-    #    ds = gdal.Open(file_path)
-    #    if ds is None or ds.RasterCount < 8:
-    #        print("Invalid Sentinel-2 file.")
-    #        return
+        self.pixmap = self.get_sentinel_preview(
+            client_id=user,
+            client_secret=password,
+            bbox=bbox,
+            date=date
+            )
 
- #       try:
- #           band_nir = ds.GetRasterBand(8).ReadAsArray().astype(np.float32)
- #           band_red = ds.GetRasterBand(4).ReadAsArray().astype(np.float32)
- #           band_green = ds.GetRasterBand(3).ReadAsArray().astype(np.float32)
+        self.radioButton_RGB.toggled.connect(lambda: self.update_preview(bbox, date, user, password))
+        self.radioButton_NBR.toggled.connect(lambda: self.update_preview(bbox, date, user, password))
 
- #           nir = self.normalize_band(band_nir)
- #           red = self.normalize_band(band_red)
- #           green = self.normalize_band(band_green)
+        if self.pixmap:
+            self.draw_scene()
+        else:
+            self.lineEdit.setVisible(True)
+            self.lineEdit.setStyleSheet("color: red; font-weight: bold;")
 
- #           h, w = nir.shape
- #           rgb = np.zeros((h, w, 3), dtype=np.uint8)
- #           rgb[..., 0] = nir
- #           rgb[..., 1] = red
- #           rgb[..., 2] = green
+            print("Not possible to get the image.")
+    
+        self.btnClose.clicked.connect(self.close)
 
- #           image = QImage(rgb.data, w, h, 3 * w, QImage.Format_RGB888)
- #           pixmap = QPixmap.fromImage(image.copy())
+    def get_sentinel_preview(self, client_id, client_secret, bbox, date, width=512, height=512):
+            
+        # Step 1: access token
+        token_url = "https://identity.dataspace.copernicus.eu/auth/realms/CDSE/protocol/openid-connect/token"
+        token_data = {
+            "grant_type": "client_credentials",
+            "client_id": client_id,
+            "client_secret": client_secret
+        }
+        token_response = requests.post(token_url, data=token_data)
+        access_token = token_response.json().get("access_token")
 
- #           self.seed_background_pixmap = pixmap
- #           self.grow_background_pixmap = pixmap
+        print("Token response:", token_response.status_code)
+        print("Token body:", token_response.text)
 
- #           self.draw_seed_scene()
- #           self.draw_grow_scene()
+        # Step 2: Request Process API
+        process_url = f"https://sh.dataspace.copernicus.eu/api/v1/process"
+        headers = {"Authorization": f"Bearer {access_token}"}
 
-   #     except Exception as e:
-  #          print(f"Error creating false color composite: {e}")
-
-    def load_image_for_preview(self):
-        file_path, _ = QFileDialog.getOpenFileName(self, "Select image", "", "TIFF files (*.tif *.tiff)")
-        if not file_path:
-            return
-
-        ds = gdal.Open(file_path)
-        if ds is None:
-            print("Error: Could not open the raster.")
-            return
-
-        #band = ds.GetRasterBand(1)
-        #self.current_grow_matrix = band.ReadAsArray().astype(float)
-        #self.update_grow_threshold_preview(self.thresholdSliderGrow.value())
-
-    def draw_scene(self):
-        self.preview_scene.clear()
+        payload = {}
 
         if self.radioButton_RGB.isChecked():
-            # RGB composito: bande 4-3-2
-            r = ds.GetRasterBand(4).ReadAsArray().astype(np.float32)
-            g = ds.GetRasterBand(3).ReadAsArray().astype(np.float32)
-            b = ds.GetRasterBand(2).ReadAsArray().astype(np.float32)
-
-            # Normalizzazione
-            rgb = np.stack([r, g, b], axis=-1)
-            rgb = ((rgb - rgb.min()) / (rgb.max() - rgb.min() + 1e-6) * 255).astype(np.uint8)
-
-            h, w, _ = rgb.shape
-            img = QImage(rgb.data, w, h, 3 * w, QImage.Format_RGB888)
-            pixmap = QPixmap.fromImage(img.copy())
-            self.overlay_pixmap = pixmap
-
+            payload = {
+                "input": {
+                    "bounds": {
+                        "bbox": bbox,
+                        "properties": {"crs": "http://www.opengis.net/def/crs/EPSG/0/4326"}
+                    },
+                    "data": [{
+                        "type": "sentinel-2-l2a",
+                        "dataFilter": {
+                            "timeRange": {
+                                "from": f"{date}T00:00:00Z",
+                                "to": f"{date}T23:59:59Z"
+                            }
+                        }
+                    }]
+                },
+                "output": {
+                    "width": width,
+                    "height": height,
+                    "responses": [{"identifier": "default", "format": {"type": "image/png"}}]
+                },
+                "evalscript": """
+                function setup() {
+                return {
+                    input: ["B04", "B03", "B02"],
+                    output: { bands: 3 }
+                };
+                }
+                function evaluatePixel(sample) {
+                return [sample.B04, sample.B03, sample.B02];
+                }
+                """
+            }
+        
         elif self.radioButton_NBR.isChecked():
-            # NBR: (NIR - SWIR) / (NIR + SWIR)
-            nir = ds.GetRasterBand(8).ReadAsArray().astype(np.float32)
-            swir = ds.GetRasterBand(12).ReadAsArray().astype(np.float32)
-            nbr = (nir - swir) / (nir + swir + 1e-6)
+            payload = {
+                "input": {
+                    "bounds": {
+                        "bbox": bbox,
+                        "properties": {"crs": "http://www.opengis.net/def/crs/EPSG/0/4326"}
+                    },
+                    "data": [{
+                        "type": "sentinel-2-l2a",
+                        "dataFilter": {
+                            "timeRange": {
+                                "from": f"{date}T00:00:00Z",
+                                "to": f"{date}T23:59:59Z"
+                            }
+                        }
+                    }]
+                },
+                "output": {
+                    "width": width,
+                    "height": height,
+                    "responses": [{"identifier": "default", "format": {"type": "image/png"}}]
+                },
+                "evalscript": """
+                function setup() {
+                return {
+                    input: ["B08", "B12"],
+                    output: { bands: 1 }
+                };
+                }
+                function evaluatePixel(sample) {
+                let nbr = (sample.B08 - sample.B12) / (sample.B08 + sample.B12);
+                return [nbr];
+                }
+                """
+            }
 
-            # Normalization
-            nbr_scaled = ((nbr - nbr.min()) / (nbr.max() - nbr.min() + 1e-6) * 255).astype(np.uint8)
+        response = requests.post(process_url, headers=headers, json=payload)
+        if response.status_code != 200:
+            print("Error in the request:", response.text)
+            return None
 
-            h, w = nbr_scaled.shape
-            img = QImage(w, h, QImage.Format_RGB32)
-            for y in range(h):
-                for x in range(w):
-                    val = nbr_scaled[y, x]
-                    color = QColor(val, 255 - val, 0, 255)  # colormap: verde → rosso
-                    img.setPixelColor(x, y, color)
+        # Step 3: Convertion in QPixmap
+        pixmap = QPixmap()
+        pixmap.loadFromData(response.content)
+        return pixmap
+    
+    def draw_scene(self):
+        self.preview_scene.clear()
+        self.preview_scene.addPixmap(self.pixmap)
+        #self.graphicsView.viewport().update()
 
-            pixmap = QPixmap.fromImage(img.copy())
-            self.overlay_pixmap = pixmap
+        
+    def update_preview(self, bbox, date, user, password):
+        bbox = bbox
+        date = date
+        client_id = user
+        client_secret = password
 
-        # Show scene
-        if self.overlay_pixmap:
-            self.preview_scene.addPixmap(self.overlay_pixmap)
-            self.graphicsView.fitInView(self.preview_scene.itemsBoundingRect(), Qt.KeepAspectRatio)
-            self.graphicsView.viewport().update()
-
-
-    #def draw_scene(self):
-    #   self.seed_preview_scene.clear()
-    #    if self.overlay_pixmap:
-    #        self.preview_scene.addPixmap(self.seed_overlay_pixmap)
-    #    self.graphicsView.fitInView(self.seed_preview_scene.itemsBoundingRect(), Qt.KeepAspectRatio)
-    #    self.graphicsView.viewport().update()
-
-
-
-    #    data = self.current_seed_matrix
-    #    mask = data >= threshold
-    #    if not np.any(mask):
-    #        self.seed_overlay_pixmap = None
-    #        self.draw_seed_scene()
-    #        return
-
-    #    min_val = np.min(data[mask])
-    #    max_val = np.max(data[mask])
-    #    scale = 255 / (max_val - min_val + 1e-6)
-    #    normalized = ((data - min_val) * scale).clip(0, 255).astype(np.uint8)
-
-    #    h, w = normalized.shape
-    #    img = QImage(w, h, QImage.Format_ARGB32)
-
-    #    for y in range(h):
-    #        for x in range(w):
-    #            if mask[y, x]:
-    #                gray = normalized[y, x]
-    #                color = QColor(gray, gray, gray, 128)
-    #            else:
-    #                color = QColor(0, 0, 0, 0)
-    #            img.setPixelColor(x, y, color)
-
-    #    self.seed_overlay_pixmap = QPixmap.fromImage(img.copy())
-    #    self.draw_seed_scene()
+        self.pixmap = self.get_sentinel_preview(client_id, client_secret, bbox, date)
+        if self.pixmap:
+            self.draw_scene()
+        else:
+            print("Impossible to get the image.")
 

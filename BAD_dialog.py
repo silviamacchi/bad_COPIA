@@ -53,10 +53,24 @@ class BADDialog(QtWidgets.QDialog, FORM_CLASS):
         self.preview_dialog = PreviewWindow(self)
         self.preview_dialog.show()
 
-    def open_preview_fetchimages(self):
-        self.preview_dialog = PreviewFetchImages(self)
-        self.preview_dialog.show()
+    def open_preview_fetchimages(self,row):
+        #self.preview_dialog = PreviewFetchImages(self)
+        #self.preview_dialog.show()
 
+        #item = self.download_images_pre.item(row, 0)  # Colonna 0 = 'Name'
+        #if item:
+        #    selected_name = item.text()
+        #    print("Clicked on:", selected_name)
+
+        bbox=[float(self.lineEdit_West.text()), float(self.lineEdit_South.text()), float(self.lineEdit_East.text()), float(self.lineEdit_North.text())]
+        date=self.download_images_pre.item(row, 1).text()  # Column 1 = 'Date'
+        time=self.download_images_pre.item(row, 2).text()  # Column 2 = 'Time'
+        user=self.lineEdit_User.text()
+        password=self.lineEdit_Password.text()
+
+        # Open preview with the selected image name
+        self.preview_dialog = PreviewFetchImages(bbox=bbox, date=date, time=time, user=user, password=password)
+        self.preview_dialog.show()
 
 
  
