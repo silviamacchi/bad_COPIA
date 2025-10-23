@@ -26,6 +26,13 @@ import os.path
 import time
 import numpy as np
 import pandas as pd
+import zipfile
+import io
+import rasterio
+from rasterio.enums import Resampling
+from rasterio.io import MemoryFile
+import json
+from rasterio.shutil import copy
 from PyQt5 import QtWidgets, QtCore
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QIcon, QColor, QImage, QPixmap
@@ -722,12 +729,12 @@ class BAD:
         target_lineedit.setText(filename)
 
     def select_output_file_sentinel_pre(self):
-        filename_sentinel_pre, _filter = QFileDialog.getSaveFileName(self.dlg, "Select output file","",'*.tif')
-        self.dlg.lineEdit_FI_result_pre.setText(filename_sentinel_pre)
+        self.filename_sentinel_pre, _filter = QFileDialog.getSaveFileName(self.dlg, "Select output file","", "*.tif")
+        self.dlg.lineEdit_FI_result_pre.setText(self.filename_sentinel_pre)
 
     def select_output_file_sentinel_post(self):
-        filename_sentinel_post, _filter = QFileDialog.getSaveFileName(self.dlg, "Select output file","",'*.tif')
-        self.dlg.lineEdit_FI_result_post.setText(filename_sentinel_post)
+        self.filename_sentinel_post, _filter = QFileDialog.getSaveFileName(self.dlg, "Select output file","", "*.tif")
+        self.dlg.lineEdit_FI_result_post.setText(self.filename_sentinel_post)
 
     def select_output_file_Feature(self):
         filename_Feature, _filter = QFileDialog.getSaveFileName(self.dlg, "Select output file","",'*.tif')
@@ -793,9 +800,7 @@ class BAD:
         South=self.dlg.lineEdit_South.text()
         East=self.dlg.lineEdit_East.text()
         West=self.dlg.lineEdit_West.text()
-
-        User=self.dlg.lineEdit_User.text()
-        Password=self.dlg.lineEdit_Password.text()
+        self.aoi = f"POLYGON(({West} {South}, {East} {South}, {East} {North}, {West} {North}, {West} {South}))"
 
         Start_date=self.dlg.dateEdit_Start_pre.date().toString("yyyy-MM-dd")
         End_date=self.dlg.dateEdit_End_pre.date().toString("yyyy-MM-dd")
@@ -803,7 +808,7 @@ class BAD:
         Cloud=self.dlg.horizontalSlider_cloud.value()
         Limit_num=self.dlg.spinBox_FI_limit.value()
 
-        self.List_pre=SentinelSearch(North,South,East,West,User,Password,Start_date,End_date,Cloud,Limit_num).result
+        self.List_pre=SentinelSearch(self.aoi,Start_date,End_date,Cloud,Limit_num).result
         self.update_progress(70)
         for index, row in self.List_pre.iterrows():
             row_position = self.dlg.download_images_pre.rowCount()
@@ -839,9 +844,7 @@ class BAD:
         South=self.dlg.lineEdit_South.text()
         East=self.dlg.lineEdit_East.text()
         West=self.dlg.lineEdit_West.text()
-
-        User=self.dlg.lineEdit_User.text()
-        Password=self.dlg.lineEdit_Password.text()
+        aoi = f"POLYGON(({West} {South}, {East} {South}, {East} {North}, {West} {North}, {West} {South}))"
 
         Start_date=self.dlg.dateEdit_Start_post.date().toString("yyyy-MM-dd")
         End_date=self.dlg.dateEdit_End_post.date().toString("yyyy-MM-dd")
@@ -849,7 +852,7 @@ class BAD:
         Cloud=self.dlg.horizontalSlider_cloud.value()
         Limit_num=self.dlg.spinBox_FI_limit.value()
 
-        self.List_post=SentinelSearch(North,South,East,West,User,Password,Start_date,End_date,Cloud,Limit_num).result
+        self.List_post=SentinelSearch(aoi,Start_date,End_date,Cloud,Limit_num).result
         for index, row in self.List_post.iterrows():
             row_position = self.dlg.download_images_post.rowCount()
             self.dlg.download_images_post.insertRow(row_position)
@@ -872,14 +875,162 @@ class BAD:
         #self.ui.setupUi(self.window)
         #self.window.show()
 
-# The process is executed when the button "Layer Preview Pre" is clicked 
-    #def preview_sentinel_pre(self):
-
-# The process is executed when the button "Layer Preview Post" is clicked 
-    #def preview_sentinel_post(self):
-
 # The process is executed when the button "Download Pre-fire" is clicked 
-    #def download_sentinel_pre(self):
+    def download_sentinel_pre(self):
+
+        token_url = "https://identity.dataspace.copernicus.eu/auth/realms/CDSE/protocol/openid-connect/token"
+        token_data = {
+            "grant_type": "client_credentials",
+            "client_id": self.dlg.lineEdit_User.text(),
+            "client_secret": self.dlg.lineEdit_Password.text()
+        }
+        token_response = requests.post(token_url, data=token_data)
+        access_token = token_response.json().get("access_token")
+
+        print("Token response:", token_response.status_code)
+        print("Token body:", token_response.text)
+
+        selected_row = self.dlg.download_images_pre.currentRow()
+
+        product_identifier = self.List_pre.loc[selected_row, 'Id']
+
+        url = f"https://download.dataspace.copernicus.eu/odata/v1/Products({product_identifier})/$value"
+        headers = {"Authorization": f"Bearer {access_token}"}
+
+        # Create a session and update headers
+        session = requests.Session()
+        session.headers.update(headers)
+
+        # Perform the GET request
+        response = session.get(url, stream=True)
+        response.raise_for_status()
+        response.close()
+
+        zip_data = response.content # Legge il contenuto completo e lo mette in memoria
+        response.close() # CHIUDE ESPLICITAMENTE IL SOCKET HTTP PER EVITARE RESOURCEWARNING
+
+        with zipfile.ZipFile(io.BytesIO(zip_data)) as z:
+
+            # *** DEBUG: Stampa l'elenco completo dei file per ispezione ***
+            file_list = z.namelist()
+            print("--- Contenuto Completo del File ZIP (z.namelist()) ---")
+            # print('\n'.join(file_list)) # Disabilitato per output pulito, ma utile per debug
+            print("-------------------------------------------------------")
+            # *** FINE DEBUG ***
+            
+            try:
+                # 1. Trova il percorso della cartella GRANULE e della tile
+                granule_root = [f for f in file_list if f.endswith("GRANULE/")][0]
+                
+                # granule_folder: Esempio 'S2A_...SAFE/GRANULE/L2A_T34SFJ_.../' 
+                granule_folder = [f for f in file_list if f.startswith(granule_root) and f.endswith("/") and len(f) > len(granule_root)][0]
+                
+                # 2. Estrai il prefisso unico del nome file (es. T34SFH_20210717T092031_)
+                prefix_files = [f for f in file_list if f.startswith(granule_folder + "IMG_DATA/R10m/T") and f.endswith("_B02_10m.jp2")]
+                
+                if not prefix_files:
+                    raise ValueError("Impossibile trovare il file di banda B02 per estrarre il prefisso.")
+                
+                b02_full_name = prefix_files[0].split('/')[-1]
+                file_prefix = b02_full_name.replace("_B02_10m.jp2", "_")
+                
+                print("Percorso Cartella Granulo Unico:", granule_folder)
+                print("Prefisso File Dinamico TILE:", file_prefix)
+
+            except IndexError as e:
+                print("\n!!! ERRORE DI DEBUG: IMPOSSIBILE TROVARE LA STRUTTURA DEL GRANULO !!!")
+                raise ValueError("Impossibile trovare la struttura 'GRANULE/' attesa all'interno dello ZIP.") from e
+                
+            # Dizionario bande con il nome file COMPLETO (RELATIVO alla cartella del granulo unico)
+            band_paths = {
+                # 10m
+                "B02": f"IMG_DATA/R10m/{file_prefix}B02_10m.jp2",
+                "B03": f"IMG_DATA/R10m/{file_prefix}B03_10m.jp2",
+                "B04": f"IMG_DATA/R10m/{file_prefix}B04_10m.jp2",
+                "B08": f"IMG_DATA/R10m/{file_prefix}B08_10m.jp2",
+                
+                # 20m
+                "B05": f"IMG_DATA/R20m/{file_prefix}B05_20m.jp2",
+                "B06": f"IMG_DATA/R20m/{file_prefix}B06_20m.jp2",
+                "B07": f"IMG_DATA/R20m/{file_prefix}B07_20m.jp2",
+                "B8A": f"IMG_DATA/R20m/{file_prefix}B8A_20m.jp2",
+                "B11": f"IMG_DATA/R20m/{file_prefix}B11_20m.jp2",
+                "B12": f"IMG_DATA/R20m/{file_prefix}B12_20m.jp2",
+                "SCL": f"IMG_DATA/R20m/{file_prefix}SCL_20m.jp2", 
+                
+                # 60m
+                "B01": f"IMG_DATA/R60m/{file_prefix}B01_60m.jp2",
+                "B09": f"IMG_DATA/R60m/{file_prefix}B09_60m.jp2",
+                # Rimosso B10 (spesso mancante in L2A)
+            }   
+
+            # Prima banda come riferimento per dimensione e transform
+            ref_band = "B02"  # 10m
+            ref_zip_path = granule_folder + band_paths[ref_band]
+            
+            # Apri il file di riferimento per ottenere i metadati (una sola volta)
+            with z.open(ref_zip_path) as jp2_file:
+                with MemoryFile(jp2_file.read()) as memfile:
+                    with memfile.open() as src:
+                        meta = src.meta.copy()
+                        width = src.width
+                        height = src.height
+                        transform = src.transform
+                        dtype = src.dtypes[0]
+
+            # Aggiorna meta per multibanda
+            meta.update(count=len(band_paths), driver="GTiff")
+
+            # Scrivi tutte le bande in un unico TIFF
+            with rasterio.open(self.filename_sentinel_pre, "w", **meta) as dst:
+                for i, (band, rel_path) in enumerate(band_paths.items(), start=1):
+                    zip_path = granule_folder + rel_path
+                    
+                    try:
+                        with z.open(zip_path) as jp2_file:
+                            raw_bytes = jp2_file.read() 
+
+                            if not raw_bytes:
+                                print(f"ERROR: Band {band} file is empty (0 bytes) at path: {zip_path}")
+                                continue
+                                
+                            with MemoryFile(raw_bytes) as memfile:
+                                with memfile.open() as src:
+                                    
+                                    # Resample se dimensioni diverse
+                                    if src.width != width or src.height != height:
+                                        # Legge, resample e rimuove le dimensioni extra
+                                        # L'array viene forzato a (H, W) per evitare il 4D
+                                        data = src.read(
+                                            out_shape=(1, height, width),
+                                            resampling=Resampling.bilinear
+                                        ).squeeze()
+                                    else:
+                                        # Legge direttamente i dati e rimuove le dimensioni extra
+                                        # L'array viene forzato a (H, W) per evitare il 4D
+                                        data = src.read(1, masked=False).squeeze()
+                                        
+                                    # Aggiunge sempre l'asse della banda, risultando in (1, H, W),
+                                    # che è il formato richiesto da dst.write(data, i)
+                                    data = data[np.newaxis, :, :]
+
+                                    # *** DIAGNOSTICA DATI ***
+                                    if np.mean(data) == 0:
+                                        print(f"WARNING: Banda {band} ({zip_path.split('/')[-1]}) letta con media 0. Dati potenzialmente non validi.")
+                                    
+                                    # Scrivi i dati
+                                    dst.write(data, i)
+                                    print(f"Added band {band} ({zip_path.split('/')[-1]}) to {self.filename_sentinel_pre}")
+                                    
+                    except KeyError:
+                        print(f"Missing band {band} at path: {zip_path}")
+                    except Exception as e:
+                        # Gestisce l'errore generico, inclusa la ValueError che stai vedendo.
+                        print(f"ERROR processing band {band} ({zip_path.split('/')[-1]}): {type(e).__name__}: {e}")
+
+        if self.dlg.checkBox_FI_display.isChecked():
+                iface.addRasterLayer(self.filename_sentinel_pre, "Pre-fire Sentinel-2 Image")
+
 
 # The process is executed when the button "Download Post-fire" is clicked 
     #def download_sentinel_post(self):
@@ -2472,14 +2623,14 @@ class BAD:
             #self.dlg.Preview_FI_pre.clicked.connect(self.preview_sentinel_pre)
             #self.dlg.Preview_FI_post.clicked.connect(self.preview_sentinel_post)
             self.dlg.pushButton_FI_reset.clicked.connect(self.reset_sentinel_fields)
-            #self.dlg.pushButton_FI_download_pre.clicked.connect(self.download_sentinel_pre)
+            self.dlg.pushButton_FI_download_pre.clicked.connect(self.download_sentinel_pre)
             #self.dlg.pushButton_FI_download_post.clicked.connect(self.download_sentinel_post)
             
-            #self.dlg.toolButton_FI_result_pre.clicked.connect(self.select_output_file_sentinel_pre)
-            #self.dlg.toolButton_FI_result_post.clicked.connect(self.select_output_file_sentinel_post)
+            self.dlg.toolButton_FI_result_pre.clicked.connect(self.select_output_file_sentinel_pre)
+            self.dlg.toolButton_FI_result_post.clicked.connect(self.select_output_file_sentinel_post)
             #alternative try unique output function:
-            self.dlg.toolButton_FI_result_pre.clicked.connect(lambda:self.select_output_file(self.dlg.lineEdit_FI_result_pre))
-            self.dlg.toolButton_FI_result_post.clicked.connect(lambda:self.select_output_file(self.dlg.lineEdit_FI_result_post))
+            #self.dlg.toolButton_FI_result_pre.clicked.connect(lambda:self.select_output_file(self.dlg.lineEdit_FI_result_pre))
+            #self.dlg.toolButton_FI_result_post.clicked.connect(lambda:self.select_output_file(self.dlg.lineEdit_FI_result_post))
             
 
             # Mask

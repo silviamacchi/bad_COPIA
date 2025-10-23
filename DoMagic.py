@@ -34,12 +34,11 @@ import pandas as pd
 from .resources import *
 
 class SentinelSearch:
-    def __init__(self,North,South,East,West,User,Password,Start_date,End_date,Cloud,Limit_num):
+    def __init__(self,aoi,Start_date,End_date,Cloud,Limit_num):
         
         catalogue_odata_url = "https://catalogue.dataspace.copernicus.eu/odata/v1"
         collection_name = "SENTINEL-2"
         product_type = "S2MSI2A"
-        aoi = f"POLYGON(({West} {South}, {East} {South}, {East} {North}, {West} {North}, {West} {South}))"
         search_period_start = f"{Start_date}T00:00:00.000Z"
         search_period_end = f"{End_date}T00:00:00.000Z"
 
