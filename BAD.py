@@ -812,7 +812,7 @@ class BAD:
             time_im=row['Name'][20:26]
             time_formatted = f"{time_im[:2]}:{time_im[2:4]}:{time_im[4:]}"
             self.dlg.download_images_pre.setItem(row_position, 2, QTableWidgetItem(time_formatted))
-
+            self.dlg.download_images_pre.setItem(row_position, 3, QTableWidgetItem(row['Name'][38:44]))
         self.update_progress(100)
         self.hide_progress_bar()
         end = time.process_time()
@@ -856,6 +856,7 @@ class BAD:
             time_im=row['Name'][20:26]
             time_formatted = f"{time_im[:2]}:{time_im[2:4]}:{time_im[4:]}"
             self.dlg.download_images_post.setItem(row_position, 2, QTableWidgetItem(time_formatted))
+            self.dlg.download_images_post.setItem(row_position, 3, QTableWidgetItem(row['Name'][38:44]))
 
         self.update_progress(100)
         self.hide_progress_bar()

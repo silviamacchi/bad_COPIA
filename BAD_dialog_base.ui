@@ -820,6 +820,11 @@
              <string>Time</string>
             </property>
            </column>
+           <column>
+            <property name="text">
+             <string>Tile number</string>
+            </property>
+           </column>
           </widget>
          </item>
          <item row="2" column="0">
@@ -931,6 +936,11 @@
            <column>
             <property name="text">
              <string>Time</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>Tile number</string>
             </property>
            </column>
           </widget>

@@ -18,7 +18,6 @@ class PreviewFetchImages(QtWidgets.QDialog, FORM_CLASS):
         self.graphicsView.setScene(self.preview_scene)
         
         self.lineEdit.setVisible(False)
-        
 
         self.pixmap = self.get_sentinel_preview(
             client_id=user,
@@ -35,7 +34,6 @@ class PreviewFetchImages(QtWidgets.QDialog, FORM_CLASS):
         else:
             self.lineEdit.setVisible(True)
             self.lineEdit.setStyleSheet("color: red; font-weight: bold;")
-
             print("Not possible to get the image.")
     
         self.btnClose.clicked.connect(self.close)
