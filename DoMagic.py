@@ -29,6 +29,11 @@ import numpy as np
 #new libraries
 import requests
 import pandas as pd
+import zipfile
+import os
+import glob
+import subprocess
+import shutil
 
 # Initialize Qt resources from file resources.py
 from .resources import *
@@ -50,6 +55,235 @@ class SentinelSearch:
         print(self.result['Name'])
         print(self.result.columns)
 
+class download_and_save_zip:
+    def __init__(self, url, headers, output_filename, output_tif):
+        print(f"Attempting to download from: {url}")
+        print(f"Saving to: {output_filename}")
+
+        # Create a session and update headers
+        session = requests.Session()
+        session.headers.update(headers)
+
+        try:
+            # Perform the GET request
+            response = session.get(url, stream=True)
+            response.raise_for_status()
+
+            # Legge il contenuto completo e lo mette in memoria (reads the complete content into memory)
+            zip_data = response.content
+
+            # Close the connection explicitly to avoid resource warnings
+            response.close()
+
+            with open(output_filename, 'wb') as f:
+                f.write(zip_data)
+
+            print(f"\nData saved to '{output_filename}' (Size: {len(zip_data)} bytes).")
+            directory_path = os.path.dirname(output_tif)
+            process_sentinel2_zip(output_filename, directory_path, output_tif)
+
+        except requests.exceptions.RequestException as e:
+            print(f"\nAn error occurred during the request: {e}")
+
+def find_file_paths(safe_folder_path):
+    # 1. Trova la cartella GRANULE
+    granule_dir = os.path.join(safe_folder_path, 'GRANULE')
+    if not os.path.isdir(granule_dir):
+        raise FileNotFoundError(f"Impossibile trovare la cartella GRANULE a: {granule_dir}")
+
+    # 2. Trova la cartella Granule ID (di solito una sola sottocartella)
+    granule_id_folders = [d for d in os.listdir(granule_dir) if os.path.isdir(os.path.join(granule_dir, d))]
+    
+    if not granule_id_folders:
+        raise FileNotFoundError(f"Impossibile trovare la cartella Granule ID all'interno di: {granule_dir}")
+    
+    # Prendi la prima (e di solito unica) cartella Granule ID
+    granule_id_folder = granule_id_folders[0]
+    full_granule_id_path = os.path.join(granule_dir, granule_id_folder)
+
+    # 3. Trova la cartella IMG_DATA
+    img_data_root = os.path.join(full_granule_id_path, "IMG_DATA")
+    if not os.path.isdir(img_data_root):
+        raise FileNotFoundError(f"Impossibile trovare la cartella IMG_DATA a: {img_data_root}")
+
+    # 4. Dedurre il prefisso del file JP2
+    r10m_path = os.path.join(img_data_root, "R10m")
+    
+    # Usa glob per trovare un file di banda (che contiene "_B0") in R10m
+    # Questo esclude i file accessori come AOT, WVP, ecc.
+    band_jp2_files = glob.glob(os.path.join(r10m_path, "*_B0*.jp2"))
+    
+    if not band_jp2_files:
+        raise FileNotFoundError(f"Nessun file banda spettrale .jp2 trovato per dedurre il prefisso in {r10m_path}")
+            
+    # Prendiamo il primo file di banda (es. T34SGJ_..._B02_10m.jp2)
+    first_file_name = os.path.basename(band_jp2_files[0])
+    
+    # Il prefisso è la parte prima della banda e della risoluzione (es. _B02_10m.jp2)
+    # Troviamo l'indice dove inizia la specifica della banda (es. '_B02')
+    
+    parts = first_file_name.split('_')
+    
+    # Cerchiamo l'indice del primo elemento che inizia con 'B' (la banda)
+    band_index = -1
+    for i, part in enumerate(parts):
+        if part.startswith('B'):
+            band_index = i
+            break
+    
+    if band_index != -1 and band_index > 0:
+        # Il prefisso è tutto fino alla banda (escluso la banda)
+        # Es: parts = ['T34SGJ', '20210717T092031', 'B02', '10m.jp2']
+        # Risultato: 'T34SGJ_20210717T092031'
+        file_prefix = "_".join(parts[:band_index]) 
+    else:
+        # Fallback se la struttura del nome è inaspettata
+        raise ValueError(f"Impossibile dedurre il prefisso base dal file: {first_file_name}")
+        
+    return img_data_root, file_prefix
+
+class process_sentinel2_zip:
+    def __init__(self, zip_path, output_dir, final_output_path):
+        
+        # Salviamo output_dir come attributo per l'uso successivo (pulizia e percorso SAFE)
+        self.output_dir = output_dir
+        self.zip_path = zip_path # Salviamo zip_path per la pulizia finale
+
+        # Inizializzazione della configurazione delle bande
+        BAND_RESOLUTION_MAP = {
+        "B01": "R60m", "B02": "R10m", "B03": "R10m", "B04": "R10m", 
+        "B05": "R20m", "B06": "R20m", "B07": "R20m", "B08": "R10m", 
+        "B8A": "R20m", "B09": "R60m", "B10": "R60m", "B11": "R20m", 
+        "B12": "R20m", "SCL": "R20m"
+        }
+        BAND_LIST_ORDERED = list(BAND_RESOLUTION_MAP.keys())
+        
+        # Crea la directory di output se non esiste
+        os.makedirs(self.output_dir, exist_ok=True)
+        
+        # Definisci il percorso completo della cartella SAFE
+        safe_folder_name = None
+        
+        print(f"1. Estrazione del file: {self.zip_path}...")
+        try:
+            with zipfile.ZipFile(self.zip_path, 'r') as zip_ref:
+                # Estrae il nome della cartella SAFE dalla prima voce
+                safe_folder_name = zip_ref.namelist()[0].split('/')[0]
+                
+                # CHIAVE: Estrae tutto in output_dir (per risolvere Errno 30)
+                zip_ref.extractall(self.output_dir)
+                
+                # Memorizza il percorso COMPLETO della cartella SAFE
+                self.safe_folder_path = os.path.join(self.output_dir, safe_folder_name)
+
+        except Exception as e:
+            print(f"Errore durante l'estrazione del file ZIP: {e}")
+            return
+        
+        # --- Ricerca Dinamica dei File ---
+        try:
+            # CHIAMATA AGGIORNATA: Passa il percorso COMPLETO alla funzione
+            img_data_root, file_prefix = find_file_paths(self.safe_folder_path)
+        except FileNotFoundError as e:
+            print(f"Errore di struttura: {e}")
+            self.clean_up(safe_folder_name, None, False) # Pulizia parziale in caso di errore
+            return
+
+        # Costruisce l'elenco completo dei percorsi dei file .jp2 ordinati
+        input_files = []
+        print(f"Identificatore immagine (prefisso): {file_prefix}")
+        
+        for band in BAND_LIST_ORDERED:
+            resolution_folder = BAND_RESOLUTION_MAP[band]
+            
+            # Logica per il suffisso della risoluzione (standard Sentinel-2)
+            if resolution_folder == "R10m":
+                res_suffix = "_10m"
+            elif resolution_folder == "R20m":
+                res_suffix = "_20m"
+            elif resolution_folder == "R60m":
+                res_suffix = "_60m"
+            else:
+                res_suffix = "" 
+
+            file_name = f"{file_prefix}_{band}{res_suffix}.jp2"
+            file_path = os.path.join(img_data_root, resolution_folder, file_name)
+            
+            if os.path.exists(file_path):
+                input_files.append(file_path)
+            else:
+                if band != "B10": 
+                    print(f"Avviso: File della banda {band} non trovato a {file_path}. Skip.")
+                    
+        if not input_files:
+            print("Errore: Nessun file banda valido trovato per l'elaborazione.")
+            self.clean_up(safe_folder_name, None, False)
+            return
+            
+        # Percorso temporaneo per il VRT (Virtual Raster)
+        temp_vrt_path = os.path.join(self.output_dir, "temp_merged_native_res.vrt")
+
+        # --- 2. Unione delle Bande con gdal.BuildVRT ---
+        print(f"\n2. Creazione del VRT unito per {len(input_files)} bande in {temp_vrt_path}...")
+        
+        try:
+            vrt_options = gdal.BuildVRTOptions(resampleAlg=gdal.GRIORA_NearestNeighbour, separate=True)
+            gdal.BuildVRT(temp_vrt_path, input_files, options=vrt_options)
+            print("Creazione VRT completata.")
+        except Exception as e:
+            print(f"Errore durante la creazione del VRT con gdal.BuildVRT: {e}")
+            self.clean_up(safe_folder_name, temp_vrt_path, False)
+            return
+        # --- 3. Ricampionamento con gdal.Warp (Sostituisce gdalwarp) ---
+        print(f"\n3. Ricampionamento/Creazione del GeoTIFF finale a 10m in {final_output_path}...")
+
+        try:
+            # gdal.Warp legge dal VRT e ricampiona/scrive l'output finale
+            warp_options = gdal.WarpOptions(
+                format='GTiff', 
+                xRes=10.0, 
+                yRes=10.0, # -tr 10 10 
+                resampleAlg=gdal.GRA_CubicSpline # -r cubicspline
+            )
+            gdal.Warp(final_output_path, temp_vrt_path, options=warp_options)
+            print("Ricampionamento a 10m completato con successo! ✅")
+        except Exception as e:
+            self.clean_up(safe_folder_name, temp_vrt_path, False)
+            return
+            
+        # --- 4. Pulizia Finale ---
+        self.clean_up(safe_folder_name, temp_vrt_path, True)
+
+        print("\nProcesso completato.")
+        print(f"Il tuo file GeoTIFF multistrato è disponibile qui: {final_output_path}")
+
+    
+    def clean_up(self, safe_folder_name, temp_vrt_path, remove_zip=True):
+        """Funzione di pulizia ausiliaria."""
+        
+        # Rimuovi il VRT temporaneo
+        if temp_vrt_path and os.path.exists(temp_vrt_path):
+            try:
+                os.remove(temp_vrt_path)
+            except Exception as e:
+                print(f"Avviso durante la pulizia del VRT: {e}")
+
+        # Rimuovi la cartella SAFE estratta usando il percorso COMPLETO
+        if hasattr(self, 'safe_folder_path') and os.path.exists(self.safe_folder_path):
+             try:
+                shutil.rmtree(self.safe_folder_path, ignore_errors=True)
+                if safe_folder_name:
+                    print(f"\nPulizia completata. Cartella '{safe_folder_name}' rimossa.")
+             except Exception as e:
+                print(f"Avviso durante la pulizia della cartella SAFE: {e}")
+
+        # Rimuovi il file ZIP originale
+        if remove_zip and os.path.exists(self.zip_path):
+            try:
+                os.remove(self.zip_path)
+                print(f"File eliminato con successo: {self.zip_path}")
+            except Exception as e:
+                print(f"Avviso durante la pulizia del file ZIP: {e}")
 class ReadingData:
     def __init__(self,First_path,Second_path):
 
