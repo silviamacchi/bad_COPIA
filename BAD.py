@@ -22,17 +22,8 @@
  ***************************************************************************/
 """
 import os
-import os.path
 import time
 import numpy as np
-import pandas as pd
-import zipfile
-import io
-import rasterio
-from rasterio.enums import Resampling
-from rasterio.io import MemoryFile
-import json
-from rasterio.shutil import copy
 from PyQt5 import QtWidgets, QtCore
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QIcon, QColor, QImage, QPixmap
@@ -898,12 +889,12 @@ class BAD:
 
         url = f"https://download.dataspace.copernicus.eu/odata/v1/Products({product_identifier})/$value"
         headers = {"Authorization": f"Bearer {access_token}"}
-
-        output_file_zip = self.filename_sentinel_pre.replace('.tif', '.zip')
-        download_and_save_zip(url, headers, output_file_zip, self.filename_sentinel_pre)
+        output_file_sentinel_pre = self.dlg.lineEdit_FI_result_pre.text()
+        output_file_zip = output_file_sentinel_pre.replace('.tif', '.zip')
+        download_and_save_zip(url, headers, output_file_zip, output_file_sentinel_pre)
 
         if self.dlg.checkBox_FI_display.isChecked():
-                iface.addRasterLayer(self.filename_sentinel_pre, "Pre-fire Sentinel-2 Image")
+                iface.addRasterLayer(output_file_sentinel_pre, "Pre-fire Sentinel-2 Image")
 
 
 # The process is executed when the button "Download Post-fire" is clicked 
@@ -928,11 +919,12 @@ class BAD:
         url = f"https://download.dataspace.copernicus.eu/odata/v1/Products({product_identifier})/$value"
         headers = {"Authorization": f"Bearer {access_token}"}
 
-        output_file_zip = self.filename_sentinel_post.replace('.tif', '.zip')
-        download_and_save_zip(url, headers, output_file_zip, self.filename_sentinel_post)
+        output_file_sentinel_post = self.dlg.lineEdit_FI_result_post.text()
+        output_file_zip = output_file_sentinel_post.replace('.tif', '.zip')
+        download_and_save_zip(url, headers, output_file_zip, output_file_sentinel_post)
 
         if self.dlg.checkBox_FI_display.isChecked():
-                iface.addRasterLayer(self.filename_sentinel_post, "Post-fire Sentinel-2 Image")
+                iface.addRasterLayer(output_file_sentinel_post, "Post-fire Sentinel-2 Image")
 
 ###################################################################################################     
 ###################################################################################################
@@ -2525,11 +2517,11 @@ class BAD:
             self.dlg.pushButton_FI_download_pre.clicked.connect(self.download_sentinel_pre)
             self.dlg.pushButton_FI_download_post.clicked.connect(self.download_sentinel_post)
             
-            self.dlg.toolButton_FI_result_pre.clicked.connect(self.select_output_file_sentinel_pre)
-            self.dlg.toolButton_FI_result_post.clicked.connect(self.select_output_file_sentinel_post)
+            #self.dlg.toolButton_FI_result_pre.clicked.connect(self.select_output_file_sentinel_pre)
+            #self.dlg.toolButton_FI_result_post.clicked.connect(self.select_output_file_sentinel_post)
             #alternative try unique output function:
-            #self.dlg.toolButton_FI_result_pre.clicked.connect(lambda:self.select_output_file(self.dlg.lineEdit_FI_result_pre))
-            #self.dlg.toolButton_FI_result_post.clicked.connect(lambda:self.select_output_file(self.dlg.lineEdit_FI_result_post))
+            self.dlg.toolButton_FI_result_pre.clicked.connect(lambda:self.select_output_file(self.dlg.lineEdit_FI_result_pre))
+            self.dlg.toolButton_FI_result_post.clicked.connect(lambda:self.select_output_file(self.dlg.lineEdit_FI_result_post))
             
 
             # Mask

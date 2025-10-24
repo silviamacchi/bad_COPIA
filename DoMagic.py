@@ -32,7 +32,6 @@ import pandas as pd
 import zipfile
 import os
 import glob
-import subprocess
 import shutil
 
 # Initialize Qt resources from file resources.py
