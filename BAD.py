@@ -244,17 +244,7 @@ class BAD:
         if file_path:
             self.post_fire_path = file_path
             self.dlg.lineEditPostFire.setText(file_path)
-    def select_output_pre_fire(self):
-        file_path, _ = QFileDialog.getSaveFileName(self.dlg, "Select Output File for Pre-fire", "", "GeoTIFF Files (*.tif)")
-        if file_path:
-            self.output_pre_fire_path = file_path
-            self.dlg.lineEditOutputPreFire.setText(file_path)
-
-    def select_output_post_fire(self):
-        file_path, _ = QFileDialog.getSaveFileName(self.dlg, "Select Output File for Post-fire", "", "GeoTIFF Files (*.tif)")
-        if file_path:
-            self.output_post_fire_path = file_path
-            self.dlg.lineEditOutputPostFire.setText(file_path)
+    
     def populate_mask_classes(self):
         """Populate the class selection lists for pre-fire and post-fire."""
         classes = [
@@ -721,61 +711,6 @@ class BAD:
         filename, _filter = QFileDialog.getSaveFileName(self.dlg, "Select output file", "", '*.tif')
         target_lineedit.setText(filename)
 
-    def select_output_file_sentinel_pre(self):
-        filename_sentinel_pre, _filter = QFileDialog.getSaveFileName(self.dlg, "Select output file","",'*.tif')
-        self.dlg.lineEdit_FI_result_pre.setText(filename_sentinel_pre)
-
-    def select_output_file_sentinel_post(self):
-        filename_sentinel_post, _filter = QFileDialog.getSaveFileName(self.dlg, "Select output file","",'*.tif')
-        self.dlg.lineEdit_FI_result_post.setText(filename_sentinel_post)
-
-    def select_output_file_Feature(self):
-        filename_Feature, _filter = QFileDialog.getSaveFileName(self.dlg, "Select output file","",'*.tif')
-        self.dlg.lineEdit_Feature.setText(filename_Feature)
-
-    def select_output_file_MD(self):
-        filename_MD, _filter = QFileDialog.getSaveFileName(self.dlg, "Select output file","",'*.tif')
-        self.dlg.lineEdit_MD.setText(filename_MD)
-
-    def select_output_file_AND(self):
-        filename_AND, _filter = QFileDialog.getSaveFileName(self.dlg, "Select output file","",'*.tif')
-        self.dlg.lineEdit_OWA_AND.setText(filename_AND)
-
-    def select_output_file_almostAND(self):
-        filename_almostAND, _filter = QFileDialog.getSaveFileName(self.dlg, "Select output file","",'*.tif')
-        self.dlg.lineEdit_OWA_almostAND.setText(filename_almostAND)
-   
-    def select_output_file_AVERAGE(self):
-        filename_AVERAGE, _filter = QFileDialog.getSaveFileName(self.dlg, "Select output file","",'*.tif')
-        self.dlg.lineEdit_OWA_AVERAGE.setText(filename_AVERAGE)
-  
-    def select_output_file_almostOR(self):
-        filename_almostOR, _filter = QFileDialog.getSaveFileName(self.dlg, "Select output file","",'*.tif')
-        self.dlg.lineEdit_OWA_almostOR.setText(filename_almostOR)
-   
-    def select_output_file_OR(self):
-        filename_OR, _filter = QFileDialog.getSaveFileName(self.dlg, "Select output file","",'*.tif')
-        self.dlg.lineEdit_OWA_OR.setText(filename_OR)
-
-    def select_output_file_UserChoice1(self):
-        filename_UserChoice1, _filter = QFileDialog.getSaveFileName(self.dlg, "Select output file","",'*.tif')
-        self.dlg.lineEdit_OWA_UserChoice1.setText(filename_UserChoice1)
-
-    def select_output_file_UserChoice2(self):
-        filename_UserChoice2, _filter = QFileDialog.getSaveFileName(self.dlg, "Select output file","",'*.tif')
-        self.dlg.lineEdit_OWA_UserChoice2.setText(filename_UserChoice2)
-
-    def select_output_file_RG(self):
-        filename_RG, _filter = QFileDialog.getSaveFileName(self.dlg, "Select output file","",'*.tif')
-        self.dlg.lineEdit_RG_result.setText(filename_RG)
-
-    def select_output_file_Severity(self):
-        filename_Severity, _filter = QFileDialog.getSaveFileName(self.dlg, "Select output file","",'*.tif')
-        self.dlg.lineEdit_Severity.setText(filename_Severity)
-
-    def select_output_file_CombinedSeverity(self):
-        filename_CombinedSeverity, _filter = QFileDialog.getSaveFileName(self.dlg, "Select output file","",'*.tif')
-        self.dlg.lineEdit_CombinedSeverity.setText(filename_CombinedSeverity)
 
 ###################################################################################################     
 ###################################################################################################
@@ -2475,9 +2410,6 @@ class BAD:
             #self.dlg.pushButton_FI_download_pre.clicked.connect(self.download_sentinel_pre)
             #self.dlg.pushButton_FI_download_post.clicked.connect(self.download_sentinel_post)
             
-            #self.dlg.toolButton_FI_result_pre.clicked.connect(self.select_output_file_sentinel_pre)
-            #self.dlg.toolButton_FI_result_post.clicked.connect(self.select_output_file_sentinel_post)
-            #alternative try unique output function:
             self.dlg.toolButton_FI_result_pre.clicked.connect(lambda:self.select_output_file(self.dlg.lineEdit_FI_result_pre))
             self.dlg.toolButton_FI_result_post.clicked.connect(lambda:self.select_output_file(self.dlg.lineEdit_FI_result_post))
             
@@ -2486,8 +2418,8 @@ class BAD:
             self.populate_mask_classes()
             self.dlg.btnBrowsePreFire.clicked.connect(self.select_pre_fire_raster)
             self.dlg.btnBrowsePostFire.clicked.connect(self.select_post_fire_raster)
-            self.dlg.btnBrowseOutputPreFire.clicked.connect(self.select_output_pre_fire)
-            self.dlg.btnBrowseOutputPostFire.clicked.connect(self.select_output_post_fire)
+            self.dlg.btnBrowseOutputPreFire.clicked.connect(lambda:self.select_output_file(self.dlg.lineEdit_OutputPreFire))
+            self.dlg.btnBrowseOutputPostFire.clicked.connect(lambda:self.select_output_file(self.dlg.lineEdit_OutputPostFire))
             self.dlg.btnRunMasking.clicked.connect(self.run_masking)
             self.dlg.btnReset.clicked.connect(self.reset_fields)
 
@@ -2501,9 +2433,9 @@ class BAD:
             self.dlg.pushButton_Severity_reset.clicked.connect(self.reset_Severity_tab)
             
             #self.dlg.pushButton_Error.clicked.connect(self.test)
-            self.dlg.toolButton_Feature.clicked.connect(self.select_output_file_Feature)
-            self.dlg.toolButton_MD.clicked.connect(self.select_output_file_MD)
-
+            self.dlg.toolButton_Feature.clicked.connect(lambda:self.select_output_file(self.dlg.lineEdit_Feature))
+            self.dlg.toolButton_MD.clicked.connect(lambda:self.select_output_file(self.dlg.lineEdit_MD))
+            
             self.dlg.doubleSpinBox_OWA_max12.setVisible(False)
             self.dlg.doubleSpinBox_OWA_max22.setVisible(False)
             self.dlg.doubleSpinBox_OWA_max13.setVisible(False)
@@ -2521,16 +2453,16 @@ class BAD:
             self.dlg.count_min1=0
             self.dlg.count_min2=0
 
-            self.dlg.toolButton_OWA_AND.clicked.connect(self.select_output_file_AND)
-            self.dlg.toolButton_OWA_almostAND.clicked.connect(self.select_output_file_almostAND)
-            self.dlg.toolButton_OWA_AVERAGE.clicked.connect(self.select_output_file_AVERAGE)
-            self.dlg.toolButton_OWA_almostOR.clicked.connect(self.select_output_file_almostOR)
-            self.dlg.toolButton_OWA_OR.clicked.connect(self.select_output_file_OR)
-            self.dlg.toolButton_OWA_UserChoice1.clicked.connect(self.select_output_file_UserChoice1)
-            self.dlg.toolButton_OWA_UserChoice2.clicked.connect(self.select_output_file_UserChoice2)
-            self.dlg.toolButton_RG_result.clicked.connect(self.select_output_file_RG)
-            self.dlg.toolButton_Severity.clicked.connect(self.select_output_file_Severity)
-            self.dlg.toolButton_CombinedSeverity.clicked.connect(self.select_output_file_CombinedSeverity)
+            self.dlg.toolButton_OWA_AND.clicked.connect(lambda:self.select_output_file(self.dlg.lineEdit_OWA_AND))
+            self.dlg.toolButton_OWA_almostAND.clicked.connect(lambda:self.select_output_file(self.dlg.lineEdit_OWA_almostAND))
+            self.dlg.toolButton_OWA_AVERAGE.clicked.connect(lambda:self.select_output_file(self.dlg.lineEdit_OWA_AVERAGE))
+            self.dlg.toolButton_OWA_almostOR.clicked.connect(lambda:self.select_output_file(self.dlg.lineEdit_OWA_almostOR))
+            self.dlg.toolButton_OWA_OR.clicked.connect(lambda:self.select_output_file(self.dlg.lineEdit_OWA_OR))
+            self.dlg.toolButton_OWA_UserChoice1.clicked.connect(lambda:self.select_output_file(self.dlg.lineEdit_OWA_UserChoice1))
+            self.dlg.toolButton_OWA_UserChoice2.clicked.connect(lambda:self.select_output_file(self.dlg.lineEdit_OWA_UserChoice2))
+            self.dlg.toolButton_RG_result.clicked.connect(lambda:self.select_output_file(self.dlg.lineEdit_RG_result))
+            self.dlg.toolButton_Severity.clicked.connect(lambda:self.select_output_file(self.dlg.lineEdit_Severity))
+            self.dlg.toolButton_CombinedSeverity.clicked.connect(lambda:self.select_output_file(self.dlg.lineEdit_CombinedSeverity))
 
             self.dlg.pushButton_Feature_run.clicked.connect(self.ComputeFeature)
             self.dlg.pushButton_MD_run.clicked.connect(self.ComputeMD)
