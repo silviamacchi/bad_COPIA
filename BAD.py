@@ -24,6 +24,7 @@
 import os
 import time
 import numpy as np
+from pyproj import CRS, Transformer
 from PyQt5 import QtWidgets, QtCore
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QIcon, QColor, QImage, QPixmap
@@ -31,6 +32,8 @@ from PyQt5.QtWidgets import (
     QAction, QFileDialog, QMessageBox, QGraphicsScene,
     QGraphicsPixmapItem, QTableWidgetItem
 )
+import requests
+import json
 
 from qgis.PyQt.QtCore import QSettings, QTranslator, QCoreApplication
 from qgis.PyQt import uic
@@ -868,9 +871,54 @@ class BAD:
         #self.ui = Ui_Message()
         #self.ui.setupUi(self.window)
         #self.window.show()
+    
+
+    
+
+    # Esempio:
+    # BBOX = [23.2162, 38.7035, 23.4044, 38.8163] (Area in Grecia, zona 34N)
+    # utm_crs = get_utm_epsg_from_bbox(BBOX)
+    # print(utm_crs) # Output atteso: http://www.opengis.net/def/crs/EPSG/0/32634
 
     # The process is executed when the button "Download Pre-fire" is clicked 
     def download_sentinel_pre(self):
+
+        def transform_bbox_to_utm(bbox):
+            """
+            1. Calcola il codice EPSG UTM.
+            2. Trasforma la BBOX (W, S, E, N) da WGS84 (4326) a coordinate UTM (in metri).
+                
+            Args:
+                bbox (list): [W, S, E, N] in gradi decimali (stringhe o float).
+                
+            Returns:
+                tuple: (utm_crs_url, utm_bbox_list)
+            """
+            bbox = [float(x) for x in bbox]
+            lon_center = (bbox[0] + bbox[2]) / 2
+            lat_center = (bbox[1] + bbox[3]) / 2
+            
+            # --- 1. Trova l'EPSG UTM ---
+            utm_zone = int((lon_center + 180) / 6) + 1
+            epsg_code = 32600 + utm_zone if lat_center >= 0 else 32700 + utm_zone
+            utm_crs_url = f"http://www.opengis.net/def/crs/EPSG/0/{epsg_code}"
+            
+            # --- 2. Esegui la Trasformazione ---
+            crs_wgs84 = CRS.from_epsg(4326)
+            crs_utm = CRS.from_epsg(epsg_code)
+            
+            # Crea il trasformatore: da WGS84 a UTM
+            transformer = Transformer.from_crs(crs_wgs84, crs_utm, always_xy=True)
+            
+            # Trasforma gli angoli W e S
+            utm_w, utm_s = transformer.transform(bbox[0], bbox[1])
+            # Trasforma gli angoli E e N
+            utm_e, utm_n = transformer.transform(bbox[2], bbox[3])
+            
+            # La BBOX in UTM è [W_UTM, S_UTM, E_UTM, N_UTM]
+            utm_bbox_list = [utm_w, utm_s, utm_e, utm_n]
+            
+            return utm_crs_url, utm_bbox_list
 
         token_url = "https://identity.dataspace.copernicus.eu/auth/realms/CDSE/protocol/openid-connect/token"
         token_data = {
@@ -885,17 +933,149 @@ class BAD:
         print("Token body:", token_response.text)
 
         selected_row = self.dlg.download_images_pre.currentRow()
-
         product_identifier = self.List_pre.loc[selected_row, 'Id']
 
-        url = f"https://download.dataspace.copernicus.eu/odata/v1/Products({product_identifier})/$value"
-        headers = {"Authorization": f"Bearer {access_token}"}
-        output_file_sentinel_pre = self.dlg.lineEdit_FI_result_pre.text()
-        output_file_zip = output_file_sentinel_pre.replace('.tif', '.zip')
-        download_and_save_zip(url, headers, output_file_zip, output_file_sentinel_pre)
+        # =============================================================================
+        # 1. PARAMETRI DI AUTENTICAZIONE E RICHIESTA
+        #    SOSTITUISCI QUESTI VALORI CON I TUOI DATI REALI!
+        # =============================================================================
 
-        if self.dlg.checkBox_FI_display.isChecked():
-                iface.addRasterLayer(output_file_sentinel_pre, "Pre-fire Sentinel-2 Image")
+        # Endpoint dell'API di Processamento
+        PROCESS_API_URL = "https://sh.dataspace.copernicus.eu/api/v1/process"
+
+        # Definizione dell'area di interesse (Bounding Box) [W, S, E, N]
+        # Esempio: Area sopra Roma, Italia.
+        North=self.dlg.lineEdit_North.text()
+        South=self.dlg.lineEdit_South.text()
+        East=self.dlg.lineEdit_East.text()
+        West=self.dlg.lineEdit_West.text()
+        BBOX = [float(West), float(South), float(East), float(North)]
+        date=self.dlg.download_images_pre.item(selected_row, 1).text()
+        UTM_CRS_URL, UTM_BBOX = transform_bbox_to_utm(BBOX)
+
+        # Nome del file di output
+        OUTPUT_FILENAME = self.dlg.lineEdit_FI_result_pre.text()
+
+        # =============================================================================
+        # 2. EVALSCRIPT (Definizione delle Bande)
+        # =============================================================================
+
+        # Questo Evalscript richiede TUTTE le bande spettrali di Sentinel-2 (L2A)
+        # più la banda SCL (Scene Classification Layer).
+        EVALSCRIPT = """
+        //VERSION=3
+        function setup() {
+        return {
+            input: [
+            {
+                bands: ["B01", "B02", "B03", "B04", "B05", "B06", "B07", "B08", "B8A", "B09", "B11", "B12", "SCL"],
+                units: "DN" 
+            }
+            ],
+            output: [
+            {
+                id: "default",
+                bands: 13,
+                sampleType: "UINT16"
+            }
+            ]
+        }
+        }
+
+        function evaluatePixel(samples) {
+        // L'ordine delle bande deve corrispondere a quello definito in "input"
+        return [
+            samples.B01, samples.B02, samples.B03, samples.B04, samples.B05, samples.B06,
+            samples.B07, samples.B08, samples.B8A, samples.B09, samples.B11, samples.B12,
+            samples.SCL
+        ];
+        }
+        """
+        # =============================================================================
+        # 3. CREAZIONE DEL PAYLOAD JSON
+        # =============================================================================
+        print('id:', product_identifier)
+        request_payload = {
+            "input": {
+                "bounds": {
+                    "bbox": UTM_BBOX,
+                    "properties": {
+                        "crs": UTM_CRS_URL
+                    }
+                },
+                "data": [
+                    {
+                        "type": "sentinel-2-l2a",
+                        "dataFilter": {
+                        # 1. Filtro Temporale: cerca solo in quel giorno
+                            "timeRange": {
+                                "from": f"{date}T00:00:00Z",
+                                "to": f"{date}T23:59:59Z"
+                            }
+                        }
+                    }
+                ]
+            },
+            "output": {
+                "resx": 10,  # Risoluzione orizzontale in metri
+                "resy": 10,  # Risoluzione verticale in metri
+                "crs": UTM_CRS_URL,
+                # Specifica il formato GeoTIFF con tutte le bande definite nell'Evalscript
+                "responses": [
+                    {
+                        "identifier": "default",
+                        "format": {
+                            "type": "image/tiff"
+                        }
+                    }
+                ]
+            },
+            "evalscript": EVALSCRIPT
+        }
+        print('richiesta payload:', request_payload)
+        # =============================================================================
+        # 4. ESECUZIONE DELLA RICHIESTA
+        # =============================================================================
+
+        # Intestazioni di autenticazione e tipo di contenuto
+        headers = {
+            "Content-Type": "application/json",
+            "Authorization": f"Bearer {access_token}"
+        }
+
+        print(f"Invio della richiesta all'API di Processamento per bbox: {BBOX}...")
+
+        try:
+            response = requests.post(
+                PROCESS_API_URL,
+                headers=headers,
+                json=request_payload,
+                stream=True # Importante per download di file di grandi dimensioni
+            )
+
+            # Verifica lo stato della risposta
+            response.raise_for_status()
+
+            # Salva il GeoTIFF in un file
+            with open(OUTPUT_FILENAME, 'wb') as f:
+                for chunk in response.iter_content(chunk_size=8192):
+                    f.write(chunk)
+
+            print(f"✅ Download completato! File salvato come: {OUTPUT_FILENAME}")
+            if self.dlg.checkBox_FI_display.isChecked():
+                iface.addRasterLayer(OUTPUT_FILENAME, "Pre-fire Sentinel-2 Image")
+
+        except requests.exceptions.HTTPError as e:
+            print(f"❌ Errore HTTP: {e}")
+            try:
+                # Tenta di stampare il messaggio di errore dal corpo della risposta
+                error_details = response.json()
+                print(f"Dettagli dell'errore (Sentinel Hub): {json.dumps(error_details, indent=2)}")
+            except Exception:
+                print("Impossibile recuperare i dettagli JSON dell'errore.")
+
+        except requests.exceptions.RequestException as e:
+            print(f"❌ Si è verificato un errore di connessione: {e}")
 
 
 # The process is executed when the button "Download Post-fire" is clicked 
