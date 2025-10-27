@@ -838,7 +838,7 @@ class BAD:
         South=self.dlg.lineEdit_South.text()
         East=self.dlg.lineEdit_East.text()
         West=self.dlg.lineEdit_West.text()
-        aoi = f"POLYGON(({West} {South}, {East} {South}, {East} {North}, {West} {North}, {West} {South}))"
+        self.aoi = f"POLYGON(({West} {South}, {East} {South}, {East} {North}, {West} {North}, {West} {South}))"
 
         Start_date=self.dlg.dateEdit_Start_post.date().toString("yyyy-MM-dd")
         End_date=self.dlg.dateEdit_End_post.date().toString("yyyy-MM-dd")
@@ -847,7 +847,7 @@ class BAD:
         Limit_num=self.dlg.spinBox_FI_limit.value()
         self.dlg.download_images_post.setRowCount(0)  
 
-        self.List_post=SentinelSearch(aoi,Start_date,End_date,Cloud,Limit_num).result
+        self.List_post=SentinelSearch(self.aoi,Start_date,End_date,Cloud,Limit_num).result
         for index, row in self.List_post.iterrows():
             row_position = self.dlg.download_images_post.rowCount()
             self.dlg.download_images_post.insertRow(row_position)
@@ -874,6 +874,9 @@ class BAD:
     # The process is executed when the button "Download Pre-fire" is clicked 
     def download_sentinel_pre(self):
 
+        self.dlg.progressBar_pre.setVisible(True)  
+        self.dlg.pushButton_FI_download_pre.setEnabled(False)
+        self.update_progress(5)
         selected_row = self.dlg.download_images_pre.currentRow()
         #product_identifier = self.List_pre.loc[selected_row, 'Id']
         North=self.dlg.lineEdit_North.text()
@@ -885,15 +888,22 @@ class BAD:
         output_name = self.dlg.lineEdit_FI_result_pre.text()
         username = self.dlg.lineEdit_User.text()
         password = self.dlg.lineEdit_Password.text()
+        self.update_progress(15)
         Downloadsh(BBOX,date,output_name,username,password)
+        self.update_progress(100)
 
         if self.dlg.checkBox_FI_display.isChecked():
                 iface.addRasterLayer(output_name, "Pre-fire Sentinel-2 Image")
 
+        self.dlg.pushButton_FI_download_pre.setEnabled(True)
+        self.dlg.progressBar_pre.setVisible(False)
 
 # The process is executed when the button "Download Post-fire" is clicked 
     def download_sentinel_post(self):
 
+        self.dlg.progressBar_post.setVisible(True) 
+        self.dlg.pushButton_FI_download_post.setEnabled(False)
+        self.update_progress(5) 
         selected_row = self.dlg.download_images_post.currentRow()
         #product_identifier = self.List_post.loc[selected_row, 'Id']
         North=self.dlg.lineEdit_North.text()
@@ -905,10 +915,15 @@ class BAD:
         output_name = self.dlg.lineEdit_FI_result_post.text()
         username = self.dlg.lineEdit_User.text()
         password = self.dlg.lineEdit_Password.text()
+        self.update_progress(15)
         Downloadsh(BBOX,date,output_name,username,password)
+        self.update_progress(100)
 
         if self.dlg.checkBox_FI_display.isChecked():
                 iface.addRasterLayer(output_name, "Post-fire Sentinel-2 Image")
+        
+        self.dlg.pushButton_FI_download_post.setEnabled(True)
+        self.dlg.progressBar_post.setVisible(False)
 
 ###################################################################################################     
 ###################################################################################################
@@ -2498,6 +2513,10 @@ class BAD:
             #self.dlg.Preview_FI_pre.clicked.connect(self.preview_sentinel_pre)
             #self.dlg.Preview_FI_post.clicked.connect(self.preview_sentinel_post)
             self.dlg.pushButton_FI_reset.clicked.connect(self.reset_sentinel_fields)
+            self.dlg.progressBar_pre.setVisible(False)  
+            self.dlg.progressBar_pre.setValue(0)
+            self.dlg.progressBar_post.setVisible(False)  
+            self.dlg.progressBar_post.setValue(0)
             self.dlg.pushButton_FI_download_pre.clicked.connect(self.download_sentinel_pre)
             self.dlg.pushButton_FI_download_post.clicked.connect(self.download_sentinel_post)
             

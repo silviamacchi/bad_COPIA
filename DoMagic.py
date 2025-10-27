@@ -49,9 +49,13 @@ class SentinelSearch:
         print(f"""\n{search_query.replace(' ', "%20")}\n""")
         response = requests.get(search_query).json()
         self.result = pd.DataFrame.from_dict(response["value"])
-        print(self.result['Name'])
-        print(self.result.columns)
-
+        if not self.result.empty:
+            print(self.result['Name'])
+            print(self.result.columns)
+        else:
+            self.result = pd.DataFrame({'Name': ["No available data for the given dates. Please select a different time period."]})
+            print(self.result['Name'])
+            
 def transform_bbox_to_utm(bbox):
         lon_center = (bbox[0] + bbox[2]) / 2
         lat_center = (bbox[1] + bbox[3]) / 2
