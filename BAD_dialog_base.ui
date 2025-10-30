@@ -225,7 +225,7 @@
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>434</width>
+               <width>899</width>
                <height>1372</height>
               </rect>
              </property>
@@ -1130,7 +1130,7 @@
            </property>
           </widget>
          </item>
-         <item row="0" column="3">
+         <item row="0" column="2">
           <widget class="QPushButton" name="pushButton_FI_download_post">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
@@ -1140,20 +1140,6 @@
            </property>
            <property name="text">
             <string>Download Post-fire</string>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="2">
-          <widget class="QProgressBar" name="progressBar_pre">
-           <property name="value">
-            <number>24</number>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="4">
-          <widget class="QProgressBar" name="progressBar_post">
-           <property name="value">
-            <number>24</number>
            </property>
           </widget>
          </item>
@@ -4772,8 +4758,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>98</width>
-            <height>28</height>
+            <width>939</width>
+            <height>358</height>
            </rect>
           </property>
           <attribute name="label">

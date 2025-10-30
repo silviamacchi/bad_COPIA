@@ -784,6 +784,7 @@ class BAD:
 
 # The process is executed when the button "Search Pre-fire" is clicked  
     def search_sentinel_pre(self):
+
         print("Search Pre-fire button clicked, wait until the process end")
         self.show_progress_bar("Searching Pre-fire Sentinel-2 images")
         self.update_progress(5)
@@ -822,13 +823,11 @@ class BAD:
         print('Computational time Search Pre-fire [s]: ',(end - start),"start=", start,"end=",end) 
         print('\n') 
         self.window = QtWidgets.QDialog()
-        #self.ui = Ui_Message()
-        #self.ui.setupUi(self.window)
-        #self.window.show()
 
 
 # The process is executed when the button "Search Post-fire" is clicked 
     def search_sentinel_post(self):
+
         print("Search Post-fire button clicked, wait until the process end")
         self.show_progress_bar("Searching Post-fire Sentinel-2 images")
         self.update_progress(5)
@@ -867,16 +866,15 @@ class BAD:
         print('Computational time Search Post-fire [s]: ',(end - start),"start=", start,"end=",end) 
         print('\n') 
         self.window = QtWidgets.QDialog()
-        #self.ui = Ui_Message()
-        #self.ui.setupUi(self.window)
-        #self.window.show()
 
     # The process is executed when the button "Download Pre-fire" is clicked 
     def download_sentinel_pre(self):
 
-        self.dlg.progressBar_pre.setVisible(True)  
-        self.dlg.pushButton_FI_download_pre.setEnabled(False)
+        self.show_progress_bar("Downloading Pre-fire Sentinel-2 images")
         self.update_progress(5)
+        start = time.process_time()
+        self.dlg.pushButton_FI_download_pre.setEnabled(False)
+
         selected_row = self.dlg.download_images_pre.currentRow()
         #product_identifier = self.List_pre.loc[selected_row, 'Id']
         North=self.dlg.lineEdit_North.text()
@@ -896,14 +894,23 @@ class BAD:
                 iface.addRasterLayer(output_name, "Pre-fire Sentinel-2 Image")
 
         self.dlg.pushButton_FI_download_pre.setEnabled(True)
-        self.dlg.progressBar_pre.setVisible(False)
+        self.hide_progress_bar()
+        end = time.process_time()
+        print("Process end")
+        print('Computational time Download Pre-fire [s]: ',(end - start),"start=", start,"end=",end) 
+        print('\n')
+        self.ui = Ui_Message()
+        self.ui.setupUi(self.window)
+        self.window.show()
 
 # The process is executed when the button "Download Post-fire" is clicked 
     def download_sentinel_post(self):
 
-        self.dlg.progressBar_post.setVisible(True) 
+        self.show_progress_bar("Downloading Pre-fire Sentinel-2 images")
+        self.update_progress(5)
+        start = time.process_time()
         self.dlg.pushButton_FI_download_post.setEnabled(False)
-        self.update_progress(5) 
+
         selected_row = self.dlg.download_images_post.currentRow()
         #product_identifier = self.List_post.loc[selected_row, 'Id']
         North=self.dlg.lineEdit_North.text()
@@ -923,7 +930,14 @@ class BAD:
                 iface.addRasterLayer(output_name, "Post-fire Sentinel-2 Image")
         
         self.dlg.pushButton_FI_download_post.setEnabled(True)
-        self.dlg.progressBar_post.setVisible(False)
+        self.hide_progress_bar()
+        end = time.process_time()
+        print("Process end")
+        print('Computational time Download Post-fire [s]: ',(end - start),"start=", start,"end=",end) 
+        print('\n')
+        self.ui = Ui_Message()
+        self.ui.setupUi(self.window)
+        self.window.show()
 
 ###################################################################################################     
 ###################################################################################################
@@ -2513,10 +2527,6 @@ class BAD:
             #self.dlg.Preview_FI_pre.clicked.connect(self.preview_sentinel_pre)
             #self.dlg.Preview_FI_post.clicked.connect(self.preview_sentinel_post)
             self.dlg.pushButton_FI_reset.clicked.connect(self.reset_sentinel_fields)
-            self.dlg.progressBar_pre.setVisible(False)  
-            self.dlg.progressBar_pre.setValue(0)
-            self.dlg.progressBar_post.setVisible(False)  
-            self.dlg.progressBar_post.setValue(0)
             self.dlg.pushButton_FI_download_pre.clicked.connect(self.download_sentinel_pre)
             self.dlg.pushButton_FI_download_post.clicked.connect(self.download_sentinel_post)
             
