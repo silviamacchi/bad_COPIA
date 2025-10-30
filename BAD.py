@@ -236,6 +236,8 @@ class BAD:
 # Pre-Processing tab:
     def select_pre_fire_raster(self):
         file_path, _ = QFileDialog.getOpenFileName(self.dlg, "Select Pre-fire Raster", "", "GeoTIFF Files (*.tif)")
+        self.dlg.lineEditPreFire.setVisible(True)
+        self.dlg.comboBox_PreRaster.setVisible(False)
         if file_path:
             self.pre_fire_path = file_path
             self.dlg.lineEditPreFire.setText(file_path)
@@ -903,6 +905,14 @@ class BAD:
         self.ui.setupUi(self.window)
         self.window.show()
 
+        #populate the comboBox with name of prefire layer
+        self.dlg.comboBox_PreRaster.setVisible(True)
+        self.dlg.lineEditPreFire.setVisible(False)
+        self.dlg.comboBox_PreRaster.addItems(['Select a Layer'])
+        
+        self.dlg.comboBox_PreRaster.addItems(["Pre-fire Sentinel-2 Image"])
+
+
 # The process is executed when the button "Download Post-fire" is clicked 
     def download_sentinel_post(self):
 
@@ -938,6 +948,13 @@ class BAD:
         self.ui = Ui_Message()
         self.ui.setupUi(self.window)
         self.window.show()
+
+        #populate the comboBox with name of prefire layer
+        self.dlg.comboBox_PostRaster.setVisible(True)
+        self.dlg.lineEditPostFire.setVisible(False)
+        self.dlg.comboBox_PostRaster.addItems(['Select a Layer'])
+
+        self.dlg.comboBox_PostRaster.addItems(["Post-fire Sentinel-2 Image"])
 
 ###################################################################################################     
 ###################################################################################################
@@ -2524,14 +2541,10 @@ class BAD:
             # Input Sentinel
             self.dlg.pushButton_FI_search_pre.clicked.connect(self.search_sentinel_pre)
             self.dlg.pushButton_FI_search_post.clicked.connect(self.search_sentinel_post)
-            #self.dlg.Preview_FI_pre.clicked.connect(self.preview_sentinel_pre)
-            #self.dlg.Preview_FI_post.clicked.connect(self.preview_sentinel_post)
             self.dlg.pushButton_FI_reset.clicked.connect(self.reset_sentinel_fields)
             self.dlg.pushButton_FI_download_pre.clicked.connect(self.download_sentinel_pre)
             self.dlg.pushButton_FI_download_post.clicked.connect(self.download_sentinel_post)
             
-            #self.dlg.toolButton_FI_result_pre.clicked.connect(self.select_output_file_sentinel_pre)
-            #self.dlg.toolButton_FI_result_post.clicked.connect(self.select_output_file_sentinel_post)
             #alternative try unique output function:
             self.dlg.toolButton_FI_result_pre.clicked.connect(lambda:self.select_output_file(self.dlg.lineEdit_FI_result_pre))
             self.dlg.toolButton_FI_result_post.clicked.connect(lambda:self.select_output_file(self.dlg.lineEdit_FI_result_post))
@@ -2545,6 +2558,15 @@ class BAD:
             self.dlg.btnBrowseOutputPostFire.clicked.connect(self.select_output_post_fire)
             self.dlg.btnRunMasking.clicked.connect(self.run_masking)
             self.dlg.btnReset.clicked.connect(self.reset_fields)
+
+            # Synchronize comboBoxes and lineEdits in Mask tab
+            self.dlg.comboBox_PreRaster.setVisible(False)
+            self.dlg.comboBox_PreRaster.currentTextChanged.connect(self.dlg.lineEditPreFire.setText)
+            self.dlg.lineEditPreFire.textChanged.connect(lambda text: self.dlg.comboBox_PreRaster.setEditText(text))
+
+            self.dlg.comboBox_PostRaster.setVisible(False)
+            self.dlg.comboBox_PostRaster.currentTextChanged.connect(self.dlg.lineEditPostFire.setText)
+            self.dlg.lineEditPostFire.textChanged.connect(lambda text: self.dlg.comboBox_PostRaster.setEditText(text))
 
             
             self.dlg.pushButton_input_reset.clicked.connect(self.reset_input_tab)
