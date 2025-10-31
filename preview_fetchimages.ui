@@ -94,7 +94,6 @@
      <property name="font">
       <font>
        <pointsize>10</pointsize>
-       <weight>75</weight>
        <bold>true</bold>
       </font>
      </property>
@@ -120,13 +119,6 @@
       </item>
       <item row="0" column="0">
        <layout class="QHBoxLayout" name="horizontalLayout_6">
-        <item>
-         <widget class="QCheckBox" name="checkBox_AOI">
-          <property name="text">
-           <string>AOI</string>
-          </property>
-         </widget>
-        </item>
         <item>
          <spacer name="horizontalSpacer">
           <property name="orientation">
@@ -201,7 +193,6 @@
         <property name="font">
          <font>
           <pointsize>10</pointsize>
-          <weight>50</weight>
           <bold>false</bold>
          </font>
         </property>

@@ -22,10 +22,8 @@
  ***************************************************************************/
 """
 import os
-import os.path
 import time
 import numpy as np
-import pandas as pd
 from PyQt5 import QtWidgets, QtCore
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QIcon, QColor, QImage, QPixmap
@@ -33,6 +31,8 @@ from PyQt5.QtWidgets import (
     QAction, QFileDialog, QMessageBox, QGraphicsScene,
     QGraphicsPixmapItem, QTableWidgetItem
 )
+import requests
+import json
 
 from qgis.PyQt.QtCore import QSettings, QTranslator, QCoreApplication
 from qgis.PyQt import uic
@@ -236,6 +236,8 @@ class BAD:
 # Pre-Processing tab:
     def select_pre_fire_raster(self):
         file_path, _ = QFileDialog.getOpenFileName(self.dlg, "Select Pre-fire Raster", "", "GeoTIFF Files (*.tif)")
+        self.dlg.lineEditPreFire.setVisible(True)
+        self.dlg.comboBox_PreRaster.setVisible(False)
         if file_path:
             self.pre_fire_path = file_path
             self.dlg.lineEditPreFire.setText(file_path)
@@ -719,6 +721,7 @@ class BAD:
 
 # The process is executed when the button "Search Pre-fire" is clicked  
     def search_sentinel_pre(self):
+
         print("Search Pre-fire button clicked, wait until the process end")
         self.show_progress_bar("Searching Pre-fire Sentinel-2 images")
         self.update_progress(5)
@@ -728,17 +731,16 @@ class BAD:
         South=self.dlg.lineEdit_South.text()
         East=self.dlg.lineEdit_East.text()
         West=self.dlg.lineEdit_West.text()
-
-        User=self.dlg.lineEdit_User.text()
-        Password=self.dlg.lineEdit_Password.text()
+        self.aoi = f"POLYGON(({West} {South}, {East} {South}, {East} {North}, {West} {North}, {West} {South}))"
 
         Start_date=self.dlg.dateEdit_Start_pre.date().toString("yyyy-MM-dd")
         End_date=self.dlg.dateEdit_End_pre.date().toString("yyyy-MM-dd")
 
         Cloud=self.dlg.horizontalSlider_cloud.value()
         Limit_num=self.dlg.spinBox_FI_limit.value()
+        self.dlg.download_images_pre.setRowCount(0) 
 
-        self.List_pre=SentinelSearch(North,South,East,West,User,Password,Start_date,End_date,Cloud,Limit_num).result
+        self.List_pre=SentinelSearch(self.aoi,Start_date,End_date,Cloud,Limit_num).result
         self.update_progress(70)
         for index, row in self.List_pre.iterrows():
             row_position = self.dlg.download_images_pre.rowCount()
@@ -750,7 +752,7 @@ class BAD:
             time_im=row['Name'][20:26]
             time_formatted = f"{time_im[:2]}:{time_im[2:4]}:{time_im[4:]}"
             self.dlg.download_images_pre.setItem(row_position, 2, QTableWidgetItem(time_formatted))
-
+            self.dlg.download_images_pre.setItem(row_position, 3, QTableWidgetItem(row['Name'][38:44]))
         self.update_progress(100)
         self.hide_progress_bar()
         end = time.process_time()
@@ -758,13 +760,11 @@ class BAD:
         print('Computational time Search Pre-fire [s]: ',(end - start),"start=", start,"end=",end) 
         print('\n') 
         self.window = QtWidgets.QDialog()
-        #self.ui = Ui_Message()
-        #self.ui.setupUi(self.window)
-        #self.window.show()
 
 
-# The process is executed when the button "Search Pre-fire" is clicked 
+# The process is executed when the button "Search Post-fire" is clicked 
     def search_sentinel_post(self):
+
         print("Search Post-fire button clicked, wait until the process end")
         self.show_progress_bar("Searching Post-fire Sentinel-2 images")
         self.update_progress(5)
@@ -774,17 +774,16 @@ class BAD:
         South=self.dlg.lineEdit_South.text()
         East=self.dlg.lineEdit_East.text()
         West=self.dlg.lineEdit_West.text()
-
-        User=self.dlg.lineEdit_User.text()
-        Password=self.dlg.lineEdit_Password.text()
+        self.aoi = f"POLYGON(({West} {South}, {East} {South}, {East} {North}, {West} {North}, {West} {South}))"
 
         Start_date=self.dlg.dateEdit_Start_post.date().toString("yyyy-MM-dd")
         End_date=self.dlg.dateEdit_End_post.date().toString("yyyy-MM-dd")
 
         Cloud=self.dlg.horizontalSlider_cloud.value()
         Limit_num=self.dlg.spinBox_FI_limit.value()
+        self.dlg.download_images_post.setRowCount(0)  
 
-        self.List_post=SentinelSearch(North,South,East,West,User,Password,Start_date,End_date,Cloud,Limit_num).result
+        self.List_post=SentinelSearch(self.aoi,Start_date,End_date,Cloud,Limit_num).result
         for index, row in self.List_post.iterrows():
             row_position = self.dlg.download_images_post.rowCount()
             self.dlg.download_images_post.insertRow(row_position)
@@ -795,6 +794,7 @@ class BAD:
             time_im=row['Name'][20:26]
             time_formatted = f"{time_im[:2]}:{time_im[2:4]}:{time_im[4:]}"
             self.dlg.download_images_post.setItem(row_position, 2, QTableWidgetItem(time_formatted))
+            self.dlg.download_images_post.setItem(row_position, 3, QTableWidgetItem(row['Name'][38:44]))
 
         self.update_progress(100)
         self.hide_progress_bar()
@@ -803,21 +803,93 @@ class BAD:
         print('Computational time Search Post-fire [s]: ',(end - start),"start=", start,"end=",end) 
         print('\n') 
         self.window = QtWidgets.QDialog()
-        #self.ui = Ui_Message()
-        #self.ui.setupUi(self.window)
-        #self.window.show()
 
-# The process is executed when the button "Layer Preview Pre" is clicked 
-    #def preview_sentinel_pre(self):
+    # The process is executed when the button "Download Pre-fire" is clicked 
+    def download_sentinel_pre(self):
 
-# The process is executed when the button "Layer Preview Post" is clicked 
-    #def preview_sentinel_post(self):
+        self.show_progress_bar("Downloading Pre-fire Sentinel-2 images")
+        self.update_progress(5)
+        start = time.process_time()
+        self.dlg.pushButton_FI_download_pre.setEnabled(False)
 
-# The process is executed when the button "Download Pre-fire" is clicked 
-    #def download_sentinel_pre(self):
+        selected_row = self.dlg.download_images_pre.currentRow()
+        #product_identifier = self.List_pre.loc[selected_row, 'Id']
+        North=self.dlg.lineEdit_North.text()
+        South=self.dlg.lineEdit_South.text()
+        East=self.dlg.lineEdit_East.text()
+        West=self.dlg.lineEdit_West.text()
+        BBOX = [float(West), float(South), float(East), float(North)]
+        date=self.dlg.download_images_pre.item(selected_row, 1).text()
+        output_name = self.dlg.lineEdit_FI_result_pre.text()
+        username = self.dlg.lineEdit_User.text()
+        password = self.dlg.lineEdit_Password.text()
+        self.update_progress(15)
+        Downloadsh(BBOX,date,output_name,username,password)
+        self.update_progress(100)
+
+        if self.dlg.checkBox_FI_display.isChecked():
+                iface.addRasterLayer(output_name, "Pre-fire Sentinel-2 Image")
+
+        self.dlg.pushButton_FI_download_pre.setEnabled(True)
+        self.hide_progress_bar()
+        end = time.process_time()
+        print("Process end")
+        print('Computational time Download Pre-fire [s]: ',(end - start),"start=", start,"end=",end) 
+        print('\n')
+        self.ui = Ui_Message()
+        self.ui.setupUi(self.window)
+        self.window.show()
+
+        #populate the comboBox with name of prefire layer
+        self.dlg.comboBox_PreRaster.setVisible(True)
+        self.dlg.lineEditPreFire.setVisible(False)
+        self.dlg.comboBox_PreRaster.addItems(['Select a Layer'])
+        
+        self.dlg.comboBox_PreRaster.addItems(["Pre-fire Sentinel-2 Image"])
+
 
 # The process is executed when the button "Download Post-fire" is clicked 
-    #def download_sentinel_post(self):
+    def download_sentinel_post(self):
+
+        self.show_progress_bar("Downloading Pre-fire Sentinel-2 images")
+        self.update_progress(5)
+        start = time.process_time()
+        self.dlg.pushButton_FI_download_post.setEnabled(False)
+
+        selected_row = self.dlg.download_images_post.currentRow()
+        #product_identifier = self.List_post.loc[selected_row, 'Id']
+        North=self.dlg.lineEdit_North.text()
+        South=self.dlg.lineEdit_South.text()
+        East=self.dlg.lineEdit_East.text()
+        West=self.dlg.lineEdit_West.text()
+        BBOX = [float(West), float(South), float(East), float(North)]
+        date=self.dlg.download_images_post.item(selected_row, 1).text()
+        output_name = self.dlg.lineEdit_FI_result_post.text()
+        username = self.dlg.lineEdit_User.text()
+        password = self.dlg.lineEdit_Password.text()
+        self.update_progress(15)
+        Downloadsh(BBOX,date,output_name,username,password)
+        self.update_progress(100)
+
+        if self.dlg.checkBox_FI_display.isChecked():
+                iface.addRasterLayer(output_name, "Post-fire Sentinel-2 Image")
+        
+        self.dlg.pushButton_FI_download_post.setEnabled(True)
+        self.hide_progress_bar()
+        end = time.process_time()
+        print("Process end")
+        print('Computational time Download Post-fire [s]: ',(end - start),"start=", start,"end=",end) 
+        print('\n')
+        self.ui = Ui_Message()
+        self.ui.setupUi(self.window)
+        self.window.show()
+
+        #populate the comboBox with name of prefire layer
+        self.dlg.comboBox_PostRaster.setVisible(True)
+        self.dlg.lineEditPostFire.setVisible(False)
+        self.dlg.comboBox_PostRaster.addItems(['Select a Layer'])
+
+        self.dlg.comboBox_PostRaster.addItems(["Post-fire Sentinel-2 Image"])
 
 ###################################################################################################     
 ###################################################################################################
@@ -2404,11 +2476,9 @@ class BAD:
             # Input Sentinel
             self.dlg.pushButton_FI_search_pre.clicked.connect(self.search_sentinel_pre)
             self.dlg.pushButton_FI_search_post.clicked.connect(self.search_sentinel_post)
-            #self.dlg.Preview_FI_pre.clicked.connect(self.preview_sentinel_pre)
-            #self.dlg.Preview_FI_post.clicked.connect(self.preview_sentinel_post)
             self.dlg.pushButton_FI_reset.clicked.connect(self.reset_sentinel_fields)
-            #self.dlg.pushButton_FI_download_pre.clicked.connect(self.download_sentinel_pre)
-            #self.dlg.pushButton_FI_download_post.clicked.connect(self.download_sentinel_post)
+            self.dlg.pushButton_FI_download_pre.clicked.connect(self.download_sentinel_pre)
+            self.dlg.pushButton_FI_download_post.clicked.connect(self.download_sentinel_post)
             
             self.dlg.toolButton_FI_result_pre.clicked.connect(lambda:self.select_output_file(self.dlg.lineEdit_FI_result_pre))
             self.dlg.toolButton_FI_result_post.clicked.connect(lambda:self.select_output_file(self.dlg.lineEdit_FI_result_post))
@@ -2422,6 +2492,15 @@ class BAD:
             self.dlg.btnBrowseOutputPostFire.clicked.connect(lambda:self.select_output_file(self.dlg.lineEdit_OutputPostFire))
             self.dlg.btnRunMasking.clicked.connect(self.run_masking)
             self.dlg.btnReset.clicked.connect(self.reset_fields)
+
+            # Synchronize comboBoxes and lineEdits in Mask tab
+            self.dlg.comboBox_PreRaster.setVisible(False)
+            self.dlg.comboBox_PreRaster.currentTextChanged.connect(self.dlg.lineEditPreFire.setText)
+            self.dlg.lineEditPreFire.textChanged.connect(lambda text: self.dlg.comboBox_PreRaster.setEditText(text))
+
+            self.dlg.comboBox_PostRaster.setVisible(False)
+            self.dlg.comboBox_PostRaster.currentTextChanged.connect(self.dlg.lineEditPostFire.setText)
+            self.dlg.lineEditPostFire.textChanged.connect(lambda text: self.dlg.comboBox_PostRaster.setEditText(text))
 
             
             self.dlg.pushButton_input_reset.clicked.connect(self.reset_input_tab)

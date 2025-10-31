@@ -29,28 +29,152 @@ import numpy as np
 #new libraries
 import requests
 import pandas as pd
+from pyproj import CRS, Transformer
+import json
 
 # Initialize Qt resources from file resources.py
 from .resources import *
 
 class SentinelSearch:
-    def __init__(self,North,South,East,West,User,Password,Start_date,End_date,Cloud,Limit_num):
+    def __init__(self,aoi,Start_date,End_date,Cloud,Limit_num):
         
         catalogue_odata_url = "https://catalogue.dataspace.copernicus.eu/odata/v1"
         collection_name = "SENTINEL-2"
         product_type = "S2MSI2A"
-        aoi = f"POLYGON(({West} {South}, {East} {South}, {East} {North}, {West} {North}, {West} {South}))"
         search_period_start = f"{Start_date}T00:00:00.000Z"
         search_period_end = f"{End_date}T00:00:00.000Z"
 
-        search_query = f"{catalogue_odata_url}/Products?$filter=Collection/Name eq '{collection_name}' and Attributes/OData.CSC.StringAttribute/any(att:att/Name eq 'productType' and att/OData.CSC.StringAttribute/Value eq '{product_type}') and Attributes/OData.CSC.DoubleAttribute/any(att:att/Name eq 'cloudCover' and att/OData.CSC.DoubleAttribute/Value le {Cloud}) and OData.CSC.Intersects(area=geography'SRID=4326;{aoi}') and ContentDate/Start gt {search_period_start} and ContentDate/Start lt {search_period_end}&$top={Limit_num}"
+        search_query = f"{catalogue_odata_url}/Products?$filter=Collection/Name eq '{collection_name}' and Attributes/OData.CSC.StringAttribute/any(att:att/Name eq 'productType' and att/OData.CSC.StringAttribute/Value eq '{product_type}') and Attributes/OData.CSC.DoubleAttribute/any(att:att/Name eq 'cloudCover' and att/OData.CSC.DoubleAttribute/Value le {Cloud}) and OData.CSC.Intersects(area=geography'SRID=4326;{aoi}') and ContentDate/Start gt {search_period_start} and ContentDate/Start lt {search_period_end}&$top={Limit_num}&$orderby=ContentDate/Start asc"
 
         print(f"""\n{search_query.replace(' ', "%20")}\n""")
         response = requests.get(search_query).json()
         self.result = pd.DataFrame.from_dict(response["value"])
-        print(self.result['Name'])
-        print(self.result.columns)
+        if not self.result.empty:
+            print(self.result['Name'])
+            print(self.result.columns)
+        else:
+            self.result = pd.DataFrame({'Name': ["No available data for the given dates. Please select a different time period."]})
+            print(self.result['Name'])
+            
+def transform_bbox_to_utm(bbox):
+        lon_center = (bbox[0] + bbox[2]) / 2
+        lat_center = (bbox[1] + bbox[3]) / 2
+        
+        # Find UTM zone
+        utm_zone = int((lon_center + 180) / 6) + 1
+        epsg_code = 32600 + utm_zone if lat_center >= 0 else 32700 + utm_zone
+        utm_crs_url = f"http://www.opengis.net/def/crs/EPSG/0/{epsg_code}"
+        
+        crs_wgs84 = CRS.from_epsg(4326)
+        crs_utm = CRS.from_epsg(epsg_code)
+        transformer = Transformer.from_crs(crs_wgs84, crs_utm, always_xy=True)
+        
+        utm_w, utm_s = transformer.transform(bbox[0], bbox[1])
+        utm_e, utm_n = transformer.transform(bbox[2], bbox[3])
+        utm_bbox_list = [utm_w, utm_s, utm_e, utm_n]
+        
+        return utm_crs_url, utm_bbox_list
 
+def Downloadsh(BBOX,date,output_name,username,password):
+    token_url = "https://identity.dataspace.copernicus.eu/auth/realms/CDSE/protocol/openid-connect/token"
+    token_data = {
+        "grant_type": "client_credentials",
+        "client_id": username,
+        "client_secret": password
+    }
+    token_response = requests.post(token_url, data=token_data)
+    access_token = token_response.json().get("access_token")
+    PROCESS_API_URL = "https://sh.dataspace.copernicus.eu/api/v1/process"
+    UTM_CRS_URL, UTM_BBOX = transform_bbox_to_utm(BBOX)
+    EVALSCRIPT = """
+    function setup() {
+    return {
+        input: [
+        {
+            bands: ["B01", "B02", "B03", "B04", "B05", "B06", "B07", "B08", "B8A", "B09", "B11", "B12", "SCL"],
+            units: "DN" 
+        }
+        ],
+        output: [
+        {
+            id: "default",
+            bands: 13,
+            sampleType: "UINT16"
+        }
+        ]
+    }
+    }
+
+    function evaluatePixel(samples) {
+    return [
+        samples.B01, samples.B02, samples.B03, samples.B04, samples.B05, samples.B06,
+        samples.B07, samples.B08, samples.B8A, samples.B09, samples.B11, samples.B12,
+        samples.SCL
+    ];
+    }
+    """
+    request_payload = {
+        "input": {
+            "bounds": {
+                "bbox": UTM_BBOX,
+                "properties": {
+                    "crs": UTM_CRS_URL
+                }
+            },
+            "data": [
+                {
+                    "type": "sentinel-2-l2a",
+                    "dataFilter": {
+                        "timeRange": {
+                            "from": f"{date}T00:00:00Z",
+                            "to": f"{date}T23:59:59Z"
+                        }
+                    }
+                }
+            ]
+        },
+        "output": {
+            "resx": 10,  
+            "resy": 10,  
+            "crs": UTM_CRS_URL,
+            "responses": [
+                {
+                    "identifier": "default",
+                    "format": {
+                        "type": "image/tiff"
+                    }
+                }
+            ]
+        },
+        "evalscript": EVALSCRIPT
+    }
+    headers = {
+        "Content-Type": "application/json",
+        "Authorization": f"Bearer {access_token}"
+    }
+    try:
+        response = requests.post(
+            PROCESS_API_URL,
+            headers=headers,
+            json=request_payload,
+            stream=True 
+        )
+        response.raise_for_status()
+
+        with open(output_name, 'wb') as f:
+            for chunk in response.iter_content(chunk_size=8192):
+                f.write(chunk)
+
+    except requests.exceptions.HTTPError as e:
+        print(f"Error HTTP: {e}")
+        try:
+            error_details = response.json()
+            print(f"Error (Sentinel Hub): {json.dumps(error_details, indent=2)}")
+        except Exception:
+            print("No details about the error.")
+
+    except requests.exceptions.RequestException as e:
+        print(f"Connection error: {e}")
 class ReadingData:
     def __init__(self,First_path,Second_path):
 

@@ -46,25 +46,19 @@ class BADDialog(QtWidgets.QDialog, FORM_CLASS):
         self.setupUi(self)
         self.Preview.clicked.connect(self.open_preview_window)
         
-        self.Preview_FI_pre.clicked.connect(self.open_preview_fetchimages)
-        self.Preview_FI_post.clicked.connect(self.open_preview_fetchimages)
+        self.Preview_FI_pre.clicked.connect(self.open_preview_fetchimages_pre)
+        self.Preview_FI_post.clicked.connect(self.open_preview_fetchimages_post)
 
     def open_preview_window(self):
         self.preview_dialog = PreviewWindow(self)
         self.preview_dialog.show()
 
-    def open_preview_fetchimages(self,row):
-        #self.preview_dialog = PreviewFetchImages(self)
-        #self.preview_dialog.show()
+    def open_preview_fetchimages_pre(self):
 
-        #item = self.download_images_pre.item(row, 0)  # Colonna 0 = 'Name'
-        #if item:
-        #    selected_name = item.text()
-        #    print("Clicked on:", selected_name)
-
+        selected_row = self.download_images_pre.currentRow()
         bbox=[float(self.lineEdit_West.text()), float(self.lineEdit_South.text()), float(self.lineEdit_East.text()), float(self.lineEdit_North.text())]
-        date=self.download_images_pre.item(row, 1).text()  # Column 1 = 'Date'
-        time=self.download_images_pre.item(row, 2).text()  # Column 2 = 'Time'
+        date=self.download_images_pre.item(selected_row, 1).text()  # Column 1 = 'Date'
+        time=self.download_images_pre.item(selected_row, 2).text()  # Column 2 = 'Time'
         user=self.lineEdit_User.text()
         password=self.lineEdit_Password.text()
 
@@ -72,5 +66,17 @@ class BADDialog(QtWidgets.QDialog, FORM_CLASS):
         self.preview_dialog = PreviewFetchImages(bbox=bbox, date=date, time=time, user=user, password=password)
         self.preview_dialog.show()
 
+    def open_preview_fetchimages_post(self):
+
+            selected_row = self.download_images_post.currentRow()
+            bbox=[float(self.lineEdit_West.text()), float(self.lineEdit_South.text()), float(self.lineEdit_East.text()), float(self.lineEdit_North.text())]
+            date=self.download_images_post.item(selected_row, 1).text()  # Column 1 = 'Date'
+            time=self.download_images_post.item(selected_row, 2).text()  # Column 2 = 'Time'
+            user=self.lineEdit_User.text()
+            password=self.lineEdit_Password.text()
+
+            # Open preview with the selected image name
+            self.preview_dialog = PreviewFetchImages(bbox=bbox, date=date, time=time, user=user, password=password)
+            self.preview_dialog.show()
 
  

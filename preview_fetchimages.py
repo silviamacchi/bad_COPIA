@@ -1,12 +1,8 @@
 import os
-import numpy as np
 import requests
-from .DoMagic import SentinelSearch
 from qgis.PyQt import uic, QtWidgets
 from qgis.PyQt.QtWidgets import QFileDialog, QGraphicsScene
 from qgis.PyQt.QtGui import QImage, QPixmap, QColor
-from qgis.PyQt.QtCore import Qt
-from osgeo import gdal
 from PyQt5.QtGui import QPixmap, QPainter, QColor, QFont
 
 
@@ -22,7 +18,6 @@ class PreviewFetchImages(QtWidgets.QDialog, FORM_CLASS):
         self.graphicsView.setScene(self.preview_scene)
         
         self.lineEdit.setVisible(False)
-        
 
         self.pixmap = self.get_sentinel_preview(
             client_id=user,
@@ -39,7 +34,6 @@ class PreviewFetchImages(QtWidgets.QDialog, FORM_CLASS):
         else:
             self.lineEdit.setVisible(True)
             self.lineEdit.setStyleSheet("color: red; font-weight: bold;")
-
             print("Not possible to get the image.")
     
         self.btnClose.clicked.connect(self.close)
