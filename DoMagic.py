@@ -217,7 +217,6 @@ class OrderedWeigthAverage:
                     else:
                         value=min(vector)
                     self.Integrated_matrix[i,j]=value
-            self.Integrated_matrix=np.nan_to_num(self.Integrated_matrix,nan=999)
 
         #almost AND
         if index==2:
@@ -230,7 +229,6 @@ class OrderedWeigthAverage:
                     else:
                         value=(np.sort(vector)[-1]+np.sort(vector)[-2])/2
                     self.Integrated_matrix[i,j]=value
-            self.Integrated_matrix=np.nan_to_num(self.Integrated_matrix,nan=999)
 
         #AVERAGE
         if index==3:
@@ -243,7 +241,6 @@ class OrderedWeigthAverage:
                     else:
                         value=np.mean(vector)
                     self.Integrated_matrix[i,j]=value
-            self.Integrated_matrix=np.nan_to_num(self.Integrated_matrix,nan=999)
 
         #almost OR:
         if index==4:
@@ -256,7 +253,6 @@ class OrderedWeigthAverage:
                     else:
                         value=(np.sort(vector)[0]+np.sort(vector)[1])/2
                     self.Integrated_matrix[i,j]=value
-            self.Integrated_matrix=np.nan_to_num(self.Integrated_matrix,nan=999)
 
         #OR
         if index==5:      
@@ -269,7 +265,6 @@ class OrderedWeigthAverage:
                     else:
                         value=max(vector)
                     self.Integrated_matrix[i,j]=value
-            self.Integrated_matrix=np.nan_to_num(self.Integrated_matrix,nan=999)
 
         #UserChoice1
         if index==6:
@@ -282,7 +277,6 @@ class OrderedWeigthAverage:
                     else:
                         value=np.dot(np.sort(vector),w)
                     self.Integrated_matrix[i,j]=value
-            self.Integrated_matrix=np.nan_to_num(self.Integrated_matrix,nan=999)
 
         #UserChoice2
         if index==7:
@@ -295,7 +289,6 @@ class OrderedWeigthAverage:
                     else:
                         value=np.dot(np.sort(vector),w)
                     self.Integrated_matrix[i,j]=value
-            self.Integrated_matrix=np.nan_to_num(self.Integrated_matrix,nan=999)
 class WriteLayer:
     def __init__(self,index,path,Matrix,NameBands,Nband,Xsize,Ysize,filename,gt,proj):
     
@@ -332,10 +325,15 @@ class WriteLayer:
 class RegionGrowing:
     def __init__(self,Seed_threshold,Grow_threshold,Seed_matrix,Grow_matrix):
 
-        Mask=np.where(Seed_matrix==999,999,0)     
-        Seed_binary = np.where(Seed_matrix<Seed_threshold,0,1)+Mask
-        Grow_binary = np.where(Grow_matrix<Grow_threshold,0,1)+Mask
-        
+        Mask = np.isnan(Seed_matrix)  # True dove ci sono NaN
+
+        Seed_binary = np.where(Seed_matrix < Seed_threshold, 0, 1)
+        Grow_binary = np.where(Grow_matrix < Grow_threshold, 0, 1)
+
+        # Imposta a NaN dove c'è Mask
+        Seed_binary[Mask] = 999
+        Grow_binary[Mask] = 999
+
         self.Raster=np.array([Seed_binary,Grow_binary])
 
         RasterPP=self.Raster.copy()
@@ -402,6 +400,7 @@ class RegionGrowing:
             N=np.count_nonzero(RasterPP[0])
             
         self.Result_matrix=RasterPP[0]
+        self.Result_matrix=np.where(self.Result_matrix==999,np.nan,self.Result_matrix)
 
 class Classification:
     def __init__(self,Matrix,LowerLevelList,UpperLevelList):
@@ -415,4 +414,4 @@ class Classification:
         M_MH = np.where((Matrix>=LowerLevelList[5])&(Matrix<=UpperLevelList[5]),6,0)
         M_H = np.where((Matrix>=LowerLevelList[6])&(Matrix<=UpperLevelList[6]),7,0)
         Matrix_class = M_ERH + M_ERL + M_U + M_L + M_ML + M_MH + M_H
-        self.Final_Matrix = np.where(Matrix_class==0,99,Matrix_class)
+        self.Final_Matrix = np.where(Matrix_class==0,np.nan,Matrix_class)

@@ -966,10 +966,7 @@ class BAD:
         else:
             Band9=np.nan 
 
-        if self.dlg.checkBox_input_B10.isChecked():
-            Band10=self.dlg.spinBox_input_B10.value()
-        else:
-            Band10=np.nan
+        Band10=np.nan
 
         if self.dlg.checkBox_input_B11.isChecked():
             Band11=self.dlg.spinBox_input_B11.value()
@@ -2003,7 +2000,6 @@ class BAD:
         Class_Matrix = self.Class_matrix
         Burned_Matrix = self.Burned_matrix
         Class_Burned = Class_Matrix*Burned_Matrix
-        Class_Burned = np.where(Class_Burned>10,99,Class_Burned)
 
         NameBandsList='RG severity class'
         Nband=1        
@@ -2071,9 +2067,13 @@ class BAD:
             height = rg_raster_ds.RasterYSize
 
             rg_band = rg_raster_ds.GetRasterBand(1)
+
             reference_band = reference_raster_ds.GetRasterBand(1)
 
-            rg_data = rg_band.ReadAsArray(0, 0, width, height).astype(int)
+            rg_data = rg_band.ReadAsArray(0, 0, width, height)
+            Mask = np.isnan(rg_data)  # True dove ci sono NaN
+            rg_data[Mask] = 999
+            rg_data = rg_data.astype(int)
             reference_data = reference_band.ReadAsArray(0, 0, width, height).astype(int)
 
             # Class Mapping
@@ -2194,9 +2194,13 @@ class BAD:
             height = rg_raster_ds.RasterYSize
 
             rg_band = rg_raster_ds.GetRasterBand(1)
+
             reference_band = reference_raster_ds.GetRasterBand(1)
 
-            rg_data = rg_band.ReadAsArray(0, 0, width, height).astype(int)
+            rg_data = rg_band.ReadAsArray(0, 0, width, height)
+            Mask = np.isnan(rg_data)
+            rg_data[Mask] = 999
+            rg_data = rg_data.astype(int)
             reference_data = reference_band.ReadAsArray(0, 0, width, height).astype(int)
             agreement_map = self.create_agreement_map(rg_data, reference_data)
             save_path, _ = QFileDialog.getSaveFileName(self.dlg, "Save Agreement Map", "", "GeoTIFF (*.tif)")
